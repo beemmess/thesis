@@ -1,4 +1,4 @@
-package helloworld;
+package mlExample;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -26,7 +26,7 @@ import java.time.format.DateTimeFormatter;
  *
  */
 @SuppressWarnings("serial")
-@WebServlet("/HelloWorld")
+@WebServlet("/mlExample")
 public class HelloWorldServlet extends HttpServlet {
 
     static String PAGE_HEADER = "<html><head><title>helloworld</title></head><body>";
