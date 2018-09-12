@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 
 # Load the Census dataset
-df = pd.read_csv("movie_metadata.csv")
+df = pd.read_csv("ML/movie_metadata.csv")
 
 df = df[df.country == 'USA']
 df = df[df.language == 'English']
