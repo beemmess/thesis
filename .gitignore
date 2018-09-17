@@ -1,3 +1,5 @@
+web
+
 # Compiled class file
 *.class
 
@@ -138,10 +140,5 @@ local.properties
 .worksheet
 *.iml
 
-JavaEEServer/swagger\.json
-
-JavaEEServer/src/main/webapp/swagger/swagger\.json
-
-JavaEEServer/src/main/webapp/index\.html
-
-\.idea/codeStyles/codeStyleConfig\.xml
+*/webapp-ml-example/
+ML

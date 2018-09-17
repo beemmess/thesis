@@ -7,6 +7,5 @@
   <name>Thesis project</name>
   <modules>
   	<module>webapp-helloworld</module>
-  	<module>webapp-ml-example</module>
   </modules>
 </project>

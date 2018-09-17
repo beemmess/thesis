@@ -13,15 +13,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * <p>
+ *
  * A simple servlet taking advantage of features added in 3.0.
- * </p>
- *
- * <p>
- * The servlet is registered and mapped to /HelloServlet using the {@linkplain WebServlet
- * @HttpServlet}. The {@link HelloService} is injected by CDI.
- * </p>
- *
  * @author Bjarki
  *
  */
