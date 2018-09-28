@@ -7,13 +7,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="helloworld" />
-        <module name="JMSexample" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="core" target="1.8" />
       <module name="helloWorldJMS" target="1.8" />
       <module name="JavaEEServer" target="1.8" />
+      <module name="JMSexample" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
