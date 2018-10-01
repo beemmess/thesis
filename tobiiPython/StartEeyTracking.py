@@ -1,4 +1,4 @@
-from pylsl import StreamInfo, StreamOutlet
+from pylsl import StreamInfo, StreamOutlet, resolve_stream, StreamInlet
 import time, datetime, re
 import tobii_research as tr
 
@@ -57,6 +57,30 @@ def gaze_data_callback(gaze_data):
     # OPTINAL Write data to file
     f.write("{},{},{},{}\n".format(glX,glY,grX,grY))
 
+def lab_streaming_layer(seconds):
+	t = time.time() + seconds
+
+	# first resolve an tobii stream on the lab network
+	print("looking for an Tobii stream...")
+	streams = resolve_stream('type', 'eyetracker')
+
+	# create a new inlet to read from the stream
+	inlet = StreamInlet(streams[0])
+	time = datetime.datetime.now().strftime("-%Y-%m-%d-%H%M%S")
+	# f = open("gazedataLSL/gazedataLSL{}.csv".format(datetime.datetime.utcnow()), "a")
+	f = open("gazedataLSL/gazedataLSL{}.csv".format(time), "a")
+	f.write("timestamp,leftX,leftY,rightX,rightY\n")
+
+	while time.time()<t:
+	    # get a new sample (you can also omit the timestamp part if you're not
+	    # interested in it)
+	    sample, timestamp = inlet.pull_sample(timeout=1)
+	    f.write("{},{},{},{},{}\n".format(timestamp,sample[0],sample[1],sample[2],sample[3]))
+	    # print(timestamp, sample)
+
+
+
+
 
 found_eyetrackers = tr.find_all_eyetrackers()
 eyetracker = found_eyetrackers[0]
@@ -73,16 +97,27 @@ outlet = StreamOutlet(info)
 
 
 # OPTIONAL Create a csv file to write to
-f = open("gazedata/gagazedata{}.csv".format(datetime.datetime.utcnow()), "a")
+time = datetime.datetime.now().strftime("-%Y-%m-%d-%H%M%S")
+f = open("gazedata/gazedata{}.csv".format(time), "a")
 # Initial value set to the csv file, a column header
 f.write("leftX,leftY,rightX,rightY\n")
+
 
 
 # Subsrice to the eytracker then use the gaze_data_callback function to get the gaza data
 eyetracker.subscribe_to(tr.EYETRACKER_GAZE_DATA, gaze_data_callback, as_dictionary=True)
 
-# let the subscription be for X amount of time.
-time.sleep(60)
+
+
+# How many minutes should each eyetracking last 
+minutes = 1
+
+for iteration in range(3):
+	# Invoke the labstreaming layer to pull the sample for X amount of time.
+	lab_streaming_layer(10*minutes)
+
+# # let the subscription be for X amount of time.
+# time.sleep(20)
 
 # unsubscribe to the eyetracker
 eyetracker.unsubscribe_from(tr.EYETRACKER_GAZE_DATA, gaze_data_callback)
