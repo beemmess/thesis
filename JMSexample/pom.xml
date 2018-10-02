@@ -124,6 +124,22 @@
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-maven-plugin</artifactId>
                 <version>1.2.1.Final</version>
+                <executions>
+                    <execution>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>redeploy</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <force>true</force>
+                    <hostname>${hostname}</hostname>
+                    <port>${port}</port>
+                    <username>${username}</username>
+                    <password>${password}</password>
+                    <filename>${filename}</filename>
+                </configuration>
             </plugin>
             <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
             <plugin>
