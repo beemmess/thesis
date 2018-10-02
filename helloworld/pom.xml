@@ -150,14 +150,6 @@
                     <groupId>org.wildfly.plugins</groupId>
                     <artifactId>wildfly-maven-plugin</artifactId>
                     <version>${version.wildfly.maven.plugin}</version>
-                    <executions>
-                        <execution>
-                            <phase>install</phase>
-                            <goals>
-                                <goal>redeploy</goal>
-                            </goals>
-                        </execution>
-                    </executions>
                     <configuration>
                         <force>true</force>
                         <hostname>${hostname}</hostname>
