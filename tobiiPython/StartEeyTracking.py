@@ -57,8 +57,8 @@ def gaze_data_callback(gaze_data):
     # OPTINAL Write data to file
     f.write("{},{},{},{}\n".format(glX,glY,grX,grY))
 
-def lab_streaming_layer(seconds):
-	t = time.time() + seconds
+def lab_streaming_layer():
+	# t = time.time() + seconds
 
 	# first resolve an tobii stream on the lab network
 	print("looking for an Tobii stream...")
@@ -68,10 +68,12 @@ def lab_streaming_layer(seconds):
 	inlet = StreamInlet(streams[0])
 	time = datetime.datetime.now().strftime("-%Y-%m-%d-%H%M%S")
 	# f = open("gazedataLSL/gazedataLSL{}.csv".format(datetime.datetime.utcnow()), "a")
-	f = open("gazedataLSL/gazedataLSL{}.csv".format(time), "a")
+	# f = open("gazedataLSL/gazedataLSL{}.csv".format(time), "a")
+	f = open("EyeShimmerLSL/gazedataLSL{}.csv".format(time), "a")
+
 	f.write("timestamp,leftX,leftY,rightX,rightY\n")
 
-	while time.time()<t:
+	while True:
 	    # get a new sample (you can also omit the timestamp part if you're not
 	    # interested in it)
 	    sample, timestamp = inlet.pull_sample(timeout=1)
@@ -112,9 +114,9 @@ eyetracker.subscribe_to(tr.EYETRACKER_GAZE_DATA, gaze_data_callback, as_dictiona
 # How many minutes should each eyetracking last 
 minutes = 1
 
-for iteration in range(3):
+# for iteration in range(1):
 	# Invoke the labstreaming layer to pull the sample for X amount of time.
-	lab_streaming_layer(10*minutes)
+lab_streaming_layer()
 
 # # let the subscription be for X amount of time.
 # time.sleep(20)

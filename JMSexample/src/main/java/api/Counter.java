@@ -26,5 +26,6 @@ public class Counter {
 
     public void setMessage(String message){
         this.message = message;
+        System.out.print(message);
     }
 }

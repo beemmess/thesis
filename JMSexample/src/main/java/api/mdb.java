@@ -5,7 +5,7 @@ import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
 import javax.inject.Inject;
 import javax.jms.JMSException;
-import javax.jms.Message;
+import javax.jms.*;
 import javax.jms.MessageListener;
 import java.util.logging.Logger;
 
@@ -21,12 +21,49 @@ public class mdb implements MessageListener {
     @Inject
     private Counter counter;
 
+    private String msgText;
+
+//    private BufferedReader br = null;
+//    private String line = "";
+//    private String cvsSplitBy = ",";
+
+//    @Override
+//    public void onMessage(Message msg){
+//        logger.info("onMessage");
+//        counter.setCount(counter.getCount() +1);
+//        try {
+//            if (msg instanceof TextMessage) {
+//                counter.setMessage(((TextMessage)msg).getText());
+//            }
+//            else {
+//                byte[] body = new byte[(int) ((BytesMessage) msg).getBodyLength()];
+//                ((BytesMessage) msg).readBytes(body);
+//                msgText = new String(body);
+////                msgText = msg.toString();
+//                counter.setMessage(msgText);
+//            }
+//        } catch (JMSException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//}
+
     @Override
-    public void onMessage(Message message){
+    public void onMessage(Message msg){
         logger.info("onMessage");
         counter.setCount(counter.getCount() +1);
         try {
-            counter.setMessage(message.getJMSMessageID());
+            if (msg instanceof TextMessage) {
+                counter.setMessage(((TextMessage)msg).getText());
+            }
+            else {
+                byte[] body = new byte[(int) ((BytesMessage) msg).getBodyLength()];
+                ((BytesMessage) msg).readBytes(body);
+                msgText = new String(body);
+//                System.out.print(msgText);
+//                msgText = msg.toString();
+                counter.setMessage(msgText);
+            }
         } catch (JMSException e) {
             e.printStackTrace();
         }

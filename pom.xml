@@ -11,6 +11,8 @@
     <modules>
         <module>JMSexample</module>
         <module>helloworld</module>
+        <module>featureExtraction</module>
+        <module>cassandra</module>
     </modules>
 
 
