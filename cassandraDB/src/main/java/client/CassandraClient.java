@@ -15,11 +15,12 @@ public class CassandraClient {
 //    private static final Logger LOG = LoggerFactory.getLogger(CassandraClient.class);
     public static final String keyspace = "data";
     public static final CassandraConnector connector = new CassandraConnector();
-
+//    Address of the server
+    private static final String address = "142.93.109.50";
 
     public void CassandraClient() {
         //Connect to cassandra using the default IP address and port 9042
-        connector.connector("0.0.0.0", 9042);
+        connector.connector(address, 9042);
         Session session = connector.getSession();
 
         //Create a new keyspace
@@ -42,7 +43,6 @@ public class CassandraClient {
 
 //        br.selectAll().forEach(o -> LOG.info("Title in books: " + o.getTitle()));
 //        br.selectAllBookByTitle().forEach(o -> LOG.info("Title in booksByTitle: " + o.getTitle()));
-        System.out.print("DOES THIS WOOOOOOOOOOOORK");
 
         //br.deletebookByTitle("CASSANDRA");
         //br.deleteTable("books");
