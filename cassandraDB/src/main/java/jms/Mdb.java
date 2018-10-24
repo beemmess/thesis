@@ -6,9 +6,9 @@ import javax.inject.Inject;
 import javax.jms.*;
 import java.util.logging.Logger;
 
-@MessageDriven(activationConfig = {
-        @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "java:jboss/exported/jms/queue/test")
-//        @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
+@MessageDriven(name = "Mdb", activationConfig = {
+        @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "java:jboss/exported/jms/queue/ExampleQueue"),
+        @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
 })
 
 public class Mdb implements MessageListener {
@@ -27,12 +27,14 @@ public class Mdb implements MessageListener {
         logger.info("onMessage");
         try {
             if (msg instanceof TextMessage) {
+                logger.info("Textmessage instance");
                 eyetracker.setMessage(((TextMessage)msg).getText());
             }
             else {
                 byte[] body = new byte[(int) ((BytesMessage) msg).getBodyLength()];
                 ((BytesMessage) msg).readBytes(body);
                 msgText = new String(body);
+                logger.info("MDB message recieved");
 //                System.out.print(msgText);
 //                msgText = msg.toString();
                 eyetracker.setMessage(msgText);

@@ -9,6 +9,11 @@ import org.slf4j.LoggerFactory;
 
 import com.datastax.driver.core.Session;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
+
+@Named
+@ApplicationScoped
 public class CassandraClient {
 
 
@@ -16,7 +21,7 @@ public class CassandraClient {
     public static final String keyspace = "data";
     public static final CassandraConnector connector = new CassandraConnector();
 //    Address of the server
-    private static final String address = "142.93.109.50";
+    private static final String address = "104.248.35.208";
 
     public void CassandraClient() {
         //Connect to cassandra using the default IP address and port 9042
