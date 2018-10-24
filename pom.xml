@@ -13,6 +13,9 @@
         <module>helloworld</module>
         <module>featureExtraction</module>
         <module>cassandra</module>
+        <module>cassandraDB</module>
+        <module>FeatureExtractionServer</module>
+        <module>dataBaseServer</module>
     </modules>
 
 
