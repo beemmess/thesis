@@ -1,5 +1,3 @@
-web
-
 # Compiled class file
 *.class
 
@@ -41,6 +39,7 @@ hs_err_pid*
 # Gradle:
 .idea/**/gradle.xml
 .idea/**/libraries
+cassandraDB/.idea/**/libraries
 
 # CMake
 cmake-build-debug/
@@ -140,9 +139,19 @@ local.properties
 .worksheet
 *.iml
 
+
 */webapp-ml-example/
 ML
 
 tobiiPython/licensekey
 tobiiPython/gazedata/*
 tobiiPython/gazedataLSL/*
+tobiiPython/shimmerDataLSL/*
+tobiiPython/EyeShimmerLSL/*
+cassandraDB/.idea/*
+**/.idea/libraries/*
+
+cassandraBook
+JMSexample
+helloworld
+featureExtraction
