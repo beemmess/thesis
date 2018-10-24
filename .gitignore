@@ -148,8 +148,7 @@ tobiiPython/gazedata/*
 tobiiPython/gazedataLSL/*
 tobiiPython/shimmerDataLSL/*
 tobiiPython/EyeShimmerLSL/*
-cassandraDB/.idea/*
-**/.idea/libraries/*
+
 
 cassandraBook
 JMSexample
