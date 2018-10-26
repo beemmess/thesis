@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/JMSexample/JMSexample.iml" filepath="$PROJECT_DIR$/JMSexample/JMSexample.iml" />
-      <module fileurl="file://$PROJECT_DIR$/cassandraBook/cassandraBook.iml" filepath="$PROJECT_DIR$/cassandraBook/cassandraBook.iml" />
       <module fileurl="file://$PROJECT_DIR$/featureExtraction/featureExtraction.iml" filepath="$PROJECT_DIR$/featureExtraction/featureExtraction.iml" />
-      <module fileurl="file://$PROJECT_DIR$/helloworld/helloworld.iml" filepath="$PROJECT_DIR$/helloworld/helloworld.iml" />
       <module fileurl="file://$PROJECT_DIR$/tobiiPython/tobiiPython.iml" filepath="$PROJECT_DIR$/tobiiPython/tobiiPython.iml" />
     </modules>
   </component>

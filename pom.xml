@@ -9,11 +9,6 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>JMSexample</module>
-        <module>helloworld</module>
-        <module>featureExtraction</module>
-        <module>cassandra</module>
-        <module>cassandraDB</module>
         <module>FeatureExtractionServer</module>
         <module>dataBaseServer</module>
     </modules>

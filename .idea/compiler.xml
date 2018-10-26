@@ -8,7 +8,6 @@
         <outputRelativeToContentRoot value="true" />
         <module name="dataBaseServer" />
         <module name="FeatureExtractionServer" />
-        <module name="helloworld" />
         <module name="JMSexample" />
       </profile>
     </annotationProcessing>
