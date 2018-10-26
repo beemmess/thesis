@@ -1,11 +1,12 @@
 package jms;
 
 //import jms.services.EyeTrackerService;
+
 import jms.services.EyeTrackerService;
 import org.jboss.logging.Logger;
 
-import javax.ejb.MessageDriven;
 import javax.ejb.ActivationConfigProperty;
+import javax.ejb.MessageDriven;
 import javax.inject.Inject;
 import javax.jms.*;
 
@@ -26,7 +27,7 @@ public class EyeTrackerMessageBean implements MessageListener {
     @Override
     public void onMessage(Message message) {
         TextMessage msg;
-        logger.info("DO I COME HERE IN EYETRACKER MESSAGE BEAN");
+        logger.info("EYETRACKER MESSAGE BEAN");
 
 
         try {

@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/JMSexample/JMSexample.iml" filepath="$PROJECT_DIR$/JMSexample/JMSexample.iml" />
-      <module fileurl="file://$PROJECT_DIR$/featureExtraction/featureExtraction.iml" filepath="$PROJECT_DIR$/featureExtraction/featureExtraction.iml" />
-      <module fileurl="file://$PROJECT_DIR$/tobiiPython/tobiiPython.iml" filepath="$PROJECT_DIR$/tobiiPython/tobiiPython.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FeatureExtractionServer/FeatureExtractionServer.iml" filepath="$PROJECT_DIR$/FeatureExtractionServer/FeatureExtractionServer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dataBaseServer/dataBaseServer.iml" filepath="$PROJECT_DIR$/dataBaseServer/dataBaseServer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/thesis-parent.iml" filepath="$PROJECT_DIR$/thesis-parent.iml" />
     </modules>
   </component>
 </project>

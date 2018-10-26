@@ -6,20 +6,16 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="core" />
         <module name="dataBaseServer" />
         <module name="FeatureExtractionServer" />
-        <module name="JMSexample" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="cassandraBook" target="1.8" />
-      <module name="cassandraDB" target="1.8" />
-      <module name="core" target="1.8" />
-      <module name="featureExtraction" target="1.8" />
-      <module name="helloworld" target="1.5" />
-      <module name="helloWorldJMS" target="1.8" />
-      <module name="JavaEEServer" target="1.8" />
-      <module name="JMSexample" target="1.8" />
+      <module name="core" target="1.5" />
+      <module name="dataBaseServer" target="1.8" />
+      <module name="FeatureExtractionServer" target="1.8" />
+      <module name="thesis-parent" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -9,12 +9,8 @@ import javax.inject.Named;
 import javax.jms.JMSConnectionFactory;
 import javax.jms.JMSContext;
 import javax.jms.Queue;
+
 //import database.EyeTrackerDB;
-
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.StringReader;
 
 @Named
 @ApplicationScoped

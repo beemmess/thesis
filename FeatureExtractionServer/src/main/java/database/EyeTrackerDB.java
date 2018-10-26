@@ -1,21 +1,9 @@
 package database;
 
-import jms.JNDIPaths;
-//import org.apache.activemq.ActiveMQConnectionFactory;
-//import org.apache.activemq.ActiveMQConnectionFactory;
 import org.jboss.logging.Logger;
 
-import javax.annotation.Resource;
-import javax.inject.Inject;
-import javax.jms.JMSContext;
-import javax.jms.ConnectionFactory;
-import javax.jms.Destination;
-import javax.jms.JMSConsumer;
-import javax.jms.*;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import java.util.Properties;
+//import org.apache.activemq.ActiveMQConnectionFactory;
+//import org.apache.activemq.ActiveMQConnectionFactory;
 
 public class EyeTrackerDB {
     private static final Logger logger = Logger.getLogger(database.EyeTrackerDB.class.getName());

@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="JMSexample:war">
+    <output-path>$PROJECT_DIR$/JMSexample/target</output-path>
+    <root id="archive" name="JMSexample.war">
+      <element id="artifact" artifact-name="JMSexample:war exploded" />
+    </root>
+  </artifact>
+</component>

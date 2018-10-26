@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="FeatureExtractionServer:war">
+    <output-path>$PROJECT_DIR$/FeatureExtractionServer/target</output-path>
+    <root id="archive" name="FeatureExtractionServer.war">
+      <element id="artifact" artifact-name="FeatureExtractionServer:war exploded" />
+    </root>
+  </artifact>
+</component>

@@ -150,7 +150,4 @@ tobiiPython/shimmerDataLSL/*
 tobiiPython/EyeShimmerLSL/*
 
 
-cassandraBook
-JMSexample
-helloworld
-featureExtraction
+dockerfiles

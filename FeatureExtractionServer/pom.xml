@@ -198,20 +198,20 @@
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-maven-plugin</artifactId>
                 <version>1.2.1.Final</version>
-                <executions>
-                    <execution>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>deploy</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<phase>install</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>deploy</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
                 <configuration>
                     <force>true</force>
                     <hostname>142.93.109.50</hostname>
                     <port>9990</port>
-                    <username>admin</username>
-                    <password>admin</password>
+                    <username>${username}</username>
+                    <password>${password}</password>
                     <filename>${project.artifactId}.war</filename>
                 </configuration>
             </plugin>
