@@ -1,0 +1,61 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "This is the API documentation for",
+    "version" : "v1",
+    "title" : "API"
+  },
+  "host" : "142.93.109.50:9090/FeatureExtractionServer",
+  "basePath" : "/api",
+  "schemes" : [ "http" ],
+  "paths" : {
+    "/eyetracker" : {
+      "post" : {
+        "summary" : "Transfer eyetracking data",
+        "description" : "Create a new data transfer for eyetracking data",
+        "operationId" : "postEytracker",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "Create a new data transfer for eyetracking data",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/EyeTrackerMessage"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Eytracking tranferring data successful",
+            "schema" : {
+              "$ref" : "#/definitions/SuccessResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "EyeTrackerMessage" : {
+      "type" : "object",
+      "properties" : {
+        "data" : {
+          "type" : "string"
+        }
+      }
+    },
+    "SuccessResponse" : {
+      "type" : "object",
+      "properties" : {
+        "success" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "message" : {
+          "type" : "string"
+        }
+      }
+    }
+  }
+}

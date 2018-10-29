@@ -35,6 +35,7 @@ public class EyeTrackerService {
     private Queue queue;
 
     public void sendMessageToDB(String message){
+        logger.info("DO I COME HERE IN sendMEssageToDB");
 
         context.createProducer().send(queue,message);
 
