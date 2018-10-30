@@ -2,13 +2,12 @@ package api;
 
 
 import api.impl.EyetrackerApiServiceImpl;
-import io.swagger.annotations.*;
 import org.jboss.logging.Logger;
-
-import javax.ws.rs.core.Response;
+import io.swagger.annotations.*;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
 
-@Path("/eyetracker")
+@Path("/eyetrackerRaw")
 @Api(description = "the eyetracker API")
 public class EyetrackerApi  {
     private static final Logger logger = Logger.getLogger(EyetrackerApi.class.getName());

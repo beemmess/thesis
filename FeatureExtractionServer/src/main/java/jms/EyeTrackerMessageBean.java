@@ -2,6 +2,7 @@ package jms;
 
 //import jms.services.EyeTrackerService;
 
+import api.JNDIPaths;
 import jms.services.EyeTrackerService;
 import org.jboss.logging.Logger;
 
@@ -11,47 +12,48 @@ import javax.inject.Inject;
 import javax.jms.*;
 
 @MessageDriven(activationConfig = {
-        @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "java:jboss/exported/jms/queue/eyetracker"),
+        @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = JNDIPaths.EYETRACKER_QUEUE),
         @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
 
 })
-public class EyeTrackerMessageBean implements MessageListener {
+public class EyeTrackerMessageBean extends MessageBean {
+    private static final Logger logger = Logger.getLogger(jms.EyeTrackerMessageBean.class.getName());
 
 
     @Inject
     private EyeTrackerService eyeTrackerService;
 
-    private static final Logger logger = Logger.getLogger(jms.EyeTrackerMessageBean.class.getName());
     private String msgText;
 
     @Override
-    public void onMessage(Message message) {
-        TextMessage msg;
-        logger.info("EYETRACKER MESSAGE BEAN");
-
-
-        try {
-            if (message instanceof TextMessage) {
-                msg = (TextMessage) message;
-                logger.info("before setMessage in eytrackerService " + msg.getText());
-
-//                eyeTrackerService.sendMessageToDB(((TextMessage)message).getText());
-                eyeTrackerService.sendMessageToDB("TEST MESSAGE");
-            }
-            else{
-                byte[] body = new byte[(int) ((BytesMessage) message).getBodyLength()];
-                ((BytesMessage) message).readBytes(body);
-                msgText = new String(body);
-                logger.info("before setMessage in eytrackerService " + msgText);
-//                eyeTrackerService.createEyeTrackerService(msgText);
-//                eyeTrackerService.sendMessageToDB(msgText);
-
-            }
-        } catch (JMSException e) {
-            e.printStackTrace();
-        }
-
+    protected void messageReceived(String message){
+        logger.info("eyeTracker queue instance, messageReceived");
+        eyeTrackerService.sendRawDataToDB(message);
     }
+
+
+
+//    @Override
+//    public void onMessage(Message message) {
+//        TextMessage msg;
+//        logger.info("onMessage");
+//
+//        try {
+//            if (message instanceof TextMessage) {
+//                msg = (TextMessage) message;
+//                logger.info("before setMessage in eytrackerService " + msg.getText());
+//
+//                eyeTrackerService.sendRawDataToDB("TEST MESSAGE");
+//            }
+//            else{
+//                logger.warn("Wrong type of message");
+//
+//            }
+//        } catch (JMSException e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
 }
 
 

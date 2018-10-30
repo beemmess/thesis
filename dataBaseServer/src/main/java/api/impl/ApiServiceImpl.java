@@ -1,8 +1,8 @@
 package api.impl;
 
 import api.ApiResponseMessage;
-import org.jboss.logging.Logger;
 import com.google.gson.Gson;
+import org.jboss.logging.Logger;
 
 import javax.jms.*;
 import javax.naming.InitialContext;

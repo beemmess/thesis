@@ -5,7 +5,7 @@ import io.swagger.annotations.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
-@Path("/shimmer")
+@Path("/shimmerRaw")
 
 
 @Api(description = "the shimmer API")

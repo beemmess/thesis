@@ -1,4 +1,4 @@
-package messages;
+package model;
 
 public abstract class Message {
 

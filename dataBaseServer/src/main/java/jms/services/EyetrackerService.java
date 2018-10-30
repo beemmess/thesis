@@ -1,15 +1,19 @@
-package jms;
+package jms.services;
 
 
 import client.CassandraClient;
 import client.domain.EyeTracker;
+import jms.MdbEyetracker;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
+import org.jboss.logging.Logger;
+
 
 @Named
 @ApplicationScoped
-public class Eyetracker {
+public class EyetrackerService {
+    private static final Logger logger = Logger.getLogger(EyetrackerService.class.getName());
 
 
     private String message;
@@ -22,6 +26,7 @@ public class Eyetracker {
 
     public void setMessage(String message){
         this.message = message;
+
 //        System.out.print(message);
 //        setValues();
         setValues();
