@@ -58,14 +58,14 @@ public class CassandraClient {
     public void CassandraInsertValues(EyeTracker eyeTracker){
         Session session = connector.getSession();
         EyetrackerRepository er = new EyetrackerRepository(session);
-//        er.insertValues(eyeTracker);
+        er.insertValues(eyeTracker);
     }
 
-    public void CassandraInsertValuesString(EyeTracker eyeTracker){
-        Session session = connector.getSession();
-        EyetrackerRepository er = new EyetrackerRepository(session);
-        er.insertValuesString(eyeTracker);
-    }
+//    public void CassandraInsertValuesString(EyeTracker eyeTracker){
+//        Session session = connector.getSession();
+//        EyetrackerRepository er = new EyetrackerRepository(session);
+//        er.insertValuesString(eyeTracker);
+//    }
 
     public void CassandraClose(){
         connector.close();

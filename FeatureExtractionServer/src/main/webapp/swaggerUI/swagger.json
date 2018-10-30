@@ -80,6 +80,12 @@
     "ShimmerMessage" : {
       "type" : "object",
       "properties" : {
+        "device" : {
+          "type" : "string"
+        },
+        "features" : {
+          "type" : "string"
+        },
         "data" : {
           "type" : "string"
         }

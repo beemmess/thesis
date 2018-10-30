@@ -10,6 +10,7 @@ import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
 import javax.inject.Inject;
 import javax.jms.*;
+import java.io.IOException;
 
 @MessageDriven(activationConfig = {
         @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = JNDIPaths.EYETRACKER_QUEUE),
@@ -28,7 +29,11 @@ public class EyeTrackerMessageBean extends MessageBean {
     @Override
     protected void messageReceived(String message){
         logger.info("eyeTracker queue instance, messageReceived");
-        eyeTrackerService.sendRawDataToDB(message);
+        try {
+            eyeTrackerService.sendPostRawDataToDB(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
