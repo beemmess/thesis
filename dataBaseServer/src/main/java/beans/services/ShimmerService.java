@@ -1,8 +1,6 @@
-package jms.services;
+package beans.services;
 
 
-import client.CassandraClient;
-import client.domain.EyeTracker;
 import org.jboss.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -43,14 +41,14 @@ public class ShimmerService {
 ////            line = null;
 ////            while((line = br.readLine()) != null ){
 ////                values = line.split(",");
-////                EyeTracker eyeTracker = new EyeTracker(Double.parseDouble(values[0]), Double.parseDouble(values[1]), Double.parseDouble(values[2]), Double.parseDouble(values[3]), Double.parseDouble(values[4]));
+////                EyeTrackerMessage eyeTracker = new EyeTrackerMessage(Double.parseDouble(values[0]), Double.parseDouble(values[1]), Double.parseDouble(values[2]), Double.parseDouble(values[3]), Double.parseDouble(values[4]));
 ////                cassandraClient.CassandraInsertValues(eyeTracker);
 ////
 ////            }
 //
 //        /*give the first line a 'null' as the first line consists of string
 //        * e.g. timestamp, leftx, lefty .... etc*/
-//        EyeTracker eyeTracker = new EyeTracker(message);
+//        EyeTrackerMessage eyeTracker = new EyeTrackerMessage(message);
 //        cassandraClient.CassandraInsertValuesString(eyeTracker);
 //        cassandraClient.CassandraClose();
     }

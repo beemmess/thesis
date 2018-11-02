@@ -1,4 +1,4 @@
-package jms.services;
+package beans.services;
 
 import com.google.gson.Gson;
 import model.ShimmerMessage;
@@ -20,10 +20,10 @@ public class ShimmerService {
     private Gson gson = new Gson();
     private String data;
     @Inject
-    @JMSConnectionFactory("jms/remoteCF")
+    @JMSConnectionFactory("beans/remoteCF")
     private JMSContext context;
 
-    @Resource(lookup = "java:jboss/exported/jms/queue/shimmerRaw")
+    @Resource(lookup = "java:jboss/exported/beans/queue/shimmerRaw")
     private Queue queue;
 
     public void sendRawDataToDB(String message){

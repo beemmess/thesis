@@ -13,10 +13,7 @@ public class EyeTracker {
 
     private double righty;
 
-//    private String values;
 
-    EyeTracker() {
-    }
 
     public EyeTracker(double timestamp, double leftx, double lefty, double rightx, double righty) {
         this.timestamp = timestamp;
@@ -26,9 +23,7 @@ public class EyeTracker {
         this.righty = righty;
     }
 
-//    public EyeTracker(String values) {
-//        this.values = values;
-//    }
+
 
     public double getTimestamp() {
         return timestamp;
@@ -70,12 +65,5 @@ public class EyeTracker {
         this.righty = righty;
     }
 
-//    public String getValues() {
-//        return values;
-//    }
-//
-//    public void setValues(String values) {
-//        this.values = values;
-//    }
 }
 

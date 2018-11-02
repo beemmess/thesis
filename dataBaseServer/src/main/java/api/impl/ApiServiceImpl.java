@@ -2,6 +2,7 @@ package api.impl;
 
 import api.ApiResponseMessage;
 import com.google.gson.Gson;
+import model.Message;
 import org.jboss.logging.Logger;
 
 import javax.jms.*;
@@ -30,13 +31,13 @@ public class ApiServiceImpl {
         }
     }
 
-    public Response response(model.Message message) {
+    public Response response(Message message) {
         logger.info("ApiServiceImpl response 1 log");
 
         return response(gson.toJson(message));
     }
 
-
+    @SuppressWarnings("Duplicates")
     public Response response(String message) {
 
         logger.info("ApiServiceImpl response 2 log");

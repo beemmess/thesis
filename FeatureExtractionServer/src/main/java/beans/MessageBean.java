@@ -1,4 +1,4 @@
-package jms;
+package beans;
 
 import org.jboss.logging.Logger;
 

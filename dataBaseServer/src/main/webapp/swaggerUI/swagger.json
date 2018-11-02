@@ -37,8 +37,8 @@
     },
     "/shimmerRaw" : {
       "post" : {
-        "summary" : "Transfer Shimmer data",
-        "description" : "Create a new data transfer for Shimmer data",
+        "summary" : "Transfer ShimmerMessage data",
+        "description" : "Create a new data transfer for ShimmerMessage data",
         "operationId" : "postShimmer",
         "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],

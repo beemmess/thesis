@@ -4,6 +4,8 @@ import client.domain.EyeTracker;
 import client.repository.EyetrackerRepository;
 import client.repository.KeyspaceRepository;
 import com.datastax.driver.core.Session;
+import org.jboss.logging.Logger;
+
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
@@ -13,7 +15,7 @@ import javax.inject.Named;
 public class CassandraClient {
 
 
-//    private static final Logger LOG = LoggerFactory.getLogger(CassandraClient.class);
+    private static final Logger logger = Logger.getLogger(CassandraClient.class);
     public static final String keyspace = "data";
     public static final CassandraConnector connector = new CassandraConnector();
 //    Address of the server
@@ -35,9 +37,9 @@ public class CassandraClient {
 
 
         //Insert a new entry
-//        EyeTracker book = new EyeTracker(9876.1, 1.1, 2.1, 3.1, 4.1);
-//        EyeTracker book1 = new EyeTracker(9876.2, 1234567.2, 1234567.2, 1234567.2, 2345.2);
-//        EyeTracker book2 = new EyeTracker(9876.3, 123456.3, 1234567.3, 1234567.3, 12345.3);
+//        EyeTrackerMessage book = new EyeTrackerMessage(9876.1, 1.1, 2.1, 3.1, 4.1);
+//        EyeTrackerMessage book1 = new EyeTrackerMessage(9876.2, 1234567.2, 1234567.2, 1234567.2, 2345.2);
+//        EyeTrackerMessage book2 = new EyeTrackerMessage(9876.3, 123456.3, 1234567.3, 1234567.3, 12345.3);
 //        er.insertValues(book);
 //        br.insertValues(book1);
 //        br.insertValues(book2);
@@ -55,13 +57,16 @@ public class CassandraClient {
         //Close connection to cassandra
 //        connector.close();
     }
-    public void CassandraInsertValues(EyeTracker eyeTracker){
+    public Boolean CassandraInsertValues(EyeTracker eyeTracker){
         Session session = connector.getSession();
-        EyetrackerRepository er = new EyetrackerRepository(session);
-        er.insertValues(eyeTracker);
+        EyetrackerRepository eyetrackerRepository = new EyetrackerRepository(session);
+        Boolean response = eyetrackerRepository.insertValues(eyeTracker);
+//        logger.info(response);
+        return response;
+
     }
 
-//    public void CassandraInsertValuesString(EyeTracker eyeTracker){
+//    public void CassandraInsertValuesString(EyeTrackerMessage eyeTracker){
 //        Session session = connector.getSession();
 //        EyetrackerRepository er = new EyetrackerRepository(session);
 //        er.insertValuesString(eyeTracker);

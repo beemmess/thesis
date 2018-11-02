@@ -1,4 +1,4 @@
-package jms;
+package beans;
 
 import org.jboss.logging.Logger;
 
@@ -15,6 +15,7 @@ public abstract class MessageBean implements MessageListener {
     @Override
     public void onMessage(Message message){
         logger.info("onMessage");
+
         try {
             if (message instanceof TextMessage) {
                 logger.info("Textmessage instance");

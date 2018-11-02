@@ -1,6 +1,9 @@
 from pylsl import StreamInfo, StreamOutlet, resolve_stream, StreamInlet
 import time, datetime, re
 import tobii_research as tr
+import numpy as np
+import pandas as pd
+import requests
 
 
 
@@ -51,7 +54,7 @@ def gaze_data_callback(gaze_data):
     grY=gaze_data['right_gaze_point_on_display_area'][1]
     mysample = [glX,glY,grX,grY]
     # Print the gaze data
-    print(glX,glY,grX,grY)
+    # print(glX,glY,grX,grY)
     outlet.push_sample(mysample)
 
     # OPTINAL Write data to file
@@ -67,19 +70,56 @@ def lab_streaming_layer():
 	# create a new inlet to read from the stream
 	inlet = StreamInlet(streams[0])
 	time = datetime.datetime.now().strftime("-%Y-%m-%d-%H%M%S")
-	# f = open("gazedataLSL/gazedataLSL{}.csv".format(datetime.datetime.utcnow()), "a")
-	# f = open("gazedataLSL/gazedataLSL{}.csv".format(time), "a")
-	f = open("EyeShimmerLSL/gazedataLSL{}.csv".format(time), "a")
+
+	fileName = "EyeShimmerLSL/gazedataLSL{}.csv".format(time)
+	f = open(fileName, "a")
 
 	f.write("timestamp,leftX,leftY,rightX,rightY\n")
-
-	while True:
+	n=0
+	while(n<100):
 	    # get a new sample (you can also omit the timestamp part if you're not
 	    # interested in it)
 	    sample, timestamp = inlet.pull_sample(timeout=1)
+	    # print(string)
 	    f.write("{},{},{},{},{}\n".format(timestamp,sample[0],sample[1],sample[2],sample[3]))
+	    n +=1
 	    # print(timestamp, sample)
+	return fileName
 
+def preproccess(pathToFile):
+
+	df = pd.read_csv(pathToFile)
+	print(df)
+
+	# drop NaN values rows that contain 3 or more NaN values 
+	df = df.dropna(thresh=2)
+
+	# number of records in the dataframe
+	rowCount = df.shape[0]
+
+	def fx(x,feature):
+	    if np.isnan(x[feature[0]]):
+	        return x[feature[1]]
+	    else:
+	        return x[feature[0]]
+
+	features = [['leftX','rightX'],['rightX','leftX'],['leftY','rightY'],['rightY','leftY']]
+	for feature in features:
+		# print(feature[0])
+		df[feature[0]]=df.apply(lambda x : fx(x,feature),axis=1)
+	# print(df)
+	pathToFile+='processed'
+	df.to_csv(pathToFile)
+	sendRequest(pathToFile)
+
+
+def sendRequest(fileName):
+	data = open(fileName, 'r').read()
+	url ='http://142.93.109.50:9090/FeatureExtractionServer/api/eyetracker'
+	data = { "device": "eyetracker", "features": "timestamp,leftX,leftY,rightX,rightY", "data": data}
+	# dataJson= json.dumps(data)
+	headers = {'Content-type': 'application/json'}
+	requests.post(url,json=data, headers=headers)
 
 
 
@@ -110,16 +150,11 @@ f.write("leftX,leftY,rightX,rightY\n")
 eyetracker.subscribe_to(tr.EYETRACKER_GAZE_DATA, gaze_data_callback, as_dictionary=True)
 
 
-
-# How many minutes should each eyetracking last 
-minutes = 1
-
 # for iteration in range(1):
 	# Invoke the labstreaming layer to pull the sample for X amount of time.
-lab_streaming_layer()
-
-# # let the subscription be for X amount of time.
-# time.sleep(20)
+pathToFile = lab_streaming_layer()
 
 # unsubscribe to the eyetracker
 eyetracker.unsubscribe_from(tr.EYETRACKER_GAZE_DATA, gaze_data_callback)
+
+preproccess(pathToFile)
