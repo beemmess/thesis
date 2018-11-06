@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 
 
 public class CassandraConnector {
-    private static final Logger LOG = LoggerFactory.getLogger(CassandraConnector.class);
+    private static final Logger logger = LoggerFactory.getLogger(CassandraConnector.class);
 
     private Session session;
 
@@ -37,12 +37,12 @@ public class CassandraConnector {
         cluster = b.build();
 
         Metadata metadata = cluster.getMetadata();
-        LOG.info("Cluser:" + metadata.getClusterName());
+        logger.info("Cluser:" + metadata.getClusterName());
 
 
 //        OPTIONAL???????
         for (Host host : metadata.getAllHosts()) {
-            LOG.info("Datacenter: " + host.getDatacenter() + " Host: " + host.getAddress() + " Rack: " + host.getRack());
+            logger.info("Datacenter: " + host.getDatacenter() + " Host: " + host.getAddress() + " Rack: " + host.getRack());
         }
 
         session = cluster.connect();

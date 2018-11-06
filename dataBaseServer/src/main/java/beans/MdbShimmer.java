@@ -10,8 +10,8 @@ import org.jboss.logging.Logger;
 
 
 @MessageDriven(name = "MdbShimmer", activationConfig = {
-        @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "java:jboss/exported/beans/queue/shimmerRaw"),
-        @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.beans.Queue")
+        @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "java:jboss/exported/jms/queue/shimmerRaw"),
+        @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
 })
 
 public class MdbShimmer extends MessageBean {

@@ -3,7 +3,7 @@ package model;
 
 
 public class EyeTrackerMessage extends Message {
-    private String device;
+    private String userId;
     private String features;
     private String data;
 
@@ -24,11 +24,11 @@ public class EyeTrackerMessage extends Message {
         this.features = features;
     }
 
-    public String getDevice() {
-        return device;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setDevice(String device) {
-        this.device = device;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

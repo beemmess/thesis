@@ -23,9 +23,8 @@ public class KeyspaceRepository {
      *
      */
     public void createKeyspace(String keyspaceName, String replicatioonStrategy, int numberOfReplicas) {
-        StringBuilder sb = new StringBuilder("CREATE KEYSPACE IF NOT EXISTS ").append(keyspaceName).append(" WITH replication = {").append("'class':'").append(replicatioonStrategy).append("','replication_factor':").append(numberOfReplicas).append("};");
 
-        final String query = sb.toString();
+        final String query = "CREATE KEYSPACE IF NOT EXISTS " + keyspaceName + " WITH replication = {" + "'class':'" + replicatioonStrategy + "','replication_factor':" + numberOfReplicas + "};";
 
         session.execute(query);
     }
@@ -41,9 +40,8 @@ public class KeyspaceRepository {
      * @param schemaName the name of the keyspace to delete.
      */
     public void deleteKeyspace(String keyspaceName) {
-        StringBuilder sb = new StringBuilder("DROP KEYSPACE ").append(keyspaceName);
 
-        final String query = sb.toString();
+        final String query = "DROP KEYSPACE " + keyspaceName;
 
         session.execute(query);
     }

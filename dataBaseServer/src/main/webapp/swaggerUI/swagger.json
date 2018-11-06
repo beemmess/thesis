@@ -35,6 +35,31 @@
         }
       }
     },
+    "/eyetrackerRaw/{userId}" : {
+      "get" : {
+        "summary" : "Find values in database by userId",
+        "description" : "Create a query message to database to retrieve certain data",
+        "operationId" : "getDataFromDb",
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "description" : "Query string for userId for cassandra database",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          "400" : {
+            "description" : "invalid user id"
+          }
+        }
+      }
+    },
     "/shimmerRaw" : {
       "post" : {
         "summary" : "Transfer ShimmerMessage data",
@@ -66,7 +91,7 @@
     "EyeTrackerMessage" : {
       "type" : "object",
       "properties" : {
-        "device" : {
+        "userId" : {
           "type" : "string"
         },
         "features" : {
@@ -80,7 +105,7 @@
     "ShimmerMessage" : {
       "type" : "object",
       "properties" : {
-        "device" : {
+        "userId" : {
           "type" : "string"
         },
         "features" : {

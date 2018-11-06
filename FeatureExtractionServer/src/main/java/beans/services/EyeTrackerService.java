@@ -24,10 +24,10 @@ public class EyeTrackerService {
     private Gson gson = new Gson();
     private String data;
     @Inject
-    @JMSConnectionFactory("beans/remoteCF")
+    @JMSConnectionFactory("jms/remoteCF")
     private JMSContext context;
 
-    @Resource(lookup = "java:jboss/exported/beans/queue/eyetrackerRaw")
+    @Resource(lookup = "java:jboss/exported/jms/queue/eyetrackerRaw")
     private Queue queue;
 
     public void sendRawDataToDB(String message){

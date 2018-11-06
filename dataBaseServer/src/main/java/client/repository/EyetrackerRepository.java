@@ -1,11 +1,15 @@
 package client.repository;
 
 import client.domain.EyeTracker;
+import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Session;
+import org.jboss.logging.Logger;
 
 public class EyetrackerRepository {
 
-    private static final String TABLE_NAME = "eyetracker";
+    private static final Logger logger = Logger.getLogger(EyetrackerRepository.class.getName());
+
+    private static final String TABLE_NAME = "eyetrackerraw";
 
     private Session session;
 
@@ -19,11 +23,13 @@ public class EyetrackerRepository {
     * */
 
     public void createTable(){
-//        StringBuilder sb = new StringBuilder("CREATE TABLE IF NOT EXISTS ").append(TABLE_NAME).append("(timestamp double PRIMARY KEY, leftx double, lefty double, rightx double, righty double);");
 
-        //        StringBuilder sb = new StringBuilder("CREATE TABLE IF NOT EXISTS ").append(TABLE_NAME).append("(id int PRIMARY KEY,values text);");
+        final String query = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "(timestamp double, leftx text, lefty text, rightx text, righty text, userid text, PRIMARY KEY ((userid), timestamp)) WITH CLUSTERING ORDER BY (timestamp ASC);";
+        session.execute(query);
+    }
 
-        final String query = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "(timestamp double PRIMARY KEY, leftx double, lefty double, rightx double, righty double);";
+    public void dropTable() {
+        final String query = "DROP TABLE IF EXISTS " + TABLE_NAME + ";";
         session.execute(query);
     }
 
@@ -32,25 +38,25 @@ public class EyetrackerRepository {
     * */
 
     public Boolean insertValues(EyeTracker eyeTracker) {
-//        StringBuilder sb = new StringBuilder("INSERT INTO ").append(TABLE_NAME).append("(timestamp, leftx, lefty, rightx, righty) ").append("VALUES (").append(eyeTracker.getTimestamp()).append(", '").append(eyeTracker.getLeftx()).append(", '").append(eyeTracker.getLefty()).append("', '").append(eyeTracker.getRightx()).append("', '").append(eyeTracker.getRighty()).append("');");
-        //        StringBuilder sb = new StringBuilder("INSERT INTO ").append(TABLE_NAME).append("(timestamp, leftx, lefty, rightx, righty) ").append("VALUES (0.1234567891234").append(", ").append(eyeTracker.getLeftx()).append(", ").append(eyeTracker.getLefty()).append(", ").append(eyeTracker.getRightx()).append(", ").append(eyeTracker.getRighty()).append(");");
 
-        final String query = "INSERT INTO " + TABLE_NAME + "(timestamp, leftx, lefty, rightx, righty) " + "VALUES (" + eyeTracker.getTimestamp() + ", " + eyeTracker.getLeftx() + ", " + eyeTracker.getLefty() + ", " + eyeTracker.getRightx() + ", " + eyeTracker.getRighty() + ");";
+        final String query = "INSERT INTO " + TABLE_NAME + "(timestamp, leftx, lefty, rightx, righty, userid) " + "VALUES ("+ eyeTracker.getTimestamp() + ", '" + eyeTracker.getLeftx() + "', '" + eyeTracker.getLefty() + "', '" + eyeTracker.getRightx() + "', '" + eyeTracker.getRighty()  + "', '" + eyeTracker.getUserId() + "');";
+        logger.info(query);
         try {
             session.execute(query);
             return true;
         }catch (Exception e){
+            logger.info("false");
             return false;
         }
 
     }
 
-//    public void insertValuesString(EyeTrackerMessage eyeTracker) {
-////        StringBuilder sb = new StringBuilder("INSERT INTO ").append(TABLE_NAME).append("(timestamp, leftx, lefty, rightx, righty) ").append("VALUES (").append(eyeTracker.getTimestamp()).append(", '").append(eyeTracker.getLeftx()).append(", '").append(eyeTracker.getLefty()).append("', '").append(eyeTracker.getRightx()).append("', '").append(eyeTracker.getRighty()).append("');");
-//        StringBuilder sb = new StringBuilder("INSERT INTO ").append(TABLE_NAME).append("(id, values) ").append("VALUES (1, '").append(eyeTracker.getValues()).append("');");
-//
-//        final String query = sb.toString();
-//        session.execute(query);
-//    }
+    public String getValues(String userId){
+        final String query = "SELECT * FROM " + TABLE_NAME + " WHERE userid = '"+ userId +"' ALLOW FILTERING;";
+        ResultSet resultSet = session.execute(query);
+        return resultSet.all().toString();
+    }
+
+
 
 }

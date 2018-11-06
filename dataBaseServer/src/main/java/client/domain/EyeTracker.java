@@ -2,20 +2,21 @@ package client.domain;
 
 public class EyeTracker {
 
-
+    private String userId;
     private double timestamp;
 
-    private double leftx;
+    private String leftx;
 
-    private double lefty;
+    private String lefty;
 
-    private double rightx;
+    private String rightx;
 
-    private double righty;
+    private String righty;
 
 
 
-    public EyeTracker(double timestamp, double leftx, double lefty, double rightx, double righty) {
+    public EyeTracker(String userId,double timestamp, String leftx, String lefty, String rightx, String righty) {
+        this.userId = userId;
         this.timestamp = timestamp;
         this.leftx = leftx;
         this.lefty = lefty;
@@ -33,37 +34,44 @@ public class EyeTracker {
         this.timestamp = timestamp;
     }
 
-    public double getLeftx() {
+    public String getLeftx() {
         return leftx;
     }
 
-    public void setLeftx(double leftx) {
+    public void setLeftx(String leftx) {
         this.leftx = leftx;
     }
 
-    public double getLefty() {
+    public String getLefty() {
         return lefty;
     }
 
-    public void setLefty(double lefty) {
+    public void setLefty(String lefty) {
         this.lefty = lefty;
     }
 
-    public double getRightx() {
+    public String getRightx() {
         return rightx;
     }
 
-    public void setRightx(double rightx) {
+    public void setRightx(String rightx) {
         this.rightx = rightx;
     }
 
-    public double getRighty() {
+    public String getRighty() {
         return righty;
     }
 
-    public void setRighty(double righty) {
+    public void setRighty(String righty) {
         this.righty = righty;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 }
 

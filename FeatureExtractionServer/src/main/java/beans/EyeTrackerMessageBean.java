@@ -1,6 +1,6 @@
 package beans;
 
-//import beans.services.EyeTrackerService;
+//import beans.repository.EyeTrackerService;
 
 import api.JNDIPaths;
 import beans.services.EyeTrackerService;
@@ -12,7 +12,7 @@ import javax.inject.Inject;
 
 @MessageDriven(activationConfig = {
         @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = JNDIPaths.EYETRACKER_QUEUE),
-        @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.beans.Queue")
+        @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
 
 })
 public class EyeTrackerMessageBean extends MessageBean {

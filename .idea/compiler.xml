@@ -7,12 +7,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="core" />
+        <module name="Cucumber" />
         <module name="dataBaseServer" />
         <module name="FeatureExtractionServer" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="core" target="1.5" />
+      <module name="Cucumber" target="1.8" />
       <module name="dataBaseServer" target="1.8" />
       <module name="FeatureExtractionServer" target="1.8" />
       <module name="thesis-parent" target="1.8" />

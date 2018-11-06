@@ -10,8 +10,8 @@ import org.jboss.logging.Logger;
 
 
 @MessageDriven(name = "MdbEyetracker", activationConfig = {
-        @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "java:jboss/exported/beans/queue/eyetrackerRaw"),
-        @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.beans.Queue")
+        @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "java:jboss/exported/jms/queue/eyetrackerRaw"),
+        @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
 })
 
 public class MdbEyetracker extends MessageBean {
@@ -27,7 +27,7 @@ public class MdbEyetracker extends MessageBean {
     protected void messageReceived(String message){
         logger.info("eyeTracker raw queue instance, message: " + message);
 
-        eyetrackerService.setMessage(message);
+        eyetrackerService.saveRawData(message);
     }
 
 }
