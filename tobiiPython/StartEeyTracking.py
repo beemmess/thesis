@@ -46,6 +46,9 @@ def apply_license():
 
 
 
+# Gaze data callback function that maps the data: gl = gaze left, gr = gaze right
+# This function also pushes the data into a LSL stream
+# The optional part is to save the data also into a csv file so that there is a copy of non LSL file and a LSL file
 def gaze_data_callback(gaze_data):
     
     glX=gaze_data['left_gaze_point_on_display_area'][0]
@@ -60,6 +63,7 @@ def gaze_data_callback(gaze_data):
     # OPTINAL Write data to file
     f.write("{},{},{},{}\n".format(glX,glY,grX,grY))
 
+# This function triggers the LSL into getting the LSL StreamInlet for the eyetracker
 def lab_streaming_layer():
 	# t = time.time() + seconds
 
@@ -72,58 +76,64 @@ def lab_streaming_layer():
 	time = datetime.datetime.now().strftime("-%Y-%m-%d-%H%M%S")
 
 	fileName = "EyeShimmerLSL/gazedataLSL{}.csv".format(time)
-	f = open(fileName, "a")
+	f = ""
 
-	f.write("timestamp,leftX,leftY,rightX,rightY\n")
+	f +="timestamp,leftX,leftY,rightX,rightY\n"
 	n=0
-	while(n<100):
+
+	# This will create 10 lines of eyetracking data and then sent to the server,
+	while(n<10):
 	    # get a new sample (you can also omit the timestamp part if you're not
 	    # interested in it)
 	    sample, timestamp = inlet.pull_sample(timeout=1)
 	    # print(string)
-	    f.write("{},{},{},{},{}\n".format(timestamp,sample[0],sample[1],sample[2],sample[3]))
+	    string="{},{},{},{},{}\n".format(timestamp,sample[0],sample[1],sample[2],sample[3])
 	    n +=1
+	    f +=string
 	    # print(timestamp, sample)
-	return fileName
-
-def preproccess(pathToFile):
-
-	df = pd.read_csv(pathToFile)
-	print(df)
-
-	# drop NaN values rows that contain 3 or more NaN values 
-	df = df.dropna(thresh=2)
-
-	# number of records in the dataframe
-	rowCount = df.shape[0]
-
-	def fx(x,feature):
-	    if np.isnan(x[feature[0]]):
-	        return x[feature[1]]
-	    else:
-	        return x[feature[0]]
-
-	features = [['leftX','rightX'],['rightX','leftX'],['leftY','rightY'],['rightY','leftY']]
-	for feature in features:
-		# print(feature[0])
-		df[feature[0]]=df.apply(lambda x : fx(x,feature),axis=1)
-	# print(df)
-	pathToFile+='processed'
-	df.to_csv(pathToFile)
-	sendRequest(pathToFile)
+	jsonString= { "userId": "pythonTest", "features": "timestamp,leftX,leftY,rightX,rightY", "data": f}
+	print(jsonString)
+	return jsonString
 
 
-def sendRequest(fileName):
-	data = open(fileName, 'r').read()
+# This function will not be used, as the cleaning will be done on the server
+# def preproccess(pathToFile):
+
+# 	df = pd.read_csv(pathToFile)
+# 	print(df)
+
+# 	# drop NaN values rows that contain 3 or more NaN values 
+# 	df = df.dropna(thresh=2)
+
+# 	# number of records in the dataframe
+# 	rowCount = df.shape[0]
+
+# 	def fx(x,feature):
+# 	    if np.isnan(x[feature[0]]):
+# 	        return x[feature[1]]
+# 	    else:
+# 	        return x[feature[0]]
+
+# 	features = [['leftX','rightX'],['rightX','leftX'],['leftY','rightY'],['rightY','leftY']]
+# 	for feature in features:
+# 		# print(feature[0])
+# 		df[feature[0]]=df.apply(lambda x : fx(x,feature),axis=1)
+# 	# print(df)
+# 	pathToFile+='processed'
+# 	df.to_csv(pathToFile)
+# 	sendRequest(pathToFile)
+
+
+# Send the request to the server, the server url needs to be defined.
+def sendRequest(data):
 	url ='http://142.93.109.50:9090/FeatureExtractionServer/api/eyetracker'
-	data = { "device": "eyetracker", "features": "timestamp,leftX,leftY,rightX,rightY", "data": data}
-	# dataJson= json.dumps(data)
 	headers = {'Content-type': 'application/json'}
 	requests.post(url,json=data, headers=headers)
 
 
 
 
+# This finds the connected tobii eyetracker using the tobii_research library
 found_eyetrackers = tr.find_all_eyetrackers()
 eyetracker = found_eyetrackers[0]
 
@@ -138,7 +148,7 @@ info = StreamInfo(name='Tobii', type='eyetracker', channel_count=4, channel_form
 outlet = StreamOutlet(info)
 
 
-# OPTIONAL Create a csv file to write to
+# OPTIONAL Create a csv file to write to (gazedata folder needs to be created)
 time = datetime.datetime.now().strftime("-%Y-%m-%d-%H%M%S")
 f = open("gazedata/gazedata{}.csv".format(time), "a")
 # Initial value set to the csv file, a column header
@@ -150,11 +160,11 @@ f.write("leftX,leftY,rightX,rightY\n")
 eyetracker.subscribe_to(tr.EYETRACKER_GAZE_DATA, gaze_data_callback, as_dictionary=True)
 
 
-# for iteration in range(1):
-	# Invoke the labstreaming layer to pull the sample for X amount of time.
-pathToFile = lab_streaming_layer()
+# Invoke the labstreaming layer
+json = lab_streaming_layer()
 
 # unsubscribe to the eyetracker
 eyetracker.unsubscribe_from(tr.EYETRACKER_GAZE_DATA, gaze_data_callback)
 
-preproccess(pathToFile)
+# Send the json string to the server
+sendRequest(json)
