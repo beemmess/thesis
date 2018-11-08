@@ -24,7 +24,7 @@ public class EyetrackerRepository {
 
     public void createTable(){
 
-        final String query = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "(timestamp double, leftx text, lefty text, rightx text, righty text, userid text, PRIMARY KEY ((userid), timestamp)) WITH CLUSTERING ORDER BY (timestamp ASC);";
+        final String query = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "(timestamp double, userid text, leftx text, lefty text, rightx text, righty text, pupilleft text, pupilright text, PRIMARY KEY ((userid), timestamp)) WITH CLUSTERING ORDER BY (timestamp ASC);";
         session.execute(query);
     }
 
@@ -39,7 +39,7 @@ public class EyetrackerRepository {
 
     public Boolean insertValues(EyeTracker eyeTracker) {
 
-        final String query = "INSERT INTO " + TABLE_NAME + "(timestamp, leftx, lefty, rightx, righty, userid) " + "VALUES ("+ eyeTracker.getTimestamp() + ", '" + eyeTracker.getLeftx() + "', '" + eyeTracker.getLefty() + "', '" + eyeTracker.getRightx() + "', '" + eyeTracker.getRighty()  + "', '" + eyeTracker.getUserId() + "');";
+        final String query = "INSERT INTO " + TABLE_NAME + "(timestamp, userid, leftx, lefty, rightx, righty, pupilleft, pupilright) " + "VALUES ("+ eyeTracker.getTimestamp() + ", '" + eyeTracker.getUserId() + "', '"  + eyeTracker.getLeftx() + "', '" + eyeTracker.getLefty() + "', '" + eyeTracker.getRightx() + "', '" + eyeTracker.getRighty()  + "', '" + eyeTracker.getPupilL()  + "', '"+ eyeTracker.getPupilR() + "');";
         logger.info(query);
         try {
             session.execute(query);

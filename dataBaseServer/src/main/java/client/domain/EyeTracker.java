@@ -13,15 +13,21 @@ public class EyeTracker {
 
     private String righty;
 
+    private String pupilL;
+
+    private String pupilR;
 
 
-    public EyeTracker(String userId,double timestamp, String leftx, String lefty, String rightx, String righty) {
+
+    public EyeTracker(String userId,double timestamp, String leftx, String lefty, String rightx, String righty, String pupilL, String pupilR) {
         this.userId = userId;
         this.timestamp = timestamp;
         this.leftx = leftx;
         this.lefty = lefty;
         this.rightx = rightx;
         this.righty = righty;
+        this.pupilL = pupilL;
+        this.pupilR = pupilR;
     }
 
 
@@ -72,6 +78,22 @@ public class EyeTracker {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getPupilR() {
+        return pupilR;
+    }
+
+    public void setPupilR(String pupilR) {
+        this.pupilR = pupilR;
+    }
+
+    public String getPupilL() {
+        return pupilL;
+    }
+
+    public void setPupilL(String pupilL) {
+        this.pupilL = pupilL;
     }
 }
 

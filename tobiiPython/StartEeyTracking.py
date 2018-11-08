@@ -6,6 +6,8 @@ import pandas as pd
 import requests
 
 
+# tobii_research documentation for python
+# http://devtobiipro.azurewebsites.net/tobii.research/python/reference/1.5.0.28-alpha-g427ed891/index.html
 
 # apply license function
 # author: Tobii
@@ -51,17 +53,19 @@ def apply_license():
 # The optional part is to save the data also into a csv file so that there is a copy of non LSL file and a LSL file
 def gaze_data_callback(gaze_data):
     
-    glX=gaze_data['left_gaze_point_on_display_area'][0]
-    glY=gaze_data['left_gaze_point_on_display_area'][1]
+    glX=gaze_data['left_gaze_point_on_display_area'][0] # in xy coordinates
+    glY=gaze_data['left_gaze_point_on_display_area'][1] 
     grX=gaze_data['right_gaze_point_on_display_area'][0]
     grY=gaze_data['right_gaze_point_on_display_area'][1]
-    mysample = [glX,glY,grX,grY]
+    pupilL = gaze_data['left_pupil_diameter'] # in millimeters
+    pupilR = gaze_data['right_pupil_diameter'] # in millimeters
+    mysample = [glX,glY,grX,grY,pupilL,pupilR]
     # Print the gaze data
     # print(glX,glY,grX,grY)
     outlet.push_sample(mysample)
 
     # OPTINAL Write data to file
-    f.write("{},{},{},{}\n".format(glX,glY,grX,grY))
+    f.write("{},{},{},{},{},{}\n".format(glX,glY,grX,grY,pupilL,pupilR))
 
 # This function triggers the LSL into getting the LSL StreamInlet for the eyetracker
 def lab_streaming_layer():
@@ -78,20 +82,20 @@ def lab_streaming_layer():
 	fileName = "EyeShimmerLSL/gazedataLSL{}.csv".format(time)
 	f = ""
 
-	f +="timestamp,leftX,leftY,rightX,rightY\n"
+	# f +="timestamp,leftX,leftY,rightX,rightY\n"
 	n=0
 
 	# This will create 10 lines of eyetracking data and then sent to the server,
-	while(n<10):
+	while(n<100):
 	    # get a new sample (you can also omit the timestamp part if you're not
 	    # interested in it)
 	    sample, timestamp = inlet.pull_sample(timeout=1)
 	    # print(string)
-	    string="{},{},{},{},{}\n".format(timestamp,sample[0],sample[1],sample[2],sample[3])
+	    string="{},{},{},{},{},{},{}\n".format(timestamp,sample[0],sample[1],sample[2],sample[3],sample[4],sample[5])
 	    n +=1
 	    f +=string
 	    # print(timestamp, sample)
-	jsonString= { "userId": "pythonTest", "features": "timestamp,leftX,leftY,rightX,rightY", "data": f}
+	jsonString= { "userId": "pythonTest", "features": "timestamp,leftX,leftY,rightX,rightY,pupilL,pupilR", "data": f}
 	print(jsonString)
 	return jsonString
 
@@ -143,7 +147,7 @@ eyetracker = found_eyetrackers[0]
 apply_license()
 
 # Configure a streaminfo
-info = StreamInfo(name='Tobii', type='eyetracker', channel_count=4, channel_format='float32',source_id='myuid34234')
+info = StreamInfo(name='Tobii', type='eyetracker', channel_count=6, channel_format='float32',source_id='myuid34234')
 # next make an outlet
 outlet = StreamOutlet(info)
 
@@ -152,7 +156,7 @@ outlet = StreamOutlet(info)
 time = datetime.datetime.now().strftime("-%Y-%m-%d-%H%M%S")
 f = open("gazedata/gazedata{}.csv".format(time), "a")
 # Initial value set to the csv file, a column header
-f.write("leftX,leftY,rightX,rightY\n")
+f.write("leftX,leftY,rightX,rightY,pupilL,pupilR\n")
 
 
 

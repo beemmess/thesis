@@ -9,14 +9,14 @@ import javax.inject.Inject;
 import org.jboss.logging.Logger;
 
 
-@MessageDriven(name = "MdbShimmer", activationConfig = {
+@MessageDriven(name = "MdbShimmerRaw", activationConfig = {
         @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "java:jboss/exported/jms/queue/shimmerRaw"),
         @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
 })
 
-public class MdbShimmer extends MessageBean {
+public class MdbShimmerRaw extends MessageBean {
 
-    private static final Logger logger = Logger.getLogger(MdbShimmer.class.getName());
+    private static final Logger logger = Logger.getLogger(MdbShimmerRaw.class.getName());
 
 
     @Inject

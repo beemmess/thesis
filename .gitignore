@@ -148,7 +148,7 @@ tobiiPython/licensekey
 tobiiPython/gazedata/*
 tobiiPython/gazedataLSL/*
 tobiiPython/shimmerDataLSL/*
-tobiiPython/EyeShimmerLSL/*
+#tobiiPython/EyeShimmerLSL/*
 
 
 dockerfiles
