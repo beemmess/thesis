@@ -36,7 +36,7 @@ public class ApiServiceImpl {
         return response(gson.toJson(message));
     }
 
-
+    @SuppressWarnings("Duplicates")
     public Response response(String message) {
 
         logger.info("ApiServiceImpl response 2 log");
@@ -45,7 +45,7 @@ public class ApiServiceImpl {
 
         try {
             session = session();
-            logger.info("string: " +message);
+//            logger.info("string: " +message);
             MessageProducer producer = session.createProducer(destination);
             TextMessage textMessage = session.createTextMessage(message);
             producer.send(textMessage);

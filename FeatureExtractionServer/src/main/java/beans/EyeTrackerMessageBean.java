@@ -3,7 +3,7 @@ package beans;
 //import beans.repository.EyeTrackerService;
 
 import api.JNDIPaths;
-import beans.services.EyeTrackerService;
+import beans.services.EyetrackerService;
 import org.jboss.logging.Logger;
 
 import javax.ejb.ActivationConfigProperty;
@@ -20,12 +20,12 @@ public class EyeTrackerMessageBean extends MessageBean {
 
 
     @Inject
-    private EyeTrackerService eyeTrackerService;
+    private EyetrackerService eyeTrackerService;
 
     @Override
     protected void messageReceived(String message){
         logger.info("eyeTracker queue instance, messageReceived");
-        eyeTrackerService.sendRawDataToDB(message);
+        eyeTrackerService.processMessage(message);
     }
 
 }

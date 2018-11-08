@@ -33,12 +33,12 @@ public class EyetrackerService {
         EyeTrackerMessage eyeTrackerMessage = gson.fromJson(message, EyeTrackerMessage.class);
 
         try(BufferedReader br = new BufferedReader(new StringReader(eyeTrackerMessage.getData()))){
-            br.readLine();
+//            br.readLine();
             String line;
             while((line = br.readLine()) != null ){
                 logger.info(line);
                 String[] values = line.split(",");
-                EyeTracker eyeTracker = new EyeTracker(eyeTrackerMessage.getUserId(), Double.parseDouble(values[0]), values[1], values[2], values[3], values[4]);
+                EyeTracker eyeTracker = new EyeTracker(eyeTrackerMessage.getUserId(), Double.parseDouble(values[0]), values[1], values[2], values[3], values[4], values[5], values[6]);
                 cassandraClient.CassandraInsertValues(eyeTracker);
 
             }
@@ -47,6 +47,11 @@ public class EyetrackerService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void saveProcessedData(String message){
+
+        logger.info(message);
     }
 
 

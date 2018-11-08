@@ -27,26 +27,6 @@ public class ShimmerMessageBean extends MessageBean {
         shimmerService.sendRawDataToDB(message);
     }
 
-
-//    private String msgText;
-//    @Override
-//    public void onMessage(Message message) {
-//        TextMessage msg;
-//        logger.info("DO I COME HERE IN Shimmer MESSAGE BEAN");
-//        try {
-//            if (message instanceof TextMessage) {
-//                msg = (TextMessage) message;
-//                logger.info("before setMessage in shimmerService " + msg.getText());
-//
-//                shimmerService.sendRawDataToDB("TEST MESSAGE");
-//            } else {
-//                logger.warn("Message af wrong type: " + message.getClass().getName());
-//            }
-//        } catch (JMSException e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
 }
 
 

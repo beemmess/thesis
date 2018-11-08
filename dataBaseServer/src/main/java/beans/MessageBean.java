@@ -30,6 +30,6 @@ public abstract class MessageBean implements MessageListener {
     }
 
 
-    protected Boolean void messageReceived(String message);
+    protected abstract void messageReceived(String message);
 
 }
