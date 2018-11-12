@@ -113,84 +113,6 @@ Create a new data transfer for eyetracking data
 
 
 
-## /eyetrackerRaw/{userId}
-
-
-### GET
-
-<a id="getDataFromDb">Find values in database by userId</a>
-
-Create a query message to database to retrieve certain data
-
-
-
-
-
-
-
-#### Request
-
-
-
-##### Parameters
-
-<table border="1">
-    <tr>
-        <th>Name</th>
-        <th>Located in</th>
-        <th>Required</th>
-        <th>Description</th>
-        <th>Default</th>
-        <th>Schema</th>
-    </tr>
-
-
-
-<tr>
-    <th>userId</th>
-    <td>path</td>
-    <td>yes</td>
-    <td>Query string for userId for cassandra database</td>
-    <td> - </td>
-
-    
-            <td>string </td>
-    
-
-</tr>
-
-
-</table>
-
-
-
-#### Response
-
-
-
-
-| Status Code | Reason      | Response Model |
-|-------------|-------------|----------------|
-| 200    | successful operation | |
-| 400    | invalid user id |  - |
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## /shimmerRaw
 
 
@@ -288,7 +210,7 @@ Create a new data transfer for ShimmerMessage data
     </tr>
     
         <tr>
-            <td>userId</td>
+            <td>id</td>
             <td>
                 
                     
@@ -315,6 +237,19 @@ Create a new data transfer for ShimmerMessage data
     
         <tr>
             <td>data</td>
+            <td>
+                
+                    
+                    string
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>type</td>
             <td>
                 
                     
@@ -340,7 +275,7 @@ Create a new data transfer for ShimmerMessage data
     </tr>
     
         <tr>
-            <td>userId</td>
+            <td>id</td>
             <td>
                 
                     
@@ -367,6 +302,19 @@ Create a new data transfer for ShimmerMessage data
     
         <tr>
             <td>data</td>
+            <td>
+                
+                    
+                    string
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>type</td>
             <td>
                 
                     

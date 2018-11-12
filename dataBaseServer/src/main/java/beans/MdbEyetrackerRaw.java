@@ -27,7 +27,7 @@ public class MdbEyetrackerRaw extends MessageBean {
     protected void messageReceived(String message){
         logger.info("eyeTracker raw queue instance, message: " + message);
 
-        eyetrackerService.saveRawData(message);
+        eyetrackerService.saveDataToDB(message);
     }
 
 }

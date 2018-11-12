@@ -21,7 +21,8 @@ public class CassandraClient {
 //    Address of the server
     private static final String address = "104.248.35.208";
 
-    public void CassandraClient() {
+
+    public CassandraClient() {
         //Connect to cassandra using the default IP address and port 9042
         connector.connector(address, 9042);
         Session session = connector.getSession();
@@ -36,32 +37,46 @@ public class CassandraClient {
 
         EyetrackerRepository eyetrackerRepository = new EyetrackerRepository(session);
         //TODO: take out droptable when devolopement is finished
-        eyetrackerRepository.dropTable();
+//        eyetrackerRepository.dropTable();
 
         eyetrackerRepository.createTable();
 
 
 
     }
-    public Boolean CassandraInsertValues(EyeTracker eyeTracker){
+    public Boolean CassandraInsertRawValues(EyeTracker eyeTracker){
         Session session = connector.getSession();
         EyetrackerRepository eyetrackerRepository = new EyetrackerRepository(session);
-        Boolean response = eyetrackerRepository.insertValues(eyeTracker);
+        Boolean response = eyetrackerRepository.insertRawValues(eyeTracker);
 //        eyetrackerRepository.getValues();
 //        logger.info(response);
         return response;
 
     }
 
-    public String getDataFromUserId(String userId){
+    public void CassandraInsertPreProcessedData(EyeTracker eyeTracker){
         Session session = connector.getSession();
         EyetrackerRepository eyetrackerRepository = new EyetrackerRepository(session);
-//        KeyspaceRepository keyspaceRepository = new KeyspaceRepository(session);
-//        keyspaceRepository.useKeyspace(keyspace);
+        eyetrackerRepository.insertPreProcessedValues(eyeTracker);
 
-        String resp = eyetrackerRepository.getValues(userId);
-        return resp;
     }
+
+    public void CassandraInsertAvgPupilData(EyeTracker eyeTracker){
+        Session session = connector.getSession();
+        EyetrackerRepository eyetrackerRepository = new EyetrackerRepository(session);
+        eyetrackerRepository.insertAvgPupilValues(eyeTracker);
+
+    }
+
+//    public String getDataFromUserId(String userId){
+//        Session session = connector.getSession();
+//        EyetrackerRepository eyetrackerRepository = new EyetrackerRepository(session);
+////        KeyspaceRepository keyspaceRepository = new KeyspaceRepository(session);
+////        keyspaceRepository.useKeyspace(keyspace);
+//
+//        String resp = eyetrackerRepository.getValues(userId);
+//        return resp;
+//    }
 
 
     public void CassandraClose(){

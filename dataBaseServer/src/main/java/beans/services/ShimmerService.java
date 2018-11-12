@@ -42,7 +42,7 @@ public class ShimmerService {
 ////            while((line = br.readLine()) != null ){
 ////                values = line.split(",");
 ////                EyeTrackerMessage eyeTracker = new EyeTrackerMessage(Double.parseDouble(values[0]), Double.parseDouble(values[1]), Double.parseDouble(values[2]), Double.parseDouble(values[3]), Double.parseDouble(values[4]));
-////                cassandraClient.CassandraInsertValues(eyeTracker);
+////                cassandraClient.CassandraInsertRawValues(eyeTracker);
 ////
 ////            }
 //

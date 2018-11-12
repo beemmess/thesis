@@ -66,13 +66,16 @@
     "EyeTrackerMessage" : {
       "type" : "object",
       "properties" : {
-        "userId" : {
+        "id" : {
           "type" : "string"
         },
         "features" : {
           "type" : "string"
         },
         "data" : {
+          "type" : "string"
+        },
+        "type" : {
           "type" : "string"
         }
       }
@@ -80,13 +83,16 @@
     "ShimmerMessage" : {
       "type" : "object",
       "properties" : {
-        "userId" : {
+        "id" : {
           "type" : "string"
         },
         "features" : {
           "type" : "string"
         },
         "data" : {
+          "type" : "string"
+        },
+        "type" : {
           "type" : "string"
         }
       }

@@ -4,9 +4,10 @@ package model;
 
 public class EyeTrackerMessage extends Message {
 
-    private String userId;
+    private String id;
     private String features;
     private String data;
+    private String type;
 
 
     public String getData() {
@@ -25,11 +26,19 @@ public class EyeTrackerMessage extends Message {
         this.features = features;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getId() {
+        return id;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

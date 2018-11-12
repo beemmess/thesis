@@ -11,12 +11,12 @@ import java.io.IOException;
 
 @WebServlet("/Cassandra")
 public class CassandraServlet extends HttpServlet {
-
-    @Inject
-    CassandraClient cassandraClient;
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-        cassandraClient.CassandraClient();
-    }
+//
+//    @Inject
+//    CassandraClient cassandraClient;
+//
+//    @Override
+//    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+//        CassandraClient();
+//    }
 }

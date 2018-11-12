@@ -3,7 +3,7 @@
 import requests
 file = open('EyeShimmerLSL/testEye.csv', 'r').read()
 url ='http://142.93.109.50:9090/FeatureExtractionServer/api/eyetracker'
-data = { "userId": "bjarki", "features": "timestamp,leftX,leftY,rightX,rightY", "data": file}
+data = { "type":"raw","id": "bjarki", "features": "timestamp,leftX,leftY,rightX,rightY,pupilL,pupilR", "data": file}
 
 # dataJson= json.dumps(data)
 headers = {'Content-type': 'application/json'}

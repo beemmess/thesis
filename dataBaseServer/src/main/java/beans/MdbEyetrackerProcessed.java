@@ -28,7 +28,7 @@ public class MdbEyetrackerProcessed extends MessageBean {
     protected void messageReceived(String message){
         logger.info("eyeTracker Processed queue instance, message ================: " + message);
 
-        eyetrackerService.saveProcessedData(message);
+        eyetrackerService.saveDataToDB(message);
     }
 
 }

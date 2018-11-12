@@ -89,8 +89,8 @@ public class SendEyetrackerSteps {
         // Write code here that turns the phrase above into concrete actions
 //        EyeTrackerMessage eyeTrackerMessage = eyetrackerService.preProcessMessage(message);
 //        json = gson.toJson(eyeTrackerMessage, EyeTrackerMessage.class);
-        Boolean test = eyetrackerService.test();
-        logger.info(test.toString());
+//        Boolean test = eyetrackerService.test();
+//        logger.info(test.toString());
 
     }
 

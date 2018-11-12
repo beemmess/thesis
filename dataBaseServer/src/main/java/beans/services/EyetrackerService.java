@@ -24,22 +24,43 @@ public class EyetrackerService {
 
 
     private Gson gson = new Gson();
+    private CassandraClient cassandraClient = new CassandraClient();
 
 
-
-    public void saveRawData(String message) {
-        CassandraClient cassandraClient = new CassandraClient();
-        cassandraClient.CassandraClient();
+    public void saveDataToDB(String message){
+//        cassandraClient.CassandraClient();
         EyeTrackerMessage eyeTrackerMessage = gson.fromJson(message, EyeTrackerMessage.class);
+        String type = eyeTrackerMessage.getType();
+        if(type.equals("raw")) {
+            logger.info(type);
+            saveRawData(eyeTrackerMessage);
+        }
+        if(type.equals("preprocessed")){
+            logger.info(type);
+            savePreProcessedData(eyeTrackerMessage);
+        }
+        if(type.equals("avgPupil")){
+            logger.info(type);
+            saveAvgPupilData(eyeTrackerMessage);
+        }
+        else{
+            logger.info("type not found: ");
+        }
+
+
+    }
+
+
+    public void saveRawData(EyeTrackerMessage eyeTrackerMessage) {
+
 
         try(BufferedReader br = new BufferedReader(new StringReader(eyeTrackerMessage.getData()))){
-//            br.readLine();
             String line;
             while((line = br.readLine()) != null ){
-                logger.info(line);
+//                logger.info(line);
                 String[] values = line.split(",");
-                EyeTracker eyeTracker = new EyeTracker(eyeTrackerMessage.getUserId(), Double.parseDouble(values[0]), values[1], values[2], values[3], values[4], values[5], values[6]);
-                cassandraClient.CassandraInsertValues(eyeTracker);
+                EyeTracker eyeTracker = new EyeTracker(eyeTrackerMessage.getId(), Double.parseDouble(values[0]), values[1], values[2], values[3], values[4], values[5], values[6]);
+                cassandraClient.CassandraInsertRawValues(eyeTracker);
 
             }
 
@@ -49,9 +70,41 @@ public class EyetrackerService {
         }
     }
 
-    public void saveProcessedData(String message){
 
-        logger.info(message);
+
+    public void savePreProcessedData(EyeTrackerMessage eyeTrackerMessage){
+
+        try(BufferedReader br = new BufferedReader(new StringReader(eyeTrackerMessage.getData()))){
+            String line;
+            while((line = br.readLine()) != null ){
+                logger.info(line);
+                String[] values = line.split(",");
+                EyeTracker eyeTracker = new EyeTracker(eyeTrackerMessage.getId(), Double.parseDouble(values[0]), Double.parseDouble(values[1]), Double.parseDouble(values[2]), Double.parseDouble(values[3]), Double.parseDouble(values[4]), Double.parseDouble(values[5]), Double.parseDouble(values[6]));
+                cassandraClient.CassandraInsertPreProcessedData(eyeTracker);
+
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void saveAvgPupilData(EyeTrackerMessage eyeTrackerMessage){
+
+        try(BufferedReader br = new BufferedReader(new StringReader(eyeTrackerMessage.getData()))){
+            String line;
+            while((line = br.readLine()) != null ){
+                String[] values = line.split(",");
+                EyeTracker eyeTracker = new EyeTracker(eyeTrackerMessage.getId(), Double.parseDouble(values[0]), Double.parseDouble(values[1]));
+                cassandraClient.CassandraInsertAvgPupilData(eyeTracker);
+
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

@@ -12,6 +12,7 @@
         <module>FeatureExtractionServer</module>
         <module>dataBaseServer</module>
         <module>Cucumber</module>
+        <module>featureX</module>
     </modules>
 
     <build>
