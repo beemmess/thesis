@@ -6,13 +6,15 @@
 from flask import Flask, request, jsonify
 from flask_restplus import Api, Resource, fields
 from eyetracker import *
+from shimmer import ShimmerFx
+from model import *
 app = Flask(__name__)
 api = Api(app, version='1.0', title='Feature Extraction and cleaning API')
 
 api = api.namespace('api', description='API operations')
 
 # expect
-raw = api.model('raw',{
+eyetrackerRaw = api.model('raw',{
     'type': fields.String(required=True, description='type of data', example='raw'),
     'id': fields.String(required=True, description='id of the data', example='FlaskTest'),
     'features':fields.String(required=True, description='List of set of features', example='timestamp,leftX,leftY,rightX,rightY,pupilL,pupilR'),
@@ -34,13 +36,30 @@ avgPupil = api.model('avgPupil',{
     'data': fields.String(required=True, description='Average pupil Diameter',example='1,2')
 })
 
+# expect
+shimmerRaw = api.model('raw',{
+    'type': fields.String(required=True, description='type of data', example='raw'),
+    'id': fields.String(required=True, description='id of the data', example='FlaskTest'),
+    'features':fields.String(required=True, description='List of set of features', example='timestamp,GSR,PPG'),
+    'data': fields.String(required=True, description='The dataset that is in need for processing', example='1,2,3\n4,5,6')
+})
+
+# response
+shimmerAvg = api.model('avgGSRandPPG',{
+    'type': fields.String(required=True, description='type of data', example='avgGSRandPPG'),
+    'id': fields.String(required=True, description='id of the data', example='FlaskTest'),
+    'features':fields.String(required=True, description='List of set of features', example='timestamp,avgGSR,avgPPG'),
+    'data': fields.String(required=True, description='The dataset that is in need for processing', example='1,3.5,4.5')
+})
+
+
 
 
 
 @api.route('/eyetracker/substitution')
 class Eyetracker(Resource):
     @api.doc('substituion_cleaning')
-    @api.expect(raw)
+    @api.expect(eyetrackerRaw)
     @api.marshal_with(preprocessed, code=200)
     def post(self):
         return Clean.substitution(api.payload)
@@ -52,7 +71,15 @@ class AvgPupilD(Resource):
     @api.expect(preprocessed)
     @api.marshal_with(avgPupil, code=200)
     def post(self):
-        return FeatureExtraction.averagePupilDiameter(api.payload)
+        return EyetrackerFx.averagePupilDiameter(api.payload)
+
+@api.route('/shimmer/avg')
+class AvgPupilD(Resource):
+    @api.doc('shimmer_avg')
+    @api.expect(shimmerRaw)
+    @api.marshal_with(shimmerAvg, code=200)
+    def post(self):
+        return ShimmerFx.avgGSRandPPG(api.payload)
 
 
 

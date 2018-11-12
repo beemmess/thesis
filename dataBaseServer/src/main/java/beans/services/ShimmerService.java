@@ -1,6 +1,9 @@
 package beans.services;
 
 
+import com.google.gson.Gson;
+import model.EyeTrackerMessage;
+import model.ShimmerMessage;
 import org.jboss.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -17,15 +20,15 @@ public class ShimmerService {
     private String line;
     private String[] values;
 
-    public String getMessage(){
-        return message;
-    }
+    private Gson gson = new Gson();
 
-    public void setMessage(String message){
-        this.message = message;
+    public void saveDataToDB(String message){
+        ShimmerMessage shimmerMessage = gson.fromJson(message, ShimmerMessage.class);
+        logger.info(shimmerMessage.getData());
+
 //        System.out.print(message);
 //        setValues();
-        setValues();
+//        setValues();
 
     }
 

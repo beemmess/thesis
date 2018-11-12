@@ -1,1 +1,1 @@
-__all__ = ("Clean","FeatureExtraction")
+__all__ = ("Clean","EyetrackerFx")

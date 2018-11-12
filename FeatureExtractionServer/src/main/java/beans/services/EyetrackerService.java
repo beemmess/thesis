@@ -23,7 +23,7 @@ import java.io.*;
 
 @Named
 @ApplicationScoped
-public class EyetrackerService {
+public class EyetrackerService extends DeviceService{
     private static final Logger logger = Logger.getLogger(EyetrackerService.class.getName());
 
     private Gson gson = new Gson();
@@ -34,8 +34,8 @@ public class EyetrackerService {
     @Resource(lookup = "java:jboss/exported/jms/queue/eyetrackerRaw")
     private Queue queueRaw;
 //
-    @Resource(lookup = "java:jboss/exported/jms/queue/eyetrackerProcessed")
-    private Queue queueProcessed;
+//    @Resource(lookup = "java:jboss/exported/jms/queue/eyetrackerProcessed")
+//    private Queue queueProcessed;
 
     private EyeTrackerMessage eyeTrackerMessage;
 
@@ -151,32 +151,30 @@ public class EyetrackerService {
 
     }
 
-    public String postToFlask(String message,String url){
-
-        try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
-            HttpPost request = new HttpPost(url);
-            StringEntity params = new StringEntity(message);
-
-            logger.info("message" + message);
-            request.addHeader("content-type", "application/json");
-            request.setEntity(params);
-            httpClient.execute(request);
-            HttpResponse result = httpClient.execute(request);
-            logger.info(result.getEntity());
-            String json = EntityUtils.toString(result.getEntity(), "UTF-8");
-
-//            Gson gson = new Gson();
-//            eyeTrackerMessage = gson.fromJson(json, model.EyeTrackerMessage.class);
-
-            logger.info(json);
-            return json;
-        } catch (IOException ex) {
-            logger.info(ex);
-            message = null;
-            return message;
-        }
-
-
-    }
+//    public String postToFlask(String message,String url){
+//
+//        try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
+//            HttpPost request = new HttpPost(url);
+//            StringEntity params = new StringEntity(message);
+//
+//            logger.info("message" + message);
+//            request.addHeader("content-type", "application/json");
+//            request.setEntity(params);
+//            httpClient.execute(request);
+//            HttpResponse result = httpClient.execute(request);
+//            logger.info(result.getEntity());
+//            String json = EntityUtils.toString(result.getEntity(), "UTF-8");
+//
+////            Gson gson = new Gson();
+////            eyeTrackerMessage = gson.fromJson(json, model.EyeTrackerMessage.class);
+//
+//            logger.info(json);
+//            return json;
+//        } catch (IOException ex) {
+//            logger.info(ex);
+//            message = null;
+//            return message;
+//        }
+//    }
 
 }

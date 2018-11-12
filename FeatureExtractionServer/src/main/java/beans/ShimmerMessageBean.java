@@ -24,7 +24,7 @@ public class ShimmerMessageBean extends MessageBean {
     @Override
     protected void messageReceived(String message){
         logger.info("shimmer queue instance, messageReceived");
-        shimmerService.sendRawDataToDB(message);
+        shimmerService.processMessage(message);
     }
 
 }

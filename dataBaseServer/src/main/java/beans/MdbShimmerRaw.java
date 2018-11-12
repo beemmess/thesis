@@ -26,7 +26,7 @@ public class MdbShimmerRaw extends MessageBean {
     @Override
     protected void messageReceived(String message){
         logger.info("shimmer raw instance");
-        shimmerService.setMessage(message);
+        shimmerService.saveDataToDB(message);
     }
 
 }

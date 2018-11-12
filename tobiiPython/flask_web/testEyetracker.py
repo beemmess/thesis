@@ -1,4 +1,5 @@
 from eyetracker import *
+from model import eyetracker
 
 f = """6682.276668686,0.061483658850193024,0.684330403804779,0.03360903263092041,0.6470507383346558,3.0,2.5
 6682.288781205,0.06113949790596962,0.6873190402984619,0.032140102237463,0.6550177335739136,3.1,2.2
@@ -18,11 +19,12 @@ f = """6682.276668686,0.061483658850193024,0.684330403804779,0.03360903263092041
 6682.3798653194,nan,0.6877057552337646,0.039480891078710556,nan,2.9,nan
 6682.3798653194,nan,0.6877057552337646,nan,0.6877057552337646,2.9,2.9
 6682.388687789,0.06889772415161133,0.685947597026825,0.03873371705412865,0.6584392786026001,2.56,2.14"""
-print(f)
+# print(f)
 
 # file = open('testEye.csv', 'r').read()
-json_input = { "userId": "Cucumber", "features": "timestamp,leftX,leftY,rightX,rightY,pupilL,pupilR", "data": f}
-string = Clean.substitution(json_input)
-print(string["data"])
+# json_input = { "userId": "Cucumber", "features": "timestamp,leftX,leftY,rightX,rightY,pupilL,pupilR", "data": f}
+# string = Clean.substitution(json_input)
+# print(string["data"])
+print(eyetracker.test)
 
 # print(string)
