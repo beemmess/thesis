@@ -1,13 +1,17 @@
 package beans.services;
 
 
+import client.ShimmerClient;
+import client.domain.Shimmer;
 import com.google.gson.Gson;
-import model.EyeTrackerMessage;
 import model.ShimmerMessage;
 import org.jboss.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
 
 @Named
 @ApplicationScoped
@@ -21,38 +25,61 @@ public class ShimmerService {
     private String[] values;
 
     private Gson gson = new Gson();
+private ShimmerClient shimmerClient = new ShimmerClient();
 
     public void saveDataToDB(String message){
         ShimmerMessage shimmerMessage = gson.fromJson(message, ShimmerMessage.class);
         logger.info(shimmerMessage.getData());
+        String type = shimmerMessage.getType();
+        if(type.equals("raw")) {
+            logger.info(type);
+            saveRawData(shimmerMessage);
+        }
+//        if(type.equals("normalized")){
+//            logger.info(type);
+//            saveNormalizedData(shimmerMessage);
+//        }
+//        else{
+//            logger.info("type not found: ");
+//        }
 
-//        System.out.print(message);
-//        setValues();
-//        setValues();
+
 
     }
 
-    public void setValues(){
-        logger.info("setValues in shimmerService ");
+    private void saveNormalizedData(ShimmerMessage shimmerMessage) {
 
-//        CassandraClient cassandraClient = new CassandraClient();
-//        cassandraClient.CassandraClient();
-////        try(BufferedReader br = new BufferedReader(new StringReader(message))){
-////            br.readLine();
-////            /*give the first line a 'null' as the first line consists of string
-////            * e.g. timestamp, leftx, lefty .... etc*/
-////            line = null;
-////            while((line = br.readLine()) != null ){
-////                values = line.split(",");
-////                EyeTrackerMessage eyeTracker = new EyeTrackerMessage(Double.parseDouble(values[0]), Double.parseDouble(values[1]), Double.parseDouble(values[2]), Double.parseDouble(values[3]), Double.parseDouble(values[4]));
-////                cassandraClient.CassandraInsertRawValues(eyeTracker);
-////
-////            }
-//
-//        /*give the first line a 'null' as the first line consists of string
-//        * e.g. timestamp, leftx, lefty .... etc*/
-//        EyeTrackerMessage eyeTracker = new EyeTrackerMessage(message);
-//        cassandraClient.CassandraInsertValuesString(eyeTracker);
-//        cassandraClient.CassandraClose();
+        try(BufferedReader br = new BufferedReader(new StringReader(shimmerMessage.getData()))){
+            String line;
+            while((line = br.readLine()) != null ){
+//                logger.info(line);
+                String[] values = line.split(",");
+                Shimmer shimmer = new Shimmer(shimmerMessage.getId(), Double.parseDouble(values[0]), Double.parseDouble(values[1]), Double.parseDouble(values[2]));
+                shimmerClient.shimmerInsertNormalizedValues(shimmer);
+
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void saveRawData(ShimmerMessage shimmerMessage) {
+
+
+        try(BufferedReader br = new BufferedReader(new StringReader(shimmerMessage.getData()))){
+            String line;
+            while((line = br.readLine()) != null ){
+//                logger.info(line);
+                String[] values = line.split(",");
+                Shimmer shimmer = new Shimmer(shimmerMessage.getId(), Double.parseDouble(values[0]), Double.parseDouble(values[1]), Double.parseDouble(values[2]));
+                shimmerClient.shimmerInsertRawValues(shimmer);
+
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

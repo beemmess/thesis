@@ -1,7 +1,7 @@
 package beans.services;
 
 
-import client.CassandraClient;
+import client.EyetrackerClient;
 import com.google.gson.Gson;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -24,8 +24,8 @@ public class EyetrackerService {
 
 
     private Gson gson = new Gson();
-    private CassandraClient cassandraClient = new CassandraClient();
-
+//    private CassandraClient cassandraClient = new CassandraClient();
+    private EyetrackerClient eyetrackerClient = new EyetrackerClient();
 
     public void saveDataToDB(String message){
 //        cassandraClient.CassandraClient();
@@ -60,7 +60,7 @@ public class EyetrackerService {
 //                logger.info(line);
                 String[] values = line.split(",");
                 EyeTracker eyeTracker = new EyeTracker(eyeTrackerMessage.getId(), Double.parseDouble(values[0]), values[1], values[2], values[3], values[4], values[5], values[6]);
-                cassandraClient.CassandraInsertRawValues(eyeTracker);
+                eyetrackerClient.EyetrackerInsertRawValues(eyeTracker);
 
             }
 
@@ -80,7 +80,7 @@ public class EyetrackerService {
                 logger.info(line);
                 String[] values = line.split(",");
                 EyeTracker eyeTracker = new EyeTracker(eyeTrackerMessage.getId(), Double.parseDouble(values[0]), Double.parseDouble(values[1]), Double.parseDouble(values[2]), Double.parseDouble(values[3]), Double.parseDouble(values[4]), Double.parseDouble(values[5]), Double.parseDouble(values[6]));
-                cassandraClient.CassandraInsertPreProcessedData(eyeTracker);
+                eyetrackerClient.EyetrackerInsertPreProcessedData(eyeTracker);
 
             }
 
@@ -97,7 +97,7 @@ public class EyetrackerService {
             while((line = br.readLine()) != null ){
                 String[] values = line.split(",");
                 EyeTracker eyeTracker = new EyeTracker(eyeTrackerMessage.getId(), Double.parseDouble(values[0]), Double.parseDouble(values[1]));
-                cassandraClient.CassandraInsertAvgPupilData(eyeTracker);
+                eyetrackerClient.EyetrackerInsertAvgPupilData(eyeTracker);
 
             }
 

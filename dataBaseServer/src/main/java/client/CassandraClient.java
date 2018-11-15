@@ -1,8 +1,10 @@
 package client;
 
 import client.domain.EyeTracker;
+import client.repository.CassandraRepository;
 import client.repository.EyetrackerRepository;
 import client.repository.KeyspaceRepository;
+import client.repository.ShimmerRepository;
 import com.datastax.driver.core.Session;
 import org.jboss.logging.Logger;
 
@@ -10,8 +12,7 @@ import org.jboss.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 
-@Named
-@ApplicationScoped
+
 public class CassandraClient {
 
 
@@ -25,6 +26,7 @@ public class CassandraClient {
     public CassandraClient() {
         //Connect to cassandra using the default IP address and port 9042
         connector.connector(address, 9042);
+        logger.info("Cassandra client initilized");
         Session session = connector.getSession();
 
 
@@ -34,49 +36,19 @@ public class CassandraClient {
         keyspaceRepository.useKeyspace(keyspace);
 
         //Create the eyetracker Table if does not exist
-
         EyetrackerRepository eyetrackerRepository = new EyetrackerRepository(session);
+        ShimmerRepository shimmerRepository = new ShimmerRepository(session);
+//        CassandraRepository cassandraRepository = new CassandraRepository(session);
         //TODO: take out droptable when devolopement is finished
 //        eyetrackerRepository.dropTable();
 
         eyetrackerRepository.createTable();
-
+        shimmerRepository.createTable();
 
 
     }
-    public Boolean CassandraInsertRawValues(EyeTracker eyeTracker){
-        Session session = connector.getSession();
-        EyetrackerRepository eyetrackerRepository = new EyetrackerRepository(session);
-        Boolean response = eyetrackerRepository.insertRawValues(eyeTracker);
-//        eyetrackerRepository.getValues();
-//        logger.info(response);
-        return response;
 
-    }
 
-    public void CassandraInsertPreProcessedData(EyeTracker eyeTracker){
-        Session session = connector.getSession();
-        EyetrackerRepository eyetrackerRepository = new EyetrackerRepository(session);
-        eyetrackerRepository.insertPreProcessedValues(eyeTracker);
-
-    }
-
-    public void CassandraInsertAvgPupilData(EyeTracker eyeTracker){
-        Session session = connector.getSession();
-        EyetrackerRepository eyetrackerRepository = new EyetrackerRepository(session);
-        eyetrackerRepository.insertAvgPupilValues(eyeTracker);
-
-    }
-
-//    public String getDataFromUserId(String userId){
-//        Session session = connector.getSession();
-//        EyetrackerRepository eyetrackerRepository = new EyetrackerRepository(session);
-////        KeyspaceRepository keyspaceRepository = new KeyspaceRepository(session);
-////        keyspaceRepository.useKeyspace(keyspace);
-//
-//        String resp = eyetrackerRepository.getValues(userId);
-//        return resp;
-//    }
 
 
     public void CassandraClose(){

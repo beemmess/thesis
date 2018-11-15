@@ -4,7 +4,7 @@ import client.domain.EyeTracker;
 import com.datastax.driver.core.Session;
 import org.jboss.logging.Logger;
 
-public class EyetrackerRepository {
+public class EyetrackerRepository extends CassandraRepository {
 
     private static final Logger logger = Logger.getLogger(EyetrackerRepository.class.getName());
 
@@ -12,11 +12,16 @@ public class EyetrackerRepository {
     private static final String EYETRACKER_PRE_PROCESSED ="eyetracker_preprocessed";
     private static final String EYETRACKER_AVG_PUPIL = "eyetracker_avg_pupil";
 
-    private Session session;
-
-    public EyetrackerRepository(Session session){
-        this.session = session;
+    public EyetrackerRepository(Session session) {
+        super(session);
     }
+
+
+//    private Session session;
+
+//    public EyetrackerRepository(Session session){
+//        this.session = session;
+//    }
 
 
     /*
@@ -78,14 +83,14 @@ public class EyetrackerRepository {
     }
 
 
-    public Boolean executeQuery(String query){
-        try {
-            session.execute(query);
-            return true;
-        }catch (Exception e){
-            logger.info("false executeQuery: " + query);
-            return false;
-        }
+//    public Boolean executeQuery(String query){
+//        try {
+//            session.execute(query);
+//            return true;
+//        }catch (Exception e){
+//            logger.info("false executeQuery: " + query);
+//            return false;
+//        }
 
     }
 
@@ -99,4 +104,4 @@ public class EyetrackerRepository {
 
 
 
-}
+

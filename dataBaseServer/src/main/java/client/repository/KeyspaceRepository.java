@@ -7,17 +7,16 @@ import com.datastax.driver.core.Session;
  * based on tutorial:
  * https://github.com/nklkarthi/java-tutorials/blob/master/java-cassandra/src/main/java/com/baeldung/cassandra/java/client/repository/KeyspaceRepository.java
  */
-public class KeyspaceRepository {
-    private Session session;
+public class KeyspaceRepository extends CassandraRepository {
 
     public KeyspaceRepository(Session session) {
-        this.session = session;
+        super(session);
     }
 
     /**
      * Method used to create any keyspace - schema.
      *
-     * @param schemaName the name of the schema.
+     * @param keyspaceName the name of the schema.
      * @param replicatioonStrategy the replication strategy.
      * @param numberOfReplicas the number of replicas.
      *
@@ -26,23 +25,23 @@ public class KeyspaceRepository {
 
         final String query = "CREATE KEYSPACE IF NOT EXISTS " + keyspaceName + " WITH replication = {" + "'class':'" + replicatioonStrategy + "','replication_factor':" + numberOfReplicas + "};";
 
-        session.execute(query);
+        executeQuery(query);
     }
 
     public void useKeyspace(String keyspace) {
-        session.execute("USE " + keyspace);
+        executeQuery("USE " + keyspace);
     }
 
     /**
      * Method used to delete the specified schema.
      * It results in the immediate, irreversable removal of the keyspace, including all tables and data contained in the keyspace.
      *
-     * @param schemaName the name of the keyspace to delete.
+     * @param keyspaceName the name of the keyspace to delete.
      */
     public void deleteKeyspace(String keyspaceName) {
 
         final String query = "DROP KEYSPACE " + keyspaceName;
 
-        session.execute(query);
+       executeQuery(query);
     }
 }

@@ -17,8 +17,8 @@ public class ShimmerApi  {
     @Produces({ "application/json" })
     @ApiOperation(value = "Transfer Shimmer data", notes = "Create a new data transfer for Shimmer data")
     @ApiResponses(value = {
-        @ApiResponse(code = 200, message = "Data transfer is successfull. Message recieved"),
-        @ApiResponse(code = 400, message = "Data transfer did not happen.")})
+        @ApiResponse(code = 200, message = "Data received"),
+        @ApiResponse(code = 400, message = "Error, bad request.")})
     public Response postShimmer(@ApiParam(value = "Data transfer" ,required=true) model.ShimmerMessage message)
     throws NotFoundException {
         return shimmerApiServiceImpl.response(message);

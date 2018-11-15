@@ -4,7 +4,7 @@ import api.JNDIPaths;
 
 public class EyetrackerApiServiceImpl extends ApiServiceImpl {
     public EyetrackerApiServiceImpl(){
-        super(JNDIPaths.EYETRACKER_QUEUE,JNDIPaths.INCOMING_DATA_CONNECTION_FACTORY);
+        super(JNDIPaths.EYETRACKER_RAW_QUEUE,JNDIPaths.INCOMING_DATA_CONNECTION_FACTORY);
     }
 
 }

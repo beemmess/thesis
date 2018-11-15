@@ -19,9 +19,7 @@ public class ApiServiceImpl {
 
 
     public ApiServiceImpl(String queue, String cf) {
-        logger.info("API service impl?");
         try {
-
             connectionFactory = InitialContext.doLookup(cf);
             destination = InitialContext.doLookup(queue);
 
@@ -31,34 +29,26 @@ public class ApiServiceImpl {
     }
 
     public Response response(model.Message message) {
-        logger.info("ApiServiceImpl response 1 log");
-
         return response(gson.toJson(message));
     }
 
     @SuppressWarnings("Duplicates")
     public Response response(String message) {
 
-        logger.info("ApiServiceImpl response 2 log");
         QueueSession session = null;
-
 
         try {
             session = session();
-//            logger.info("string: " +message);
             MessageProducer producer = session.createProducer(destination);
             TextMessage textMessage = session.createTextMessage(message);
             producer.send(textMessage);
             producer.close();
 
-            return Response.ok().entity(new ApiResponseMessage(200, message)).build();
+            return Response.ok().entity(new ApiResponseMessage(200, "Data received")).build();
 
         } catch (JMSException e) {
             return Response.serverError().entity(new ApiResponseMessage(ApiResponseMessage.ERROR, e.getMessage())).build();
         }
-
-
-
 
     }
 

@@ -17,6 +17,7 @@
         <option value="$PROJECT_DIR$/cassandraDB/pom.xml" />
         <option value="$PROJECT_DIR$/core/pom.xml" />
         <option value="$PROJECT_DIR$/featureExtraction/pom.xml" />
+        <option value="$PROJECT_DIR$/featureX/pom.xml" />
         <option value="$PROJECT_DIR$/helloWorldJMS/pom.xml" />
         <option value="$PROJECT_DIR$/helloworld/pom.xml" />
       </set>

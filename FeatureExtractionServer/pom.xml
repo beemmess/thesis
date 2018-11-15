@@ -257,7 +257,7 @@
                             <locations>api</locations>
                             <schemes>http</schemes>
                             <!--<host>${host}/${project.artifactId}</host>-->
-                            <host>142.93.109.50:9090/${project.artifactId}</host>
+                            <host>142.93.109.50:8080/${project.artifactId}</host>
                             <basePath>/api</basePath>
                             <info>
                                 <title>API</title>

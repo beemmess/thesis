@@ -19,11 +19,10 @@ public class EyetrackerApi  {
     @Consumes({ "application/json" })
     @Produces({ "application/json" })
     @ApiOperation(value = "Transfer eyetracking data", notes = "Create a new data transfer for eyetracking data")
-    @ApiResponses(value = {@ApiResponse(code = 200, message = "Data transfer successful"),
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Data received"),
             @ApiResponse(code = 400, message = "Error, bad request.") })
     public Response postEytracker(@ApiParam(value = "Create a new data transfer for eyetracking data" ,required=true) model.EyeTrackerMessage message)
             throws NotFoundException {
-        logger.info("inside eytrackerapi");
         return eyetrackerApiService.response(message);
     }
 
