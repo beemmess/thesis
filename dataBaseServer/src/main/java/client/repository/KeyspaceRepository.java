@@ -38,7 +38,7 @@ public class KeyspaceRepository extends CassandraRepository {
      *
      * @param keyspaceName the name of the keyspace to delete.
      */
-    public void deleteKeyspace(String keyspaceName) {
+    public void dropkeyspace(String keyspaceName) {
 
         final String query = "DROP KEYSPACE " + keyspaceName;
 

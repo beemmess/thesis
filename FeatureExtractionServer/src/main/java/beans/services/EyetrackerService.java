@@ -37,22 +37,31 @@ public class EyetrackerService extends DeviceService{
 
     private String msg;
 
-
-    private String PRE_PROCESS_AND_SUBSTITION = "http://142.93.109.50:5000/api/eyetracker/substitution";
-    private String AVG_PUPIL = "http://142.93.109.50:5000/api/eyetracker/avgPupil";
+    private final String FILLNA = "http://142.93.109.50:5000/api/eyetracker/fillnan";
+    private final String PRE_PROCESS_AND_SUBSTITION = "http://142.93.109.50:5000/api/eyetracker/substitution";
+    private final String AVG_PUPIL = "http://142.93.109.50:5000/api/eyetracker/avgPupil";
+    private final String INTERPOLATE = "http://142.93.109.50:5000/api/eyetracker/interpolate";
 
     public void processMessage(String message) {
 //      Send the rawdata to Database Server
-        sendDataToDB(message,context,queue);
 
+        sendDataToDB(message, context, queue);
 
 //      preprocess data: Gazepoint/pupil substitution link: https://arxiv.org/pdf/1703.09468.pdf
         msg = postToFlask(message,PRE_PROCESS_AND_SUBSTITION);
-        sendDataToDB(msg,context,queue);
-
+        if(msg != null) {
+            sendDataToDB(msg, context, queue);
+        }
 //      feature Extraction: Average pupil diameter
         msg = postToFlask(message,AVG_PUPIL);
-        sendDataToDB(msg,context,queue);
+        if(msg !=null) {
+            sendDataToDB(msg, context, queue);
+        }
+
+        msg = postToFlask(message,INTERPOLATE);
+        if(msg !=null) {
+            sendDataToDB(msg, context, queue);
+        }
 
     }
 

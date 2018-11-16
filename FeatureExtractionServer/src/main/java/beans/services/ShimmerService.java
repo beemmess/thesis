@@ -28,7 +28,7 @@ public class ShimmerService extends DeviceService{
     @Resource(lookup = JNDIPaths.SHIMMER_QUEUE)
     private Queue queue;
 
-    private String AVG_GSR_PPG = "http://142.93.109.50:5000/api/shimmer/avg";
+    private String AVG_GSR_PPG = "http://142.93.109.50:5000/api/shimmer/normalize";
 
 
     public void processMessage(String message){
@@ -37,8 +37,11 @@ public class ShimmerService extends DeviceService{
 
 
 //      feature Extraction: Average GSR and PPG
-//        msg = postToFlask(message,AVG_GSR_PPG);
-//        sendDataToDB(msg,context,queue);
+        msg = postToFlask(message,AVG_GSR_PPG);
+        if(msg != null){
+            sendDataToDB(msg,context,queue);
+
+        }
 
     }
 

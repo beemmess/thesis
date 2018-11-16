@@ -2,32 +2,45 @@
 
 import requests, json
 eyetrackerfile = open('EyeShimmerLSL/testEye.csv', 'r').read()
-shimmerfile = open('EyeShimmerLSL/testShimmer.csv','r').read()
-#local
-localurl ='http://0.0.0.0:5000/api/eyetracker/substitution'
-#local pupil
-localurl2 ='http://0.0.0.0:5000/api/eyetracker/avgPupil'
+shimmerfile = open('EyeShimmerLSL/testShimmerTasks.csv','r').read()
+#local Eyetracker urls
+lsubstitution ='http://0.0.0.0:5000/api/eyetracker/substitution'
+lfillnan ='http://142.93.109.50:5000/api/eyetracker/fillnan'
+linterpolate ='http://0.0.0.0:5000/api/eyetracker/interpolate'
+lavgpupil ='http://0.0.0.0:5000/api/eyetracker/avgPupil'
+
+# Local shimmer urls
+lnormalize = 'http://0.0.0.0:5000/api/shimmer/normalize'
+
+EyetrackerurlList = [lsubstitution,lfillnan,linterpolate,lavgpupil]
 
 
-# Server1 
-subUrl='http://142.93.109.50:5000/api/eyetracker/substitution'
-avgPupilUrl='http://142.93.109.50:5000/api/eyetracker/avgPupil'
-
-
-
-# local Shimmer
-localShimmerUrl = 'http://0.0.0.0:5000/api/shimmer/avg'
 
 
 # Data
 eyetrackerData = { "id": "bjarki","type":"raw", "features": "timestamp,leftX,leftY,rightX,rightY,pupilL,pupilR", "data": eyetrackerfile}
 
-shimmerData = {"id": "bjarkiFlaskTest", "type":"raw", "features":"timestamp,GSR,PPG", "data":shimmerfile}
+shimmerData = {"id": "bjarkiFlaskTest", "type":"raw", "features":"timestamp,GSR,PPG,task", "data":shimmerfile}
 
-# dataJson= json.dumps(data)
 headers = {'Content-type': 'application/json'}
-r = requests.post(localurl,json=eyetrackerData, headers=headers)
-print(r.text)
-text = json.loads(r.text)
-# r2 = requests.post(localShimmerUrl,json=shimmerData,headers=headers)
-# print(r2.text)
+
+for url in EyetrackerurlList:
+	r = requests.post(url,json=eyetrackerData, headers=headers)
+	print(r.text)
+	print(r.status_code)
+
+
+r2 = requests.post(lnormalize,json=shimmerData,headers=headers)
+print(r2.text)
+print(r2.status_code)
+
+
+
+
+
+
+
+
+# # Server1 
+# subUrl='http://142.93.109.50:5000/api/eyetracker/substitution'
+# avgPupilUrl='http://142.93.109.50:5000/api/eyetracker/avgPupil'

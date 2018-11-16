@@ -20,29 +20,23 @@ public class ShimmerService {
     private static final Logger logger = Logger.getLogger(ShimmerService.class.getName());
 
 
-    private String message;
-    private String line;
-    private String[] values;
-
     private Gson gson = new Gson();
-private ShimmerClient shimmerClient = new ShimmerClient();
+    private ShimmerClient shimmerClient = new ShimmerClient();
 
     public void saveDataToDB(String message){
         ShimmerMessage shimmerMessage = gson.fromJson(message, ShimmerMessage.class);
-        logger.info(shimmerMessage.getData());
         String type = shimmerMessage.getType();
         if(type.equals("raw")) {
             logger.info(type);
             saveRawData(shimmerMessage);
         }
-//        if(type.equals("normalized")){
-//            logger.info(type);
-//            saveNormalizedData(shimmerMessage);
-//        }
-//        else{
-//            logger.info("type not found: ");
-//        }
-
+        else if(type.equals("normalized")){
+            logger.info(type);
+            saveNormalizedData(shimmerMessage);
+        }
+        else{
+            logger.info("type not found: ");
+        }
 
 
     }
@@ -52,9 +46,8 @@ private ShimmerClient shimmerClient = new ShimmerClient();
         try(BufferedReader br = new BufferedReader(new StringReader(shimmerMessage.getData()))){
             String line;
             while((line = br.readLine()) != null ){
-//                logger.info(line);
                 String[] values = line.split(",");
-                Shimmer shimmer = new Shimmer(shimmerMessage.getId(), Double.parseDouble(values[0]), Double.parseDouble(values[1]), Double.parseDouble(values[2]));
+                Shimmer shimmer = new Shimmer(shimmerMessage.getId(), Double.parseDouble(values[0]), Double.parseDouble(values[1]), Double.parseDouble(values[2]),values[3]);
                 shimmerClient.shimmerInsertNormalizedValues(shimmer);
 
             }
@@ -70,9 +63,8 @@ private ShimmerClient shimmerClient = new ShimmerClient();
         try(BufferedReader br = new BufferedReader(new StringReader(shimmerMessage.getData()))){
             String line;
             while((line = br.readLine()) != null ){
-//                logger.info(line);
                 String[] values = line.split(",");
-                Shimmer shimmer = new Shimmer(shimmerMessage.getId(), Double.parseDouble(values[0]), Double.parseDouble(values[1]), Double.parseDouble(values[2]));
+                Shimmer shimmer = new Shimmer(shimmerMessage.getId(), Double.parseDouble(values[0]), Double.parseDouble(values[1]), Double.parseDouble(values[2]),values[3]);
                 shimmerClient.shimmerInsertRawValues(shimmer);
 
             }

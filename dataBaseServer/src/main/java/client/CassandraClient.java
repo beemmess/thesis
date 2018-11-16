@@ -32,6 +32,7 @@ public class CassandraClient {
 
         //Create a new keyspace
         KeyspaceRepository keyspaceRepository = new KeyspaceRepository(session);
+        keyspaceRepository.dropkeyspace(keyspace);
         keyspaceRepository.createKeyspace(keyspace, "SimpleStrategy", 1);
         keyspaceRepository.useKeyspace(keyspace);
 
@@ -40,10 +41,14 @@ public class CassandraClient {
         ShimmerRepository shimmerRepository = new ShimmerRepository(session);
 //        CassandraRepository cassandraRepository = new CassandraRepository(session);
         //TODO: take out droptable when devolopement is finished
-//        eyetrackerRepository.dropTable();
+        eyetrackerRepository.dropTable();
+        shimmerRepository.dropTable();
+
+
 
         eyetrackerRepository.createTable();
         shimmerRepository.createTable();
+
 
 
     }

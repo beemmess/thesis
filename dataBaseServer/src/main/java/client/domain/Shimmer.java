@@ -5,13 +5,15 @@ public class Shimmer {
     private double timestamp;
     private double gsr;
     private double ppg;
+    private String task;
 
 
-    public Shimmer(String id, double timestamp, double gsr, double ppg){
+    public Shimmer(String id, double timestamp, double gsr, double ppg, String task){
         this.id = id;
         this.timestamp = timestamp;
         this.gsr = gsr;
         this.ppg = ppg;
+        this.task = task;
 
     }
 
@@ -45,5 +47,13 @@ public class Shimmer {
 
     public void setPpg(double ppg) {
         this.ppg = ppg;
+    }
+
+    public String getTask() {
+        return task;
+    }
+
+    public void setTask(String task) {
+        this.task = task;
     }
 }

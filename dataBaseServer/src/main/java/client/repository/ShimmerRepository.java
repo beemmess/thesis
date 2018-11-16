@@ -16,26 +16,36 @@ public class ShimmerRepository extends CassandraRepository {
 
     public void createTable() {
 
-        final String query = "CREATE TABLE IF NOT EXISTS " + SHIMMER_RAW + "(timestamp double, dataid text, gsr double, ppg double, PRIMARY KEY ((dataid), timestamp)) WITH CLUSTERING ORDER BY (timestamp ASC);";
+        final String query = "CREATE TABLE IF NOT EXISTS " + SHIMMER_RAW + "(timestamp double, dataid text, gsr double, ppg double, task text, PRIMARY KEY ((dataid), timestamp)) WITH CLUSTERING ORDER BY (timestamp ASC);";
         executeQuery(query);
-        final String query2 = "CREATE TABLE IF NOT EXISTS " + SHIMMER_NORMALIZED + "(timestamp double, dataid text, gsr double, ppg double, PRIMARY KEY ((dataid), timestamp)) WITH CLUSTERING ORDER BY (timestamp ASC);";
+        final String query2 = "CREATE TABLE IF NOT EXISTS " + SHIMMER_NORMALIZED + "(timestamp double, dataid text, gsr double, ppg double, task text, PRIMARY KEY ((dataid), timestamp)) WITH CLUSTERING ORDER BY (timestamp ASC);";
         executeQuery(query2);
 
     }
 
+    public void dropTable() {
+        final String query = "DROP TABLE IF EXISTS " + SHIMMER_RAW + ";";
+        executeQuery(query);
+        final String query1 = "DROP TABLE IF EXISTS " + SHIMMER_NORMALIZED + ";";
+        executeQuery(query1);
+
+    }
+
+
+
 
     public Boolean insertRawValues(Shimmer shimmer) {
 
-        final String query = "INSERT INTO " + SHIMMER_RAW + "(timestamp, dataid, gsr, ppg) " + "VALUES ("+ shimmer.getTimestamp() + ", '" + shimmer.getId() + "', "  + shimmer.getGsr() + ", " + shimmer.getPpg() + ");";
+        final String query = "INSERT INTO " + SHIMMER_RAW + "(timestamp, dataid, gsr, ppg, task) " + "VALUES ("+ shimmer.getTimestamp() + ", '" + shimmer.getId() + "', "  + shimmer.getGsr() + ", " + shimmer.getPpg() + ",'" +shimmer.getTask()+"');";
         Boolean resp = executeQuery(query);
-        return true;
+        return resp;
 
     }
 
     public Boolean insertNormalizedData(Shimmer shimmer) {
 
-        final String query = "INSERT INTO " + SHIMMER_NORMALIZED + "(timestamp, dataid, gsr, ppg) " + "VALUES ("+ shimmer.getTimestamp() + ", '" + shimmer.getId() + "', "  + shimmer.getGsr() + ", " + shimmer.getPpg() + ");";
+        final String query = "INSERT INTO " + SHIMMER_NORMALIZED + "(timestamp, dataid, gsr, ppg, task) " + "VALUES ("+ shimmer.getTimestamp() + ", '" + shimmer.getId() + "', "  + shimmer.getGsr() + ", " + shimmer.getPpg() + ",'" +shimmer.getTask()+"');";
         Boolean resp = executeQuery(query);
-        return true;
+        return resp;
     }
 }

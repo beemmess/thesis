@@ -11,7 +11,7 @@ public abstract class MessageBean implements MessageListener {
 
     private static final Logger logger = Logger.getLogger(MessageBean.class.getName());
 
-
+    @SuppressWarnings("Duplicates")
     @Override
     public void onMessage(Message message){
         logger.info("onMessage");

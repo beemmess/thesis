@@ -9,26 +9,26 @@ public class EyetrackerClient extends CassandraClient {
     private Session session = connector.getSession();
 
     public Boolean EyetrackerInsertRawValues(EyeTracker eyeTracker){
-//        Session session = connector.getSession();
         EyetrackerRepository eyetrackerRepository = new EyetrackerRepository(session);
         Boolean response = eyetrackerRepository.insertRawValues(eyeTracker);
-//        eyetrackerRepository.getValues();
-//        logger.info(response);
         return response;
 
     }
 
-    public void EyetrackerInsertPreProcessedData(EyeTracker eyeTracker){
-//        Session session = connector.getSession();
+    public void EyetrackerInsertSubstitutionData(EyeTracker eyeTracker){
         EyetrackerRepository eyetrackerRepository = new EyetrackerRepository(session);
-        eyetrackerRepository.insertPreProcessedValues(eyeTracker);
+        eyetrackerRepository.insertSubstitutionValues(eyeTracker);
 
     }
 
     public void EyetrackerInsertAvgPupilData(EyeTracker eyeTracker){
-//        Session session = connector.getSession();
         EyetrackerRepository eyetrackerRepository = new EyetrackerRepository(session);
         eyetrackerRepository.insertAvgPupilValues(eyeTracker);
 
+    }
+
+    public void EyetrackerInsertInterpolateData(EyeTracker eyeTracker) {
+        EyetrackerRepository eyetrackerRepository = new EyetrackerRepository(session);
+        eyetrackerRepository.insertInterpolateValues(eyeTracker);
     }
 }
