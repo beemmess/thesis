@@ -1,6 +1,7 @@
 package api.impl;
 
 import api.ApiResponseMessage;
+import api.JNDIPaths;
 import org.jboss.logging.Logger;
 import com.google.gson.Gson;
 
@@ -13,6 +14,7 @@ public class ApiServiceImpl {
     private static final Logger logger = Logger.getLogger(ApiServiceImpl.class.getName());
     private ConnectionFactory connectionFactory;
     private Destination destination;
+    private Destination replyDestination;
     private QueueConnection queueConnection;
     private Gson gson = new Gson();
 
@@ -22,6 +24,7 @@ public class ApiServiceImpl {
         try {
             connectionFactory = InitialContext.doLookup(cf);
             destination = InitialContext.doLookup(queue);
+            replyDestination = InitialContext.doLookup(JNDIPaths.REST_REPLY_QUEUE);
 
         } catch (NamingException e) {
             logger.error(e);
@@ -44,7 +47,16 @@ public class ApiServiceImpl {
             producer.send(textMessage);
             producer.close();
 
-            return Response.ok().entity(new ApiResponseMessage(200, "Data received")).build();
+            MessageConsumer consumer = session.createConsumer(replyDestination);
+            queueConnection.start();
+            textMessage = (TextMessage) consumer.receive();
+            queueConnection.stop();
+            consumer.close();
+
+            session.close();
+            queueConnection.close();
+
+            return Response.ok().entity(new ApiResponseMessage(200, textMessage.getText())).build();
 
         } catch (JMSException e) {
             return Response.serverError().entity(new ApiResponseMessage(ApiResponseMessage.ERROR, e.getMessage())).build();

@@ -10,6 +10,7 @@ public final class JNDIPaths {
     public static final String SHIMMER_RAW_QUEUE = "java:jboss/exported/jms/queue/shimmerRaw";
     public static final String SHIMMER_QUEUE = "java:jboss/exported/jms/queue/shimmer";
     public static final String REPLY_QUEUE = "java:jboss/exported/jms/queue/reply";
+    public static final String REST_REPLY_QUEUE = "java:jboss/exported/jms/queue/restreply";
 
 
 

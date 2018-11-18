@@ -18,6 +18,7 @@ import javax.jms.JMSConnectionFactory;
 import javax.jms.JMSContext;
 import javax.jms.Queue;
 import com.google.gson.Gson;
+import reply.ReplyManager;
 
 import java.io.*;
 
@@ -28,6 +29,8 @@ public class EyetrackerService extends DeviceService{
 
     private static final Logger logger = Logger.getLogger(EyetrackerService.class.getName());
 
+    private ReplyManager replyManager = ReplyManager.getInstance();
+
     @Inject
     @JMSConnectionFactory("jms/remoteCF")
     private JMSContext context;
@@ -37,7 +40,6 @@ public class EyetrackerService extends DeviceService{
 
     private String msg;
 
-    private final String FILLNA = "http://142.93.109.50:5000/api/eyetracker/fillnan";
     private final String PRE_PROCESS_AND_SUBSTITION = "http://142.93.109.50:5000/api/eyetracker/substitution";
     private final String AVG_PUPIL = "http://142.93.109.50:5000/api/eyetracker/avgPupil";
     private final String INTERPOLATE = "http://142.93.109.50:5000/api/eyetracker/interpolate";
@@ -46,21 +48,25 @@ public class EyetrackerService extends DeviceService{
 //      Send the rawdata to Database Server
 
         sendDataToDB(message, context, queue);
+        replyManager.setCount(1);
 
 //      preprocess data: Gazepoint/pupil substitution link: https://arxiv.org/pdf/1703.09468.pdf
         msg = postToFlask(message,PRE_PROCESS_AND_SUBSTITION);
         if(msg != null) {
             sendDataToDB(msg, context, queue);
+            replyManager.setCount(2);
         }
 //      feature Extraction: Average pupil diameter
         msg = postToFlask(message,AVG_PUPIL);
         if(msg !=null) {
             sendDataToDB(msg, context, queue);
+            replyManager.setCount(3);
         }
 
         msg = postToFlask(message,INTERPOLATE);
         if(msg !=null) {
             sendDataToDB(msg, context, queue);
+            replyManager.setCount(4);
         }
 
     }

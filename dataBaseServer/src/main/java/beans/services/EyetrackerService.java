@@ -38,8 +38,9 @@ public class EyetrackerService {
 
     private Gson gson = new Gson();
     private EyetrackerClient eyetrackerClient = new EyetrackerClient();
+    private String replymsg;
 
-    public void saveDataToDB(String message) {
+    public String saveDataToDB(String message) {
         logger.info("before send message");
 //        jmsContext.createProducer().send(queue,"this is a reply");
         logger.info("After send message");
@@ -47,28 +48,30 @@ public class EyetrackerService {
         String type = eyeTrackerMessage.getType();
         if (type.equals("raw")) {
             logger.info(type);
-            saveRawData(eyeTrackerMessage);
+            return saveRawData(eyeTrackerMessage);
         }
         else if (type.equals("substitution")) {
             logger.info(type);
-            saveSubstitutionData(eyeTrackerMessage);
+            return saveSubstitutionData(eyeTrackerMessage);
         }
         else if (type.equals("avgPupil")) {
             logger.info(type);
-            saveAvgPupilData(eyeTrackerMessage);
+            return saveAvgPupilData(eyeTrackerMessage);
         }
         else if (type.equals("interpolate")) {
             logger.info(type);
-            saveInterpolateData(eyeTrackerMessage);
+            return saveInterpolateData(eyeTrackerMessage);
         } else {
             logger.info("type not found: "+type);
+            return "type not found";
         }
+
 
 
     }
 
 
-    public void saveRawData(EyeTrackerMessage eyeTrackerMessage) {
+    public String saveRawData(EyeTrackerMessage eyeTrackerMessage) {
 
         try (BufferedReader br = new BufferedReader(new StringReader(eyeTrackerMessage.getData()))) {
             String line;
@@ -77,16 +80,18 @@ public class EyetrackerService {
                 EyeTracker eyeTracker = new EyeTracker(eyeTrackerMessage.getId(), Double.parseDouble(values[0]), values[1],values[2],values[3],values[4],values[5],values[6]);
                 eyetrackerClient.EyetrackerInsertRawValues(eyeTracker);
             }
+            return "raw saved in database";
 
         } catch(IOException e) {
             e.printStackTrace();
+            return "raw NOT saved in database";
         }
 
     }
 
 
 
-    public void saveSubstitutionData(EyeTrackerMessage eyeTrackerMessage){
+    public String saveSubstitutionData(EyeTrackerMessage eyeTrackerMessage){
 
         try(BufferedReader br = new BufferedReader(new StringReader(eyeTrackerMessage.getData()))){
             String line;
@@ -96,14 +101,15 @@ public class EyetrackerService {
                 eyetrackerClient.EyetrackerInsertSubstitutionData(eyeTracker);
 
             }
-
+            return "substitution saved in database";
 
         } catch (IOException e) {
             e.printStackTrace();
+            return "substitution NOT saved in database";
         }
     }
 
-    public void saveAvgPupilData(EyeTrackerMessage eyeTrackerMessage){
+    public String saveAvgPupilData(EyeTrackerMessage eyeTrackerMessage){
 
         try(BufferedReader br = new BufferedReader(new StringReader(eyeTrackerMessage.getData()))){
             String line;
@@ -113,14 +119,15 @@ public class EyetrackerService {
                 eyetrackerClient.EyetrackerInsertAvgPupilData(eyeTracker);
 
             }
-
+            return "avgPupil saved in database";
 
         } catch (IOException e) {
             e.printStackTrace();
+            return "avgPupil NOT saved in database";
         }
     }
 
-    public void saveInterpolateData(EyeTrackerMessage eyeTrackerMessage){
+    public String saveInterpolateData(EyeTrackerMessage eyeTrackerMessage){
 
         try(BufferedReader br = new BufferedReader(new StringReader(eyeTrackerMessage.getData()))){
             String line;
@@ -130,10 +137,11 @@ public class EyetrackerService {
                 eyetrackerClient.EyetrackerInsertInterpolateData(eyeTracker);
 
             }
-
+            return "interpolate saved in database";
 
         } catch (IOException e) {
             e.printStackTrace();
+            return "interpolate NOT saved in database";
         }
     }
 

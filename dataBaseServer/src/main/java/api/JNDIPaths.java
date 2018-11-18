@@ -13,6 +13,8 @@ public final class JNDIPaths {
 
 
     public static final String DATABASE_CONNECTION_FACTORY = "java:/DatabaseConnectionFactory";
+    public static final String CON = "java:/ConnectionFactory";
+    public static final String INCOMING_DATABASE = "java:/IncomingDataConnectionFactory";
     public static final String POOLED_CONNECTION_FACTORY = "jms/remoteCF";
 
 

@@ -31,4 +31,5 @@ public abstract class MessageBean implements MessageListener {
 
     protected abstract void messageReceived(String message);
 
+
 }

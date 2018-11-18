@@ -25,10 +25,11 @@ public class EyetrackerMDB extends MessageBean {
 
 
     @Override
-    protected void messageReceived(String message){
+    protected String messageReceived(String message){
         logger.info("eyeTracker raw queue instance, message: " + message);
 
-        eyetrackerService.saveDataToDB(message);
+        return eyetrackerService.saveDataToDB(message);
+
     }
 
 }
