@@ -27,8 +27,7 @@ public class ShimmerMDB extends MessageBean {
     @Override
     protected String messageReceived(String message){
         logger.info("shimmer raw instance");
-        shimmerService.saveDataToDB(message);
-        return "shimmer test";
+        return shimmerService.saveDataToDB(message);
     }
 
 }

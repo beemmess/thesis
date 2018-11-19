@@ -16,8 +16,6 @@ import java.io.IOException;
 public abstract class DeviceService {
     private static final Logger logger = Logger.getLogger(DeviceService.class.getName());
 
-    @Resource(lookup = JNDIPaths.REPLY_QUEUE)
-    Queue replyqueue;
 
     public String postToFlask(String message,String url){
 
@@ -43,14 +41,6 @@ public abstract class DeviceService {
     public void sendDataToDB(String message, JMSContext context, Queue queue){
         logger.info("send raw data to database");
         context.createProducer().send(queue,message);
-
-//        TextMessage textMessage = (TextMessage) context.createConsumer(replyqueue).receive();
-//        try {
-//            logger.info(textMessage.getText());
-//        } catch (JMSException e) {
-//            e.printStackTrace();
-//        }
-
 
     }
 

@@ -37,15 +37,13 @@ public class ShimmerRepository extends CassandraRepository {
     public Boolean insertRawValues(Shimmer shimmer) {
 
         final String query = "INSERT INTO " + SHIMMER_RAW + "(timestamp, dataid, gsr, ppg, task) " + "VALUES ("+ shimmer.getTimestamp() + ", '" + shimmer.getId() + "', "  + shimmer.getGsr() + ", " + shimmer.getPpg() + ",'" +shimmer.getTask()+"');";
-        Boolean resp = executeQuery(query);
-        return resp;
+        return executeQuery(query);
 
     }
 
     public Boolean insertNormalizedData(Shimmer shimmer) {
 
         final String query = "INSERT INTO " + SHIMMER_NORMALIZED + "(timestamp, dataid, gsr, ppg, task) " + "VALUES ("+ shimmer.getTimestamp() + ", '" + shimmer.getId() + "', "  + shimmer.getGsr() + ", " + shimmer.getPpg() + ",'" +shimmer.getTask()+"');";
-        Boolean resp = executeQuery(query);
-        return resp;
+        return executeQuery(query);
     }
 }

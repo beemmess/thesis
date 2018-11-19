@@ -4,6 +4,7 @@ package beans.services;
 import client.ShimmerClient;
 import client.domain.Shimmer;
 import com.google.gson.Gson;
+import model.ReplyMessage;
 import model.ShimmerMessage;
 import org.jboss.logging.Logger;
 
@@ -22,56 +23,79 @@ public class ShimmerService {
 
     private Gson gson = new Gson();
     private ShimmerClient shimmerClient = new ShimmerClient();
+    private Boolean response;
 
-    public void saveDataToDB(String message){
+    private ReplyMessage replyMessage = new ReplyMessage();
+
+    private String ERROR_RESPONSE = "Something went wrong, data was not saved to database";
+    private String DATA_SAVED = "Data saved to database";
+
+    public String saveDataToDB(String message){
         ShimmerMessage shimmerMessage = gson.fromJson(message, ShimmerMessage.class);
         String type = shimmerMessage.getType();
         if(type.equals("raw")) {
             logger.info(type);
-            saveRawData(shimmerMessage);
+            return saveRawData(shimmerMessage);
         }
         else if(type.equals("normalized")){
             logger.info(type);
-            saveNormalizedData(shimmerMessage);
+            return saveNormalizedData(shimmerMessage);
         }
         else{
             logger.info("type not found: ");
+            return createJsonStringResponse(ERROR_RESPONSE,"InvalidData");
         }
 
 
     }
 
-    private void saveNormalizedData(ShimmerMessage shimmerMessage) {
+    private String saveNormalizedData(ShimmerMessage shimmerMessage) {
+        replyMessage.setData(shimmerMessage.getType());
 
         try(BufferedReader br = new BufferedReader(new StringReader(shimmerMessage.getData()))){
             String line;
             while((line = br.readLine()) != null ){
                 String[] values = line.split(",");
                 Shimmer shimmer = new Shimmer(shimmerMessage.getId(), Double.parseDouble(values[0]), Double.parseDouble(values[1]), Double.parseDouble(values[2]),values[3]);
-                shimmerClient.shimmerInsertNormalizedValues(shimmer);
-
+                response = shimmerClient.shimmerInsertNormalizedValues(shimmer);
+                if(!response){
+                    return createJsonStringResponse(ERROR_RESPONSE,shimmerMessage.getType());
+                }
             }
+            return createJsonStringResponse(DATA_SAVED,shimmerMessage.getType());
 
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.toString());
+            return createJsonStringResponse(ERROR_RESPONSE,shimmerMessage.getType());
         }
     }
 
-    public void saveRawData(ShimmerMessage shimmerMessage) {
-
+    public String saveRawData(ShimmerMessage shimmerMessage) {
+        replyMessage.setData(shimmerMessage.getType());
 
         try(BufferedReader br = new BufferedReader(new StringReader(shimmerMessage.getData()))){
             String line;
             while((line = br.readLine()) != null ){
                 String[] values = line.split(",");
                 Shimmer shimmer = new Shimmer(shimmerMessage.getId(), Double.parseDouble(values[0]), Double.parseDouble(values[1]), Double.parseDouble(values[2]),values[3]);
-                shimmerClient.shimmerInsertRawValues(shimmer);
-
+                response = shimmerClient.shimmerInsertRawValues(shimmer);
+                if(!response){
+                    return createJsonStringResponse(ERROR_RESPONSE,shimmerMessage.getType());
+                }
             }
+            return createJsonStringResponse(DATA_SAVED,shimmerMessage.getType());
+
 
 
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.toString());
+            return createJsonStringResponse(ERROR_RESPONSE,shimmerMessage.getType());
         }
+    }
+
+    public String createJsonStringResponse(String message, String data){
+        replyMessage.setReplyMessage(message);
+        replyMessage.setData(data);
+        return gson.toJson(replyMessage);
     }
 }

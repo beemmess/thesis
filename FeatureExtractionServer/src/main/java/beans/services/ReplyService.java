@@ -1,6 +1,7 @@
 package beans.services;
 
 import api.JNDIPaths;
+import org.apache.commons.lang3.StringUtils;
 import org.jboss.logging.Logger;
 import reply.ReplyManager;
 
@@ -25,13 +26,14 @@ public class ReplyService extends DeviceService {
     public void processReply(String message){
     replyManager.addReplyToList(message);
 
+    replyManager.getCount();
+    replyManager.getListSize();
+
 
     if(replyManager.getCount()==replyManager.getListSize()){
         Object[] array = replyManager.getArrayList();
-        StringBuilder respondMessage = new StringBuilder();
-        for(Object reply: array){
-            respondMessage.append(reply).append(",");
-        }
+        String respondMessage = StringUtils.join(array,",");
+
         logger.info("respond message in process reply " + respondMessage);
 
         try {
@@ -40,7 +42,7 @@ public class ReplyService extends DeviceService {
 
             session = session();
             MessageProducer producer = session.createProducer(destination);
-            TextMessage replyMessage = session.createTextMessage(respondMessage.toString());
+            TextMessage replyMessage = session.createTextMessage(respondMessage);
             producer.send(replyMessage);
         } catch (JMSException | NamingException e) {
             logger.error(e.toString());

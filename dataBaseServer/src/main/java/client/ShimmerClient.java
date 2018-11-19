@@ -13,15 +13,14 @@ public class ShimmerClient extends CassandraClient {
     public Boolean shimmerInsertRawValues(Shimmer shimmer){
 //        Session session = connector.getSession();
         ShimmerRepository shimmerRepository = new ShimmerRepository(session);
-        Boolean response = shimmerRepository.insertRawValues(shimmer);
-        return response;
+        return shimmerRepository.insertRawValues(shimmer);
 
     }
 
 
-    public void shimmerInsertNormalizedValues(Shimmer shimmer){
+    public Boolean shimmerInsertNormalizedValues(Shimmer shimmer){
         ShimmerRepository shimmerRepository = new ShimmerRepository(session);
-        Boolean response = shimmerRepository.insertNormalizedData(shimmer);
+        return shimmerRepository.insertNormalizedData(shimmer);
 
 
     }

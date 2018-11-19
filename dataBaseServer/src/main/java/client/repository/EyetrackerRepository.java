@@ -70,33 +70,26 @@ public class EyetrackerRepository extends CassandraRepository {
     public Boolean insertRawValues(EyeTracker eyeTracker) {
 
         final String query = "INSERT INTO " + EYETRACKER_RAW + "(timestamp, dataid, leftx, lefty, rightx, righty, pupilleft, pupilright) " + "VALUES ("+ eyeTracker.getTimestamp() + ", '" + eyeTracker.getId() + "', '"  + eyeTracker.getLeftxRaw() + "', '" + eyeTracker.getLeftyRaw() + "', '" + eyeTracker.getRightxRaw() + "', '" + eyeTracker.getRightyRaw()  + "', '" + eyeTracker.getPupilLRaw()  + "', '"+ eyeTracker.getPupilRRaw() + "');";
-
-        Boolean resp = executeQuery(query);
-        logger.info(resp+ " " + query);
-        return resp;
+        return executeQuery(query);
 
     }
-    public void insertSubstitutionValues(EyeTracker eyeTracker) {
+    public Boolean insertSubstitutionValues(EyeTracker eyeTracker) {
         final String query = "INSERT INTO " + EYETRACKER_SUSTITUTION + "(timestamp, dataid, leftx, lefty, rightx, righty, pupilleft, pupilright) " + "VALUES ("+ eyeTracker.getTimestamp() + ", '" + eyeTracker.getId() + "', '"  + eyeTracker.getLeftxRaw() + "', '" + eyeTracker.getLeftyRaw() + "', '" + eyeTracker.getRightxRaw() + "', '" + eyeTracker.getRightyRaw()  + "', '" + eyeTracker.getPupilLRaw()  + "', '"+ eyeTracker.getPupilRRaw() + "');";
-        Boolean resp = executeQuery(query);
-        logger.info(resp+ " " + query);
+        return executeQuery(query);
 
     }
 
     public Boolean insertAvgPupilValues(EyeTracker eyeTracker) {
 
         final String query = "INSERT INTO " + EYETRACKER_AVG_PUPIL + "(dataid, pupilleft, pupilright) " + "VALUES ('" +eyeTracker.getId() + "', " + eyeTracker.getPupilL()  + ", "+ eyeTracker.getPupilR() + ");";
-        Boolean resp = executeQuery(query);
-        logger.info(resp+ " " + query);
-        return resp;
+        return executeQuery(query);
 
     }
 
 
-    public void insertInterpolateValues(EyeTracker eyeTracker) {
+    public Boolean insertInterpolateValues(EyeTracker eyeTracker) {
         final String query = "INSERT INTO " + EYETRACKER_INTERPOLATE + "(timestamp, dataid, leftx, lefty, rightx, righty, pupilleft, pupilright) " + "VALUES ("+ eyeTracker.getTimestamp() + ", '" + eyeTracker.getId() + "', "  + eyeTracker.getLeftx() + ", " + eyeTracker.getLefty() + ", " + eyeTracker.getRightx() + ", " + eyeTracker.getRighty()  + ", " + eyeTracker.getPupilL()  + ", "+ eyeTracker.getPupilR() + ");";
-        Boolean resp = executeQuery(query);
-        logger.info(resp+ " " + query);
+        return executeQuery(query);
     }
 }
 
