@@ -17,14 +17,13 @@ public abstract class MessageBean implements MessageListener {
         logger.info("onMessage");
         try {
             if (message instanceof TextMessage) {
-                logger.info("Textmessage instance");
                 messageReceived(((TextMessage)message).getText());
             }
             else {
                 logger.warn("Wrong type of message");
             }
         } catch (JMSException e) {
-            e.printStackTrace();
+            logger.error(e.toString());
         }
     }
 

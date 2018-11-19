@@ -10,9 +10,7 @@ import org.apache.http.util.EntityUtils;
 import org.jboss.logging.Logger;
 
 import javax.annotation.Resource;
-import javax.inject.Inject;
 import javax.jms.*;
-import javax.xml.soap.Text;
 import java.io.IOException;
 
 public abstract class DeviceService {

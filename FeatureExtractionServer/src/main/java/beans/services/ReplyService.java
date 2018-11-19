@@ -4,7 +4,6 @@ import api.JNDIPaths;
 import org.jboss.logging.Logger;
 import reply.ReplyManager;
 
-import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import javax.jms.*;
@@ -21,10 +20,10 @@ public class ReplyService extends DeviceService {
     private ConnectionFactory connectionFactory;
     private Destination destination;
     private QueueSession session;
+    private QueueConnection con;
 
     public void processReply(String message){
-//    String values[] = null;
-    replyManager.addToReplyList(message);
+    replyManager.addReplyToList(message);
 
 
     if(replyManager.getCount()==replyManager.getListSize()){
@@ -38,27 +37,24 @@ public class ReplyService extends DeviceService {
         try {
             connectionFactory = InitialContext.doLookup(JNDIPaths.INCOMING_DATA_CONNECTION_FACTORY);
             destination = InitialContext.doLookup(JNDIPaths.REST_REPLY_QUEUE);
-        } catch (NamingException e) {
-            e.printStackTrace();
-        }
 
-        try {
-            session = setUpSession();
+            session = session();
             MessageProducer producer = session.createProducer(destination);
             TextMessage replyMessage = session.createTextMessage(respondMessage.toString());
             producer.send(replyMessage);
-        } catch (JMSException e) {
-            e.printStackTrace();
+        } catch (JMSException | NamingException e) {
+            logger.error(e.toString());
         }
+
         replyManager.clearList();
 
 
         }
     }
 
-    private QueueSession setUpSession() throws JMSException {
-        QueueConnection qc = (QueueConnection) connectionFactory.createConnection();
-        return qc.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
+    private QueueSession session() throws JMSException {
+        con = (QueueConnection) connectionFactory.createConnection();
+        return con.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
     }
 
 

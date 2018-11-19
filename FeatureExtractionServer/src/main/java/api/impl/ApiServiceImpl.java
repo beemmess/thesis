@@ -15,7 +15,7 @@ public class ApiServiceImpl {
     private ConnectionFactory connectionFactory;
     private Destination destination;
     private Destination replyDestination;
-    private QueueConnection queueConnection;
+    private QueueConnection con;
     private Gson gson = new Gson();
 
 
@@ -48,13 +48,13 @@ public class ApiServiceImpl {
             producer.close();
 
             MessageConsumer consumer = session.createConsumer(replyDestination);
-            queueConnection.start();
+            con.start();
             textMessage = (TextMessage) consumer.receive();
-            queueConnection.stop();
+            con.stop();
             consumer.close();
 
             session.close();
-            queueConnection.close();
+            con.close();
 
             return Response.ok().entity(new ApiResponseMessage(200, textMessage.getText())).build();
 
@@ -65,9 +65,8 @@ public class ApiServiceImpl {
     }
 
     private QueueSession session() throws JMSException{
-        queueConnection = (QueueConnection) connectionFactory.createConnection();
-        QueueSession session = queueConnection.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
-        return session;
+        con = (QueueConnection) connectionFactory.createConnection();
+        return con.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
     }
 
 }

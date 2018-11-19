@@ -24,8 +24,6 @@ public class ReplyMessageBean extends MessageBean {
 
     @Override
     protected void messageReceived(String message) {
-        logger.info("Reply queue, message recieved" + message);
-
         replyService.processReply(message);
     }
 

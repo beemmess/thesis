@@ -1,8 +1,6 @@
 package reply;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class ReplyManager {
 
@@ -23,8 +21,7 @@ public class ReplyManager {
         return instance;
     }
 
-
-    public void addToReplyList(String message) {
+    public void addReplyToList(String message) {
         reply.add(message);
     }
 
