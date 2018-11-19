@@ -11,7 +11,7 @@ shimmerData = {"id": "bjarkiFlaskTest", "type":"raw", "features":"timestamp,GSR,
 
 # dataJson= json.dumps(data)
 headers = {'Content-type': 'application/json'}
-for n in range(10):
+for n in range(2):
 	r1 = requests.post(eyetrackerurl,json=data, headers=headers)
 	# r2 = requests.post(shimmerurl,json=shimmerData, headers=headers)
 	# print(r.json)

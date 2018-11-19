@@ -6,14 +6,14 @@ import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import cucumber.api.java.gl.E;
-import model.EyeTrackerMessage;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.junit.Before;
+import request.Request;
+
 
 import javax.inject.Inject;
 import java.io.BufferedReader;
@@ -34,6 +34,7 @@ public class SendEyetrackerSteps {
     private String string = null;
     private String message = null;
     private int resp;
+    private Request request = new Request();
 
     @Inject
     EyetrackerService eyetrackerService;
@@ -42,6 +43,7 @@ public class SendEyetrackerSteps {
     public void setUp(){
 //        eyetrackerService = new EyetrackerService();
         Gson gson = new Gson();
+
     }
 
     @Given("^That the eyetracking data of the user is collected into \"([^\"]*)\"$")
@@ -56,19 +58,22 @@ public class SendEyetrackerSteps {
     public void theRawDataIsSentToTheServer(String url) {
         logger.info(url);
 
-        try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
-            HttpPost request = new HttpPost(url);
-            StringEntity params = new StringEntity(message);
-            request.addHeader("content-type", "application/json");
-            request.setEntity(params);
-            HttpResponse result = httpClient.execute(request);
-            resp = result.getStatusLine().getStatusCode();
+        HttpResponse result = request.postToFlaskPythonServer(url, message);
 
-        } catch (IOException ex) {
-            logger.info(ex.toString());
-        }
+        resp = result.getStatusLine().getStatusCode();
+//        try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
+//            HttpPost request = new HttpPost(url);
+//            StringEntity params = new StringEntity(message);
+//            request.addHeader("content-type", "application/json");
+//            request.setEntity(params);
+//            HttpResponse result = httpClient.execute(request);
+//            resp = result.getStatusLine().getStatusCode();
+//
+//        } catch (IOException ex) {
+//            logger.info(ex.toString());
+//        }
+//    }
     }
-
 
     @Then("^The raw data is succesfully sent to the server and respond code is <(\\d+)>$")
     public void theRawDataIsSentToServer(int expectedResp) throws PendingException {
