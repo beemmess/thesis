@@ -1,4 +1,4 @@
-package eyetracker;
+package shimmer;
 
 import com.google.gson.Gson;
 import cucumber.api.PendingException;
@@ -7,6 +7,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import model.EyeTrackerMessage;
+import model.ShimmerMessage;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -19,20 +20,18 @@ import java.util.logging.Logger;
 
 import static org.junit.Assert.assertEquals;
 
-public class SendEyetrackerSteps {
-    private static final Logger logger = Logger.getLogger(SendEyetrackerSteps.class.getName());
+@SuppressWarnings("Duplicates")
+public class SendShimmerSteps {
+    private static final Logger logger = Logger.getLogger(SendShimmerSteps.class.getName());
 
     private Gson gson = new Gson();
     private int resp;
     private String json;
-    private EyeTrackerMessage eyeTrackerMessage;
+    private ShimmerMessage shimmerMessage;
 
 
-
-
-
-    @Given("^That the eyetracking data of the user is collected and sent as a JSON string to the server:$")
-    public void thatTheEyetrackingDataOfTheUserIsCollectedAndSentAsAJsonstringToTheServer(String json) {
+    @Given("^That the shimmer data of the user is collected and sent as a JSON string to the server:$")
+    public void thatTheShimmerDataOfTheUserIsCollectedAndSentAsAJsonstringToTheServer(String json) {
         this.json = json;
     }
 
@@ -68,8 +67,8 @@ public class SendEyetrackerSteps {
     }
 
 
-    @Given("^That the eyetracking data of the user has been sent to the server as a JSON:$")
-    public void thatTheEyetrackingDataOfTheUserHasBeenSentToTheServerAsAJson(String json) {
+    @Given("^That the shimmer data of the user has been sent to the server as a JSON:$")
+    public void thatTheShimmerDataOfTheUserHasBeenSentToTheServerAsAJson(String json) {
         this.json = json;
     }
 
@@ -91,30 +90,30 @@ public class SendEyetrackerSteps {
         } catch (IOException ex) {
             logger.info(ex.toString());
         }
-        eyeTrackerMessage = gson.fromJson(json, EyeTrackerMessage.class);
+        shimmerMessage = gson.fromJson(json, ShimmerMessage.class);
 
 
     }
 
     @Then("^The JSON value of type should be \"([^\"]*)\"$")
     public void theJSONValueOfTypeShouldBeType(String type) {
-        assertEquals(type, eyeTrackerMessage.getType());
+        assertEquals(type, shimmerMessage.getType());
 
     }
 
     @And("^The JSON value of id should be \"([^\"]*)\"$")
     public void theJSONValueOfIdShouldBeId(String id)  {
-        assertEquals(id, eyeTrackerMessage.getId());
+        assertEquals(id, shimmerMessage.getId());
 
     }
 
     @And("^The JSON value of features should be \"([^\"]*)\"$")
     public void theJSONValueOfFeaturesShouldBeFeatures(String features) {
-        assertEquals(features,eyeTrackerMessage.getFeatures());
+        assertEquals(features,shimmerMessage.getFeatures());
     }
 
     @And("^The JSON value of data should be \"([^\"]*)\"$")
     public void theJSONValueOfDataShouldBeData(String data) {
-        assertEquals(data, eyeTrackerMessage.getData());
+        assertEquals(data, shimmerMessage.getData());
     }
 }

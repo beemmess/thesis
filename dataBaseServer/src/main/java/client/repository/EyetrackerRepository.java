@@ -89,6 +89,7 @@ public class EyetrackerRepository extends CassandraRepository {
 
     public Boolean insertInterpolateValues(EyeTracker eyeTracker) {
         final String query = "INSERT INTO " + EYETRACKER_INTERPOLATE + "(timestamp, dataid, leftx, lefty, rightx, righty, pupilleft, pupilright) " + "VALUES ("+ eyeTracker.getTimestamp() + ", '" + eyeTracker.getId() + "', "  + eyeTracker.getLeftx() + ", " + eyeTracker.getLefty() + ", " + eyeTracker.getRightx() + ", " + eyeTracker.getRighty()  + ", " + eyeTracker.getPupilL()  + ", "+ eyeTracker.getPupilR() + ");";
+        logger.info(query);
         return executeQuery(query);
     }
 }
