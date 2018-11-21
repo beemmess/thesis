@@ -47,6 +47,8 @@ public class SendEyetrackerSteps {
             HttpResponse result = httpClient.execute(request);
             resp = result.getStatusLine().getStatusCode();
 
+            json = EntityUtils.toString(result.getEntity(), "UTF-8");
+
         } catch (IOException ex) {
             logger.info(ex.toString());
         }
@@ -57,6 +59,13 @@ public class SendEyetrackerSteps {
     public void theRawDataIsSentToServer(int expectedResp) throws PendingException {
         // Write code here that turns the phrase above into concrete actions
         assertEquals(expectedResp, resp);
+
+    }
+
+
+    @And("^The message respond replies that all data has been saved to database;$")
+    public void theMessageRespondRepliesThatAllDataHasBeenSavedToDatabase()  {
+        logger.info(json);
 
     }
 
@@ -117,4 +126,6 @@ public class SendEyetrackerSteps {
     public void theJSONValueOfDataShouldBeData(String data) {
         assertEquals(data, eyeTrackerMessage.getData());
     }
+
+
 }

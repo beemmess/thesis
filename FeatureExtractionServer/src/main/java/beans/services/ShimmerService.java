@@ -33,7 +33,7 @@ public class ShimmerService extends DeviceService{
 
 
 
-    private String AVG_GSR_PPG = "http://142.93.109.50:5000/api/shimmer/normalize";
+    private String AVG_GSR_PPG = "http://142.93.109.50:5000/shimmer/normalize";
 
 
     public void processMessage(String message){

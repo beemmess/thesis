@@ -4,15 +4,15 @@ import requests, json
 eyetrackerfile = open('EyeShimmerLSL/testEye.csv', 'r').read()
 shimmerfile = open('EyeShimmerLSL/testShimmerTasks.csv','r').read()
 #local Eyetracker urls
-lsubstitution ='http://0.0.0.0:5000/api/eyetracker/substitution'
-lfillnan ='http://142.93.109.50:5000/api/eyetracker/fillnan'
-linterpolate ='http://0.0.0.0:5000/api/eyetracker/interpolate'
-lavgpupil ='http://0.0.0.0:5000/api/eyetracker/avgPupil'
+lsubstitution ='http://0.0.0.0:5000/eyetracker/substitution'
+lfillnan ='http://142.93.109.50:5000/eyetracker/fillnan'
+linterpolate ='http://0.0.0.0:5000/eyetracker/interpolate'
+lavgpupil ='http://0.0.0.0:5000/eyetracker/avgPupil'
 
 # Local shimmer urls
-lnormalize = 'http://0.0.0.0:5000/api/shimmer/normalize'
+lnormalize = 'http://0.0.0.0:5000/shimmer/normalize'
 
-EyetrackerurlList = [lsubstitution,lfillnan,linterpolate,lavgpupil]
+EyetrackerurlList = [lsubstitution,linterpolate,lavgpupil]
 
 
 

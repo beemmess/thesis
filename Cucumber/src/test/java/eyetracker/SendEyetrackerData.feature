@@ -14,6 +14,7 @@ Feature: Send a raw Eyetracking data to Feature extraction server
     """
     When The raw data is sent to the server "http://142.93.109.50:8080/FeatureExtractionServer/api/eyetracker"
     Then The data is succesfully sent and the server code response should be <200>
+    And The message respond replies that all data has been saved to database;
 
   Scenario: As a user, I mistakenly send a badly formatted eyetracking data to the server
     Given That the eyetracking data of the user is collected and sent as a JSON string to the server:
@@ -27,7 +28,7 @@ Feature: Send a raw Eyetracking data to Feature extraction server
     Then The raw data is unsuccesfully sent to the server and respond code is <400>
 
 
-  Scenario Outline: As a researcher, I want to be sure that the data is processed correctly
+  Scenario Outline: As a user, I want to be sure that the data is processed correctly
     Given That the eyetracking data of the user has been sent to the server as a JSON:
     """
     {
@@ -44,6 +45,6 @@ Feature: Send a raw Eyetracking data to Feature extraction server
     And The JSON value of data should be "<data>"
     Examples:
     |url                                                   | type          | id        | features                                          | data                                                                                                            |
-    |http://142.93.109.50:5000/api/eyetracker/substitution | substitution  | Cucumber  | timestamp,leftX,leftY,rightX,rightY,pupilL,pupilR | 6682.1000000000,0.9100000000,0.9200000000,0.9300000000,0.9400000000,2.2000000000,2.4000000000\n6682.2000000000,0.8300000000,0.8400000000,0.8300000000,0.8400000000,3.2000000000,3.4000000000\n6682.3000000000,0.9300000000,0.9400000000,0.8300000000,0.8400000000,3.3000000000,3.5000000000\n|
-    |http://142.93.109.50:5000/api/eyetracker/avgPupil     | avgPupil      | Cucumber  | avgPupilL,avgPupilR                               | 2.9,3.1                                                                                                     |
-    |http://142.93.109.50:5000/api/eyetracker/interpolate  | interpolate   | Cucumber  | timestamp,leftX,leftY,rightX,rightY,pupilL,pupilR | 6682.1000000000,0.9100000000,0.9200000000,0.9300000000,0.9400000000,2.2000000000,2.4000000000\n6682.2000000000,0.9200000000,0.9300000000,0.8300000000,0.8400000000,3.2000000000,3.4000000000\n6682.3000000000,0.9300000000,0.9400000000,0.8300000000,0.8400000000,3.3000000000,3.5000000000\n|
+    |http://142.93.109.50:5000/eyetracker/substitution | substitution  | Cucumber  | timestamp,leftX,leftY,rightX,rightY,pupilL,pupilR | 6682.1000000000,0.9100000000,0.9200000000,0.9300000000,0.9400000000,2.2000000000,2.4000000000\n6682.2000000000,0.8300000000,0.8400000000,0.8300000000,0.8400000000,3.2000000000,3.4000000000\n6682.3000000000,0.9300000000,0.9400000000,0.8300000000,0.8400000000,3.3000000000,3.5000000000\n|
+    |http://142.93.109.50:5000/eyetracker/avgPupil     | avgPupil      | Cucumber  | avgPupilL,avgPupilR                               | 2.9,3.1                                                                                                     |
+    |http://142.93.109.50:5000/eyetracker/interpolate  | interpolate   | Cucumber  | timestamp,leftX,leftY,rightX,rightY,pupilL,pupilR | 6682.1000000000,0.9100000000,0.9200000000,0.9300000000,0.9400000000,2.2000000000,2.4000000000\n6682.2000000000,0.9200000000,0.9300000000,0.8300000000,0.8400000000,3.2000000000,3.4000000000\n6682.3000000000,0.9300000000,0.9400000000,0.8300000000,0.8400000000,3.3000000000,3.5000000000\n|

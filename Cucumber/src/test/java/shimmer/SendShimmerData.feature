@@ -45,4 +45,4 @@ Feature: Send a raw Shimmer data to Feature extraction server
     And The JSON value of data should be "<data>"
     Examples:
     |url                                                | type          | id        | features               | data                                                                                                                                   |
-    |http://142.93.109.50:5000/api/shimmer/normalize    | normalize     | Cucumber  | timestamp,GSR,PPG,task | 6682.1000000000,0.9823008850,0.9824561404,1\n6682.2000000000,1.0000000000,1.0000000000,2\n6682.3000000000,1.0176991150,1.0175438596,3\n|
+    |http://142.93.109.50:5000/shimmer/normalize    | normalize     | Cucumber  | timestamp,GSR,PPG,task | 6682.1000000000,0.9823008850,0.9824561404,1\n6682.2000000000,1.0000000000,1.0000000000,2\n6682.3000000000,1.0176991150,1.0175438596,3\n|

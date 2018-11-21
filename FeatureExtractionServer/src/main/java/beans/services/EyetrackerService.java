@@ -40,9 +40,9 @@ public class EyetrackerService extends DeviceService{
 
     private String msg;
 
-    private final String PRE_PROCESS_AND_SUBSTITION = "http://142.93.109.50:5000/api/eyetracker/substitution";
-    private final String AVG_PUPIL = "http://142.93.109.50:5000/api/eyetracker/avgPupil";
-    private final String INTERPOLATE = "http://142.93.109.50:5000/api/eyetracker/interpolate";
+    private final String PRE_PROCESS_AND_SUBSTITION = "http://142.93.109.50:5000/eyetracker/substitution";
+    private final String AVG_PUPIL = "http://142.93.109.50:5000/eyetracker/avgPupil";
+    private final String INTERPOLATE = "http://142.93.109.50:5000/eyetracker/interpolate";
 
     public void processMessage(String message) {
 //      Send the rawdata to Database Server

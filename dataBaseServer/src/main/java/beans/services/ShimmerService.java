@@ -37,7 +37,7 @@ public class ShimmerService {
             logger.info(type);
             return saveRawData(shimmerMessage);
         }
-        else if(type.equals("normalized")){
+        else if(type.equals("normalize")){
             logger.info(type);
             return saveNormalizedData(shimmerMessage);
         }
