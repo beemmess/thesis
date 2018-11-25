@@ -37,6 +37,8 @@ public class ShimmerService extends DeviceService{
 
 
     public void processMessage(String message){
+//      Clear the list if in the case of list not empty
+        replyManager.clearList();
 //      Send first the rawdata to Database Server
         sendDataToDB(message,context,queue);
         replyManager.setCount(1);

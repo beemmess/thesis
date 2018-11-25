@@ -46,6 +46,7 @@ public class EyetrackerService extends DeviceService{
 
     public void processMessage(String message) {
 //      Send the rawdata to Database Server
+        replyManager.clearList();
 
         sendDataToDB(message, context, queue);
         replyManager.setCount(1);

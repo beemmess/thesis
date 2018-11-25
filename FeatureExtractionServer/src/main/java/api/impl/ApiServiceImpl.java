@@ -26,6 +26,7 @@ public class ApiServiceImpl {
             destination = InitialContext.doLookup(queue);
             replyDestination = InitialContext.doLookup(JNDIPaths.REST_REPLY_QUEUE);
 
+
         } catch (NamingException e) {
             logger.error(e);
         }
@@ -37,15 +38,16 @@ public class ApiServiceImpl {
 
     @SuppressWarnings("Duplicates")
     public Response response(String message) {
+//
 
-        QueueSession session = null;
 
         try {
-            session = session();
+            QueueSession session = session();
             MessageProducer producer = session.createProducer(destination);
             TextMessage textMessage = session.createTextMessage(message);
             producer.send(textMessage);
             producer.close();
+
 
             MessageConsumer consumer = session.createConsumer(replyDestination);
             con.start();

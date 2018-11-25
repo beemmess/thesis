@@ -25,7 +25,6 @@ public abstract class DeviceService {
 
             request.addHeader("content-type", "application/json");
             request.setEntity(params);
-            httpClient.execute(request);
             HttpResponse result = httpClient.execute(request);
 
             String json = EntityUtils.toString(result.getEntity(), "UTF-8");
@@ -39,7 +38,7 @@ public abstract class DeviceService {
     }
 
     public void sendDataToDB(String message, JMSContext context, Queue queue){
-        logger.info("send raw data to database");
+        logger.info("sending data to database");
         context.createProducer().send(queue,message);
 
     }

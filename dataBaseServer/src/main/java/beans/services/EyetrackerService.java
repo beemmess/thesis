@@ -13,6 +13,7 @@ import javax.jms.JMSConnectionFactory;
 import javax.jms.JMSContext;
 import javax.jms.Queue;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import model.EyeTrackerMessage;
 import model.ReplyMessage;
 import org.jboss.logging.Logger;
@@ -66,7 +67,7 @@ public class EyetrackerService {
             return saveInterpolateData(eyeTrackerMessage);
         } else {
             logger.info("type not found: "+type);
-            return createJsonStringResponse(ERROR_RESPONSE,"InvalidData");
+            return createJsonStringResponse(ERROR_RESPONSE,"InvalidData", false);
         }
 
 
@@ -80,17 +81,19 @@ public class EyetrackerService {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
-                EyeTracker eyeTracker = new EyeTracker(eyeTrackerMessage.getId(), Double.parseDouble(values[0]), values[1],values[2],values[3],values[4],values[5],values[6]);
+//                EyeTracker eyeTracker = new EyeTracker(eyeTrackerMessage.getId(), Double.parseDouble(values[0]), values[1],values[2],values[3],values[4],values[5],values[6]);
+                EyeTracker eyeTracker = new EyeTracker(eyeTrackerMessage.getId(), Double.parseDouble(values[0]), Double.parseDouble(values[1]), Double.parseDouble(values[2]), Double.parseDouble(values[3]), Double.parseDouble(values[4]), Double.parseDouble(values[5]), Double.parseDouble(values[6]));
+
                 response = eyetrackerClient.EyetrackerInsertRawValues(eyeTracker);
                 if(!response){
-                    return createJsonStringResponse(ERROR_RESPONSE,eyeTrackerMessage.getType());
+                    return createJsonStringResponse(ERROR_RESPONSE,eyeTrackerMessage.getType(), false);
                 }
             }
-            return createJsonStringResponse(DATA_SAVED,eyeTrackerMessage.getType());
+            return createJsonStringResponse(DATA_SAVED,eyeTrackerMessage.getType(), true);
 
         } catch(IOException e) {
-            e.printStackTrace();
-            return createJsonStringResponse(ERROR_RESPONSE,eyeTrackerMessage.getType());
+            logger.warn("error in Save raw Data " + e.toString());
+            return createJsonStringResponse(ERROR_RESPONSE,eyeTrackerMessage.getType(), false);
         }
 
     }
@@ -103,17 +106,19 @@ public class EyetrackerService {
             String line;
             while((line = br.readLine()) != null ){
                 String[] values = line.split(",");
-                EyeTracker eyeTracker = new EyeTracker(eyeTrackerMessage.getId(), Double.parseDouble(values[0]), values[1],values[2],values[3],values[4],values[5],values[6]);
+//                EyeTracker eyeTracker = new EyeTracker(eyeTrackerMessage.getId(), Double.parseDouble(values[0]), values[1],values[2],values[3],values[4],values[5],values[6]);
+                EyeTracker eyeTracker = new EyeTracker(eyeTrackerMessage.getId(), Double.parseDouble(values[0]), Double.parseDouble(values[1]), Double.parseDouble(values[2]), Double.parseDouble(values[3]), Double.parseDouble(values[4]), Double.parseDouble(values[5]), Double.parseDouble(values[6]));
+
                 response = eyetrackerClient.EyetrackerInsertSubstitutionData(eyeTracker);
                 if(!response){
-                    return createJsonStringResponse(ERROR_RESPONSE,eyeTrackerMessage.getType());
+                    return createJsonStringResponse(ERROR_RESPONSE,eyeTrackerMessage.getType(), false);
                 }
             }
-            return createJsonStringResponse(DATA_SAVED,eyeTrackerMessage.getType());
+            return createJsonStringResponse(DATA_SAVED,eyeTrackerMessage.getType(), true);
 
         } catch (IOException e) {
-            e.printStackTrace();
-            return createJsonStringResponse(ERROR_RESPONSE,eyeTrackerMessage.getType());
+            logger.warn("error in Save substituion Data " + e.toString());
+            return createJsonStringResponse(ERROR_RESPONSE,eyeTrackerMessage.getType(), false);
         }
     }
 
@@ -126,14 +131,14 @@ public class EyetrackerService {
                 EyeTracker eyeTracker = new EyeTracker(eyeTrackerMessage.getId(), Double.parseDouble(values[0]), Double.parseDouble(values[1]));
                 response = eyetrackerClient.EyetrackerInsertAvgPupilData(eyeTracker);
                 if(!response){
-                    return createJsonStringResponse(ERROR_RESPONSE,eyeTrackerMessage.getType());
+                    return createJsonStringResponse(ERROR_RESPONSE,eyeTrackerMessage.getType(), false);
                 }
             }
-            return createJsonStringResponse(DATA_SAVED,eyeTrackerMessage.getType());
+            return createJsonStringResponse(DATA_SAVED,eyeTrackerMessage.getType(), true);
 
         } catch (IOException e) {
-            e.printStackTrace();
-            return createJsonStringResponse(ERROR_RESPONSE,eyeTrackerMessage.getType());
+            logger.warn("error in Save average Data " + e.toString());
+            return createJsonStringResponse(ERROR_RESPONSE,eyeTrackerMessage.getType(), false);
         }
     }
 
@@ -146,21 +151,22 @@ public class EyetrackerService {
                 EyeTracker eyeTracker = new EyeTracker(eyeTrackerMessage.getId(), Double.parseDouble(values[0]), Double.parseDouble(values[1]), Double.parseDouble(values[2]), Double.parseDouble(values[3]), Double.parseDouble(values[4]), Double.parseDouble(values[5]), Double.parseDouble(values[6]));
                 response = eyetrackerClient.EyetrackerInsertInterpolateData(eyeTracker);
                 if(!response){
-                    return createJsonStringResponse(ERROR_RESPONSE,eyeTrackerMessage.getType());
+                    return createJsonStringResponse(ERROR_RESPONSE,eyeTrackerMessage.getType(), false);
                 }
             }
-            return createJsonStringResponse(DATA_SAVED,eyeTrackerMessage.getType());
+            return createJsonStringResponse(DATA_SAVED,eyeTrackerMessage.getType(), true);
 
         } catch (IOException e) {
-            e.printStackTrace();
-            return createJsonStringResponse(ERROR_RESPONSE,eyeTrackerMessage.getType());
+            logger.warn("error in Save interpolate Data " + e.toString());
+            return createJsonStringResponse(ERROR_RESPONSE,eyeTrackerMessage.getType(), false);
         }
     }
 
 
-    public String createJsonStringResponse(String message, String data){
+    public String createJsonStringResponse(String message, String data, Boolean success){
         replyMessage.setReplyMessage(message);
         replyMessage.setData(data);
+        replyMessage.setSucess(success);
         return gson.toJson(replyMessage);
     }
 
