@@ -62,6 +62,10 @@ public class EyetrackerService {
             logger.info(type);
             return saveAvgPupilData(eyeTrackerMessage);
         }
+        else if (type.equals("avgPupilTasks")) {
+            logger.info(type);
+            return saveAvgPupilPerTaskData(eyeTrackerMessage);
+        }
         else if (type.equals("interpolate")) {
             logger.info(type);
             return saveInterpolateData(eyeTrackerMessage);
@@ -75,6 +79,8 @@ public class EyetrackerService {
     }
 
 
+
+
     public String saveRawData(EyeTrackerMessage eyeTrackerMessage) {
 
         try (BufferedReader br = new BufferedReader(new StringReader(eyeTrackerMessage.getData()))) {
@@ -82,7 +88,15 @@ public class EyetrackerService {
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
 //                EyeTracker eyeTracker = new EyeTracker(eyeTrackerMessage.getId(), Double.parseDouble(values[0]), values[1],values[2],values[3],values[4],values[5],values[6]);
-                EyeTracker eyeTracker = new EyeTracker(eyeTrackerMessage.getId(), Double.parseDouble(values[0]), Double.parseDouble(values[1]), Double.parseDouble(values[2]), Double.parseDouble(values[3]), Double.parseDouble(values[4]), Double.parseDouble(values[5]), Double.parseDouble(values[6]));
+                EyeTracker eyeTracker = new EyeTracker(eyeTrackerMessage.getId(),
+                        Double.parseDouble(values[0]),
+                        Double.parseDouble(values[1]),
+                        Double.parseDouble(values[2]),
+                        Double.parseDouble(values[3]),
+                        Double.parseDouble(values[4]),
+                        Double.parseDouble(values[5]),
+                        Double.parseDouble(values[6]),
+                        values[7]);
 
                 response = eyetrackerClient.EyetrackerInsertRawValues(eyeTracker);
                 if(!response){
@@ -107,7 +121,15 @@ public class EyetrackerService {
             while((line = br.readLine()) != null ){
                 String[] values = line.split(",");
 //                EyeTracker eyeTracker = new EyeTracker(eyeTrackerMessage.getId(), Double.parseDouble(values[0]), values[1],values[2],values[3],values[4],values[5],values[6]);
-                EyeTracker eyeTracker = new EyeTracker(eyeTrackerMessage.getId(), Double.parseDouble(values[0]), Double.parseDouble(values[1]), Double.parseDouble(values[2]), Double.parseDouble(values[3]), Double.parseDouble(values[4]), Double.parseDouble(values[5]), Double.parseDouble(values[6]));
+                EyeTracker eyeTracker = new EyeTracker(eyeTrackerMessage.getId(),
+                        Double.parseDouble(values[0]),
+                        Double.parseDouble(values[1]),
+                        Double.parseDouble(values[2]),
+                        Double.parseDouble(values[3]),
+                        Double.parseDouble(values[4]),
+                        Double.parseDouble(values[5]),
+                        Double.parseDouble(values[6]),
+                        values[7]);
 
                 response = eyetrackerClient.EyetrackerInsertSubstitutionData(eyeTracker);
                 if(!response){
@@ -142,13 +164,45 @@ public class EyetrackerService {
         }
     }
 
+    private String saveAvgPupilPerTaskData(EyeTrackerMessage eyeTrackerMessage) {
+
+        try(BufferedReader br = new BufferedReader(new StringReader(eyeTrackerMessage.getData()))){
+            String line;
+            while((line = br.readLine()) != null ){
+                String[] values = line.split(",");
+                logger.info(line);
+                EyeTracker eyeTracker = new EyeTracker(eyeTrackerMessage.getId(),
+                        Double.parseDouble(values[0]),
+                        Double.parseDouble(values[1]),
+                        values[2]);
+                response = eyetrackerClient.EyetrackerInsertAvgPupilDataPerTask(eyeTracker);
+                if(!response){
+                    return createJsonStringResponse(ERROR_RESPONSE,eyeTrackerMessage.getType(), false);
+                }
+            }
+            return createJsonStringResponse(DATA_SAVED,eyeTrackerMessage.getType(), true);
+
+        } catch (IOException e) {
+            logger.warn("error in Save average Data " + e.toString());
+            return createJsonStringResponse(ERROR_RESPONSE,eyeTrackerMessage.getType(), false);
+        }
+    }
+
     public String saveInterpolateData(EyeTrackerMessage eyeTrackerMessage){
 
         try(BufferedReader br = new BufferedReader(new StringReader(eyeTrackerMessage.getData()))){
             String line;
             while((line = br.readLine()) != null ){
                 String[] values = line.split(",");
-                EyeTracker eyeTracker = new EyeTracker(eyeTrackerMessage.getId(), Double.parseDouble(values[0]), Double.parseDouble(values[1]), Double.parseDouble(values[2]), Double.parseDouble(values[3]), Double.parseDouble(values[4]), Double.parseDouble(values[5]), Double.parseDouble(values[6]));
+                EyeTracker eyeTracker = new EyeTracker(eyeTrackerMessage.getId(),
+                        Double.parseDouble(values[0]),
+                        Double.parseDouble(values[1]),
+                        Double.parseDouble(values[2]),
+                        Double.parseDouble(values[3]),
+                        Double.parseDouble(values[4]),
+                        Double.parseDouble(values[5]),
+                        Double.parseDouble(values[6]),
+                        values[7]);
                 response = eyetrackerClient.EyetrackerInsertInterpolateData(eyeTracker);
                 if(!response){
                     return createJsonStringResponse(ERROR_RESPONSE,eyeTrackerMessage.getType(), false);

@@ -39,6 +39,7 @@ public abstract class DeviceService {
 
     public void sendDataToDB(String message, JMSContext context, Queue queue){
         logger.info("sending data to database");
+
         context.createProducer().send(queue,message);
 
     }

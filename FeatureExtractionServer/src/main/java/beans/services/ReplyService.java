@@ -1,6 +1,8 @@
 package beans.services;
 
 import api.JNDIPaths;
+import com.google.gson.Gson;
+import model.ReplyMessage;
 import org.apache.commons.lang3.StringUtils;
 import org.jboss.logging.Logger;
 import reply.ReplyManager;
@@ -22,28 +24,27 @@ public class ReplyService extends DeviceService {
     private Destination destination;
     private QueueSession session;
     private QueueConnection con;
+    private Gson gson = new Gson();
 
     public void processReply(String message){
     replyManager.addReplyToList(message);
 
-    replyManager.getCount();
-    replyManager.getListSize();
-
 
     if(replyManager.getCount()==replyManager.getListSize()){
+
         Object[] array = replyManager.getArrayList();
-        String respondMessage = StringUtils.join(array,",");
-
-        logger.info("respond message in process reply " + respondMessage);
-
+        String arrayMessage = StringUtils.join(array,"\t");
+        String[] replyMsgList = arrayMessage.split("\t");
+        String replyMessage = generateReplyMessage(replyMsgList);
+        logger.info(replyMessage);
         try {
             connectionFactory = InitialContext.doLookup(JNDIPaths.INCOMING_DATA_CONNECTION_FACTORY);
             destination = InitialContext.doLookup(JNDIPaths.REST_REPLY_QUEUE);
 
             session = session();
             MessageProducer producer = session.createProducer(destination);
-            TextMessage replyMessage = session.createTextMessage(respondMessage);
-            producer.send(replyMessage);
+            TextMessage textMessage = session.createTextMessage(replyMessage);
+            producer.send(textMessage);
         } catch (JMSException | NamingException e) {
             logger.error(e.toString());
         }
@@ -52,6 +53,26 @@ public class ReplyService extends DeviceService {
 
 
         }
+    }
+
+
+    private String generateReplyMessage(String[] list) {
+        int len = list.length;
+        String msg ="";
+        int successCount = 0;
+        for (String reply : list){
+            ReplyMessage replyMessage = gson.fromJson(reply, ReplyMessage.class);
+            Boolean success = replyMessage.getSucess();
+            msg += replyMessage.getData()+ " " + replyMessage.getReplyMessage() +": "+ replyMessage.getSucess()+"\n";
+            logger.info(msg);
+            if(success){
+                successCount +=1;
+            }
+        }
+        if(successCount == len){
+            return "All data has been sucessfully saved to database:\n" + msg;
+        }
+        return "Error in saving in database:\n" + msg;
     }
 
     private QueueSession session() throws JMSException {

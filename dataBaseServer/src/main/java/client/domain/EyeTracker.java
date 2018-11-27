@@ -17,6 +17,7 @@ public class EyeTracker {
 
     private String pupilRRaw;
 
+    private String task;
     private double leftx;
     private double lefty;
     private double rightx;
@@ -35,10 +36,11 @@ public class EyeTracker {
         this.rightyRaw = rightyRaw;
         this.pupilLRaw = pupilLRaw;
         this.pupilRRaw = pupilRRaw;
+        this.task = task;
     }
 
-//    For preprocessed data
-    public EyeTracker(String id, double timestamp, double leftx, double lefty, double rightx, double righty, double pupilL, double pupilR) {
+//    For full eyetracking data
+    public EyeTracker(String id, double timestamp, double leftx, double lefty, double rightx, double righty, double pupilL, double pupilR, String task) {
         this.id = id;
         this.timestamp = timestamp;
         this.leftx =leftx;
@@ -47,6 +49,7 @@ public class EyeTracker {
         this.righty = righty;
         this.pupilR = pupilR;
         this.pupilL= pupilL;
+        this.task = task;
     }
 
 //    For avg pupilDiameter
@@ -54,6 +57,14 @@ public class EyeTracker {
         this.id = id;
         this.pupilL = pupilL;
         this.pupilR = pupilR;
+    }
+
+    //    For avg pupilDiameter per Task
+    public EyeTracker(String id, double pupilL, double pupilR, String task){
+        this.id = id;
+        this.pupilL = pupilL;
+        this.pupilR = pupilR;
+        this.task = task;
     }
 
 
@@ -168,6 +179,14 @@ public class EyeTracker {
 
     public void setPupilR(double pupilR) {
         this.pupilR = pupilR;
+    }
+
+    public String getTask() {
+        return task;
+    }
+
+    public void setTask(String task) {
+        this.task = task;
     }
 }
 

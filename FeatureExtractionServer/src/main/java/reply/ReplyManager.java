@@ -29,6 +29,8 @@ public class ReplyManager {
         reply.clear();
     }
 
+    public void clearCount() {this.count = 0;}
+
     public int getListSize(){
         return reply.size();
     }

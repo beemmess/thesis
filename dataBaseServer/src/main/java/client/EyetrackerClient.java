@@ -26,6 +26,12 @@ public class EyetrackerClient extends CassandraClient {
 
     }
 
+    public Boolean EyetrackerInsertAvgPupilDataPerTask(EyeTracker eyeTracker){
+        EyetrackerRepository eyetrackerRepository = new EyetrackerRepository(session);
+        return eyetrackerRepository.insertAvgPupilPerTaskValues(eyeTracker);
+
+    }
+
     public Boolean EyetrackerInsertInterpolateData(EyeTracker eyeTracker) {
         EyetrackerRepository eyetrackerRepository = new EyetrackerRepository(session);
         return eyetrackerRepository.insertInterpolateValues(eyeTracker);

@@ -42,6 +42,7 @@ public class EyetrackerService extends DeviceService{
 
     private final String PRE_PROCESS_AND_SUBSTITION = "http://142.93.109.50:5000/eyetracker/substitution";
     private final String AVG_PUPIL = "http://142.93.109.50:5000/eyetracker/avgPupil";
+    private final String AVG_PUPIL_PER_TASK = "http://142.93.109.50:5000/eyetracker/avgPupil/perTask";
     private final String INTERPOLATE = "http://142.93.109.50:5000/eyetracker/interpolate";
 
     public void processMessage(String message) {
@@ -63,11 +64,18 @@ public class EyetrackerService extends DeviceService{
             sendDataToDB(msg, context, queue);
             replyManager.setCount(3);
         }
-
-        msg = postToFlask(message,INTERPOLATE);
+//      feature Extraction: Average pupil diameter per task
+        msg = postToFlask(message,AVG_PUPIL_PER_TASK);
         if(msg !=null) {
             sendDataToDB(msg, context, queue);
             replyManager.setCount(4);
+        }
+
+//      preprocess data: interpolate https://arxiv.org/pdf/1703.09468.pdf
+        msg = postToFlask(message,INTERPOLATE);
+        if(msg !=null) {
+            sendDataToDB(msg, context, queue);
+            replyManager.setCount(5);
         }
 
     }
