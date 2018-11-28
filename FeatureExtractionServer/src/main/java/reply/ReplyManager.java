@@ -43,9 +43,9 @@ public class ReplyManager {
         return count;
     }
 
-    public void setCount() {
+    public void setCount(int count) {
 
-        this.count += 1;
+        this.count = count;
     }
 
 

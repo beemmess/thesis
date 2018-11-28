@@ -10,7 +10,6 @@ import org.apache.http.util.EntityUtils;
 import org.jboss.logging.Logger;
 import reply.ReplyManager;
 
-import javax.annotation.Resource;
 import javax.jms.*;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -47,7 +46,6 @@ public abstract class DeviceService {
 
     public void sendDataToDB(String message, String queue){
         logger.info("sending data to database");
-        replyManager.setCount();
 
         try {
             connectionFactory = InitialContext.doLookup(JNDIPaths.INCOMING_DATA_CONNECTION_FACTORY);
@@ -56,8 +54,6 @@ public abstract class DeviceService {
         } catch (NamingException e) {
             logger.error(e);
         }
-//        context.createProducer().send(queue,message);
-
 
         try {
             QueueSession session = session();

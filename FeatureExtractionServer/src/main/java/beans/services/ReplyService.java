@@ -64,11 +64,12 @@ public class ReplyService extends DeviceService {
             ReplyMessage replyMessage = gson.fromJson(reply, ReplyMessage.class);
             Boolean success = replyMessage.getSucess();
             msg += replyMessage.getData()+ " " + replyMessage.getReplyMessage() +": "+ replyMessage.getSucess()+"\n";
-            logger.info(msg);
             if(success){
                 successCount +=1;
             }
         }
+        logger.info(msg);
+
         if(successCount == len){
             return "All data has been sucessfully saved to database:\n" + msg;
         }
