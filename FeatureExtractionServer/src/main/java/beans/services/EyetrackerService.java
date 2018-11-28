@@ -31,51 +31,50 @@ public class EyetrackerService extends DeviceService{
 
     private ReplyManager replyManager = ReplyManager.getInstance();
 
-    @Inject
-    @JMSConnectionFactory("jms/remoteCF")
-    private JMSContext context;
+//    @Inject
+//    @JMSConnectionFactory("jms/remoteCF")
+//    private JMSContext context;
 
-    @Resource(lookup = JNDIPaths.EYETRACKER_QUEUE)
-    private Queue queue;
+//    @Resource(lookup = JNDIPaths.EYETRACKER_QUEUE)
+    private String queue = JNDIPaths.EYETRACKER_QUEUE;
 
     private String msg;
+    private String address = "207.154.211.58";  // Local server ip address
+    private String port = "5000";               // port of the python web client
 
-    private final String PRE_PROCESS_AND_SUBSTITION = "http://142.93.109.50:5000/eyetracker/substitution";
-    private final String AVG_PUPIL = "http://142.93.109.50:5000/eyetracker/avgPupil";
-    private final String AVG_PUPIL_PER_TASK = "http://142.93.109.50:5000/eyetracker/avgPupil/perTask";
-    private final String INTERPOLATE = "http://142.93.109.50:5000/eyetracker/interpolate";
+    private final String PRE_PROCESS_AND_SUBSTITION =   "http://" + address + ":" + port + "/eyetracker/substitution";
+    private final String AVG_PUPIL =                    "http://" + address + ":" + port + ":5000/eyetracker/avgPupil";
+    private final String AVG_PUPIL_PER_TASK =           "http://" + address + ":" + port + ":5000/eyetracker/avgPupil/perTask";
+    private final String INTERPOLATE =                  "http://" + address + ":" + port + ":5000/eyetracker/interpolate";
 
     public void processMessage(String message) {
 //      Send the rawdata to Database Server
         replyManager.clearList();
+        replyManager.clearCount();
+        logger.info("is this the address" + address);
 
-        sendDataToDB(message, context, queue);
-        replyManager.setCount(1);
+        sendDataToDB(message, queue);
 
 //      preprocess data: Gazepoint/pupil substitution link: https://arxiv.org/pdf/1703.09468.pdf
         msg = postToFlask(message,PRE_PROCESS_AND_SUBSTITION);
         if(msg != null) {
-            sendDataToDB(msg, context, queue);
-            replyManager.setCount(2);
+            sendDataToDB(msg, queue);
         }
 //      feature Extraction: Average pupil diameter
         msg = postToFlask(message,AVG_PUPIL);
         if(msg !=null) {
-            sendDataToDB(msg, context, queue);
-            replyManager.setCount(3);
+            sendDataToDB(msg, queue);
         }
 //      feature Extraction: Average pupil diameter per task
         msg = postToFlask(message,AVG_PUPIL_PER_TASK);
         if(msg !=null) {
-            sendDataToDB(msg, context, queue);
-            replyManager.setCount(4);
+            sendDataToDB(msg, queue);
         }
 
 //      preprocess data: interpolate https://arxiv.org/pdf/1703.09468.pdf
         msg = postToFlask(message,INTERPOLATE);
         if(msg !=null) {
-            sendDataToDB(msg, context, queue);
-            replyManager.setCount(5);
+            sendDataToDB(msg, queue);
         }
 
     }

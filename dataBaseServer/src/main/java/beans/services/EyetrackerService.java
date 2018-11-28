@@ -1,19 +1,12 @@
 package beans.services;
 
 
-import api.JNDIPaths;
 import client.EyetrackerClient;
 import com.google.gson.Gson;
 
-import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
-import javax.jms.JMSConnectionFactory;
-import javax.jms.JMSContext;
-import javax.jms.Queue;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import model.EyeTrackerMessage;
 import model.ReplyMessage;
 import org.jboss.logging.Logger;

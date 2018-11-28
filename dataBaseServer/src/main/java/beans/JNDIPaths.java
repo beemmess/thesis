@@ -1,4 +1,4 @@
-package api;
+package beans;
 
 
 public final class JNDIPaths {

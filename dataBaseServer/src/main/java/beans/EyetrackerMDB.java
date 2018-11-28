@@ -1,6 +1,5 @@
 package beans;
 
-import api.JNDIPaths;
 import beans.services.EyetrackerService;
 
 import javax.ejb.ActivationConfigProperty;
@@ -12,7 +11,9 @@ import org.jboss.logging.Logger;
 
 @MessageDriven(name = "EytrackerMDB", activationConfig = {
         @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = JNDIPaths.EYETRACKER_QUEUE),
-        @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
+        @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
+        @ActivationConfigProperty(propertyName = "connectionParameters", propertyValue = "host=207.154.211.58;port=5445"),
+        @ActivationConfigProperty(propertyName = "connectorClassName", propertyValue = "org.apache.activemq.artemis.core.remoting.impl.netty.NettyConnectorFactory")
 })
 
 public class EyetrackerMDB extends MessageBean {

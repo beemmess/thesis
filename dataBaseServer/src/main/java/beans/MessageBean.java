@@ -1,6 +1,5 @@
 package beans;
 
-import api.JNDIPaths;
 import org.jboss.logging.Logger;
 
 import javax.jms.*;

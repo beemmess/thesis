@@ -23,33 +23,34 @@ public class ShimmerService extends DeviceService{
     private String msg;
     private ReplyManager replyManager = ReplyManager.getInstance();
 
+    private String address = "207.154.211.58"; // local server ip address
+    private String port = "5000";              // port of the python web client
 
-    @Inject
-    @JMSConnectionFactory("jms/remoteCF")
-    private JMSContext context;
+//    @Inject
+//    @JMSConnectionFactory("jms/remoteCF")
+//    private JMSContext context;
 
-    @Resource(lookup = JNDIPaths.SHIMMER_QUEUE)
-    private Queue queue;
+//    @Resource(lookup = JNDIPaths.SHIMMER_QUEUE)
+    private String queue = JNDIPaths.SHIMMER_QUEUE;
 
 
 
-    private String AVG_GSR_PPG = "http://142.93.109.50:5000/shimmer/normalize";
+    private String AVG_GSR_PPG = "http://"+ address + ":" + port +"/shimmer/normalize";
 
 
     public void processMessage(String message){
 //      Clear the list if in the case of list not empty
         replyManager.clearList();
+        replyManager.clearCount();
 //      Send first the rawdata to Database Server
-        sendDataToDB(message,context,queue);
-        replyManager.setCount(1);
+        sendDataToDB(message,queue);
 
 
 
-//      feature Extraction: Average GSR and PPG
+//      feature Extraction: Normalization of GSR and PPG
         msg = postToFlask(message,AVG_GSR_PPG);
         if(msg != null){
-            sendDataToDB(msg,context,queue);
-            replyManager.setCount(2);
+            sendDataToDB(msg,queue);
 
         }
 

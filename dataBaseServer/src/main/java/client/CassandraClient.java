@@ -20,7 +20,7 @@ public class CassandraClient {
     public static final String keyspace = "data";
     public static final CassandraConnector connector = new CassandraConnector();
 //    Address of the server
-    private static final String address = "104.248.35.208";
+    private static final String address = "104.248.27.213";
 
 
     public CassandraClient() {

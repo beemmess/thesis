@@ -285,7 +285,7 @@
                             <locations>api</locations>
                             <schemes>http</schemes>
                             <!--<host>${host}/${project.artifactId}</host>-->
-                            <host>142.93.109.50:8080/${project.artifactId}</host>
+                            <host>207.154.211.58:8080/${project.artifactId}</host>
                             <basePath>/api</basePath>
                             <info>
                                 <title>API</title>
@@ -325,7 +325,7 @@
                 <!--</executions>-->
                 <configuration>
                     <force>true</force>
-                    <hostname>142.93.109.50</hostname>
+                    <hostname>207.154.211.58</hostname>
                     <port>9990</port>
                     <username>${username}</username>
                     <password>${password}</password>
@@ -338,6 +338,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.0</version>
             </plugin>
+
 
         </plugins>
     </build>
