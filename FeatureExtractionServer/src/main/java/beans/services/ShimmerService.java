@@ -16,8 +16,8 @@ public class ShimmerService extends DeviceService{
     private String msg;
     private ReplyManager replyManager = ReplyManager.getInstance();
 
-    private String address = "207.154.211.58"; // local server ip address
-    private String port = "5000";              // port of the python web client
+    private String address = JNDIPaths.LOCAL_SERVER_IP;     // local server ip address
+    private String port = JNDIPaths.PYTHON_WEB_CLIENT_PORT; // port of the python web client
 
     private String queue = JNDIPaths.SHIMMER_QUEUE;
 

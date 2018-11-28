@@ -17,8 +17,8 @@ public class EyetrackerService extends DeviceService{
     private String queue = JNDIPaths.EYETRACKER_QUEUE;
 
     private String msg;
-    private String address = "207.154.211.58";  // Local server ip address
-    private String port = "5000";               // port of the python web client
+    private String address = JNDIPaths.LOCAL_SERVER_IP;     // Local server ip address
+    private String port = JNDIPaths.PYTHON_WEB_CLIENT_PORT; // port of the python web client
 
     private final String PRE_PROCESS_AND_SUBSTITION =   "http://" + address + ":" + port + "/eyetracker/substitution";
     private final String AVG_PUPIL =                    "http://" + address + ":" + port + ":5000/eyetracker/avgPupil";

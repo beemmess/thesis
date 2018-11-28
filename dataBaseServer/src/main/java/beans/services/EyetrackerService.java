@@ -24,13 +24,6 @@ public class EyetrackerService {
     private static final Logger logger = Logger.getLogger(EyetrackerService.class.getName());
 
 
-//    @Inject
-//    @JMSConnectionFactory("jms/remoteCF")
-//    JMSContext jmsContext;
-//
-//    @Resource(lookup = JNDIPaths.REPLY_QUEUE)
-//    Queue queue;
-
     private Gson gson = new Gson();
     private EyetrackerClient eyetrackerClient = new EyetrackerClient();
     private ReplyMessage replyMessage = new ReplyMessage();
@@ -80,7 +73,6 @@ public class EyetrackerService {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
-//                EyeTracker eyeTracker = new EyeTracker(eyeTrackerMessage.getId(), Double.parseDouble(values[0]), values[1],values[2],values[3],values[4],values[5],values[6]);
                 EyeTracker eyeTracker = new EyeTracker(eyeTrackerMessage.getId(),
                         Double.parseDouble(values[0]),
                         Double.parseDouble(values[1]),
@@ -113,7 +105,6 @@ public class EyetrackerService {
             String line;
             while((line = br.readLine()) != null ){
                 String[] values = line.split(",");
-//                EyeTracker eyeTracker = new EyeTracker(eyeTrackerMessage.getId(), Double.parseDouble(values[0]), values[1],values[2],values[3],values[4],values[5],values[6]);
                 EyeTracker eyeTracker = new EyeTracker(eyeTrackerMessage.getId(),
                         Double.parseDouble(values[0]),
                         Double.parseDouble(values[1]),
