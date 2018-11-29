@@ -1,8 +1,9 @@
 package beans;
 
 
-public final class JNDIPaths {
+public final class PathConstants {
 
+//    JNDIpaths
     public static final String EYETRACKER_QUEUE = "java:jboss/exported/jms/queue/eyetracker";
     public static final String EYETRACKER_RAW_QUEUE = "java:jboss/exported/jms/queue/eyetrackerRaw";
 
@@ -17,5 +18,10 @@ public final class JNDIPaths {
     public static final String INCOMING_DATABASE = "java:/IncomingDataConnectionFactory";
     public static final String POOLED_CONNECTION_FACTORY = "jms/remoteCF";
 
+//    IPs and ports
+    public static final String REMOTE_SERVER_IP ="207.154.211.58";
+    public static final String REMOTE_SERVER_JMS_PORT ="5445";
+
+    public static final String LOCAL_SERVER_IP ="104.248.27.213";
 
 }

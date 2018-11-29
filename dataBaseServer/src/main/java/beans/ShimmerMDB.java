@@ -10,9 +10,9 @@ import org.jboss.logging.Logger;
 
 
 @MessageDriven(name = "ShimmerMDB", activationConfig = {
-        @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = JNDIPaths.SHIMMER_QUEUE),
+        @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = PathConstants.SHIMMER_QUEUE),
         @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
-        @ActivationConfigProperty(propertyName = "connectionParameters", propertyValue = "host=207.154.211.58;port=5445"),
+        @ActivationConfigProperty(propertyName = "connectionParameters", propertyValue = "host="+ PathConstants.REMOTE_SERVER_IP+";port="+ PathConstants.REMOTE_SERVER_JMS_PORT),
         @ActivationConfigProperty(propertyName = "connectorClassName", propertyValue = "org.apache.activemq.artemis.core.remoting.impl.netty.NettyConnectorFactory")
 })
 

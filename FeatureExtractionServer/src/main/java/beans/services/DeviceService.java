@@ -1,6 +1,6 @@
 package beans.services;
 
-import api.JNDIPaths;
+import api.PathConstants;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -48,7 +48,7 @@ public abstract class DeviceService {
         logger.info("sending data to database");
 
         try {
-            connectionFactory = InitialContext.doLookup(JNDIPaths.INCOMING_DATA_CONNECTION_FACTORY);
+            connectionFactory = InitialContext.doLookup(PathConstants.INCOMING_DATA_CONNECTION_FACTORY);
             destination = InitialContext.doLookup(queue);
 
         } catch (NamingException e) {

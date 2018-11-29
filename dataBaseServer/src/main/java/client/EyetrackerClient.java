@@ -7,33 +7,35 @@ import com.datastax.driver.core.Session;
 public class EyetrackerClient extends CassandraClient {
 
     private Session session = connector.getSession();
+    EyetrackerRepository eyetrackerRepository = new EyetrackerRepository(session);
 
     public Boolean EyetrackerInsertRawValues(EyeTracker eyeTracker){
-        EyetrackerRepository eyetrackerRepository = new EyetrackerRepository(session);
+//        EyetrackerRepository eyetrackerRepository = new EyetrackerRepository(session);
         return eyetrackerRepository.insertRawValues(eyeTracker);
 
     }
 
     public Boolean EyetrackerInsertSubstitutionData(EyeTracker eyeTracker){
-        EyetrackerRepository eyetrackerRepository = new EyetrackerRepository(session);
+//        EyetrackerRepository eyetrackerRepository = new EyetrackerRepository(session);
         return eyetrackerRepository.insertSubstitutionValues(eyeTracker);
 
     }
 
     public Boolean EyetrackerInsertAvgPupilData(EyeTracker eyeTracker){
-        EyetrackerRepository eyetrackerRepository = new EyetrackerRepository(session);
+//        EyetrackerRepository eyetrackerRepository = new EyetrackerRepository(session);
         return eyetrackerRepository.insertAvgPupilValues(eyeTracker);
 
     }
 
     public Boolean EyetrackerInsertAvgPupilDataPerTask(EyeTracker eyeTracker){
-        EyetrackerRepository eyetrackerRepository = new EyetrackerRepository(session);
+//        EyetrackerRepository eyetrackerRepository = new EyetrackerRepository(session);
         return eyetrackerRepository.insertAvgPupilPerTaskValues(eyeTracker);
 
     }
 
     public Boolean EyetrackerInsertInterpolateData(EyeTracker eyeTracker) {
-        EyetrackerRepository eyetrackerRepository = new EyetrackerRepository(session);
+//        EyetrackerRepository eyetrackerRepository = new EyetrackerRepository(session);
         return eyetrackerRepository.insertInterpolateValues(eyeTracker);
     }
+
 }

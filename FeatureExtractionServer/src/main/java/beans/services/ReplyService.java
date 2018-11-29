@@ -1,6 +1,6 @@
 package beans.services;
 
-import api.JNDIPaths;
+import api.PathConstants;
 import com.google.gson.Gson;
 import model.ReplyMessage;
 import org.apache.commons.lang3.StringUtils;
@@ -38,8 +38,8 @@ public class ReplyService extends DeviceService {
         String replyMessage = generateReplyMessage(replyMsgList);
         logger.info(replyMessage);
         try {
-            connectionFactory = InitialContext.doLookup(JNDIPaths.INCOMING_DATA_CONNECTION_FACTORY);
-            destination = InitialContext.doLookup(JNDIPaths.REST_REPLY_QUEUE);
+            connectionFactory = InitialContext.doLookup(PathConstants.INCOMING_DATA_CONNECTION_FACTORY);
+            destination = InitialContext.doLookup(PathConstants.REST_REPLY_QUEUE);
 
             session = session();
             MessageProducer producer = session.createProducer(destination);
@@ -68,8 +68,6 @@ public class ReplyService extends DeviceService {
                 successCount +=1;
             }
         }
-        logger.info(msg);
-
         if(successCount == len){
             return "All data has been sucessfully saved to database:\n" + msg;
         }

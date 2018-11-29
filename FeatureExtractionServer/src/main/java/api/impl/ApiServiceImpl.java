@@ -1,7 +1,7 @@
 package api.impl;
 
 import api.ApiResponseMessage;
-import api.JNDIPaths;
+import api.PathConstants;
 import org.jboss.logging.Logger;
 import com.google.gson.Gson;
 
@@ -24,7 +24,7 @@ public class ApiServiceImpl {
         try {
             connectionFactory = InitialContext.doLookup(cf);
             destination = InitialContext.doLookup(queue);
-            replyDestination = InitialContext.doLookup(JNDIPaths.REST_REPLY_QUEUE);
+            replyDestination = InitialContext.doLookup(PathConstants.REST_REPLY_QUEUE);
 
 
         } catch (NamingException e) {
@@ -36,10 +36,7 @@ public class ApiServiceImpl {
         return response(gson.toJson(message));
     }
 
-    @SuppressWarnings("Duplicates")
     public Response response(String message) {
-//
-
 
         try {
             QueueSession session = session();

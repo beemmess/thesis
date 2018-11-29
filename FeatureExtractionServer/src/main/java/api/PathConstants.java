@@ -1,7 +1,7 @@
 package api;
 
 
-public final class JNDIPaths {
+public final class PathConstants {
 
 //    JNDI values
     public static final String EYETRACKER_QUEUE = "java:jboss/exported/jms/queue/eyetracker";

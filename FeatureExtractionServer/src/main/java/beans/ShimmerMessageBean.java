@@ -1,7 +1,7 @@
 package beans;
 
 //import beans.repository.EyeTrackerService;
-import api.JNDIPaths;
+import api.PathConstants;
 import beans.services.ShimmerService;
 import org.jboss.logging.Logger;
 
@@ -10,7 +10,7 @@ import javax.ejb.ActivationConfigProperty;
 import javax.inject.Inject;
 
 @MessageDriven(activationConfig = {
-        @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = JNDIPaths.SHIMMER_RAW_QUEUE),
+        @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = PathConstants.SHIMMER_RAW_QUEUE),
         @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
 
 })

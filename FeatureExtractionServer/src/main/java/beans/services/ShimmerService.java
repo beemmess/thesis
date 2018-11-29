@@ -1,6 +1,6 @@
 package beans.services;
 
-import api.JNDIPaths;
+import api.PathConstants;
 import org.jboss.logging.Logger;
 import reply.ReplyManager;
 
@@ -16,10 +16,10 @@ public class ShimmerService extends DeviceService{
     private String msg;
     private ReplyManager replyManager = ReplyManager.getInstance();
 
-    private String address = JNDIPaths.LOCAL_SERVER_IP;     // local server ip address
-    private String port = JNDIPaths.PYTHON_WEB_CLIENT_PORT; // port of the python web client
+    private String address = PathConstants.LOCAL_SERVER_IP;     // local server ip address
+    private String port = PathConstants.PYTHON_WEB_CLIENT_PORT; // port of the python web client
 
-    private String queue = JNDIPaths.SHIMMER_QUEUE;
+    private String queue = PathConstants.SHIMMER_QUEUE;
 
     private String AVG_GSR_PPG = "http://"+ address + ":" + port +"/shimmer/normalize";
 

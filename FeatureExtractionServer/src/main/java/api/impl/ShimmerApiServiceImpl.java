@@ -1,10 +1,10 @@
 package api.impl;
 
-import api.JNDIPaths;
+import api.PathConstants;
 
 public class ShimmerApiServiceImpl extends ApiServiceImpl {
     public ShimmerApiServiceImpl(){
-        super(JNDIPaths.SHIMMER_RAW_QUEUE,JNDIPaths.INCOMING_DATA_CONNECTION_FACTORY);
+        super(PathConstants.SHIMMER_RAW_QUEUE, PathConstants.INCOMING_DATA_CONNECTION_FACTORY);
     }
 
 }

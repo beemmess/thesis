@@ -1,7 +1,6 @@
 package beans;
 
-import api.JNDIPaths;
-import beans.services.EyetrackerService;
+import api.PathConstants;
 import beans.services.ReplyService;
 import org.jboss.logging.Logger;
 
@@ -10,9 +9,9 @@ import javax.ejb.MessageDriven;
 import javax.inject.Inject;
 
 @MessageDriven(activationConfig = {
-        @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = JNDIPaths.REPLY_QUEUE),
+        @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = PathConstants.REPLY_QUEUE),
         @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
-        @ActivationConfigProperty(propertyName = "connectionParameters", propertyValue = "host="+JNDIPaths.REMOTE_SERVER_IP+";port="+JNDIPaths.REMOTE_SERVER_JMS_PORT),
+        @ActivationConfigProperty(propertyName = "connectionParameters", propertyValue = "host="+ PathConstants.REMOTE_SERVER_IP+";port="+ PathConstants.REMOTE_SERVER_JMS_PORT),
 
         @ActivationConfigProperty(propertyName = "connectorClassName", propertyValue = "org.apache.activemq.artemis.core.remoting.impl.netty.NettyConnectorFactory")
 }, mappedName = "ReplyQueue")

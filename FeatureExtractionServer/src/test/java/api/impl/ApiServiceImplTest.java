@@ -2,7 +2,7 @@ package api.impl;
 
 
 import api.ApiResponseMessage;
-import api.JNDIPaths;
+import api.PathConstants;
 import com.google.gson.Gson;
 import org.junit.Before;
 import org.junit.Test;
@@ -79,7 +79,7 @@ public class ApiServiceImplTest{
         jsonmessage = "some Json String";
         when(InitialContext.doLookup(eq(queue))).thenReturn(destination);
         when(InitialContext.doLookup(eq(confactory))).thenReturn(connectionFactory);
-        when(InitialContext.doLookup(eq(JNDIPaths.REST_REPLY_QUEUE))).thenReturn(replyDestination);
+        when(InitialContext.doLookup(eq(PathConstants.REST_REPLY_QUEUE))).thenReturn(replyDestination);
 
         when(connectionFactory.createConnection()).thenReturn(qConnection);
         when(qConnection.createQueueSession(eq(false), eq(Session.AUTO_ACKNOWLEDGE))).thenReturn(qSession);

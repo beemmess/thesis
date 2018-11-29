@@ -2,7 +2,7 @@ package beans;
 
 //import beans.repository.EyeTrackerService;
 
-import api.JNDIPaths;
+import api.PathConstants;
 import beans.services.EyetrackerService;
 import org.jboss.logging.Logger;
 
@@ -11,7 +11,7 @@ import javax.ejb.MessageDriven;
 import javax.inject.Inject;
 
 @MessageDriven(activationConfig = {
-        @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = JNDIPaths.EYETRACKER_RAW_QUEUE),
+        @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = PathConstants.EYETRACKER_RAW_QUEUE),
         @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
 
 })

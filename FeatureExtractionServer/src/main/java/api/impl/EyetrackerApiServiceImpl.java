@@ -1,10 +1,10 @@
 package api.impl;
 
-import api.JNDIPaths;
+import api.PathConstants;
 
 public class EyetrackerApiServiceImpl extends ApiServiceImpl {
     public EyetrackerApiServiceImpl(){
-        super(JNDIPaths.EYETRACKER_RAW_QUEUE,JNDIPaths.INCOMING_DATA_CONNECTION_FACTORY);
+        super(PathConstants.EYETRACKER_RAW_QUEUE, PathConstants.INCOMING_DATA_CONNECTION_FACTORY);
     }
 
 }

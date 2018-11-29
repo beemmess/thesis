@@ -1,16 +1,11 @@
 package client;
 
-import client.domain.EyeTracker;
-import client.repository.CassandraRepository;
+import beans.PathConstants;
 import client.repository.EyetrackerRepository;
 import client.repository.KeyspaceRepository;
 import client.repository.ShimmerRepository;
 import com.datastax.driver.core.Session;
 import org.jboss.logging.Logger;
-
-
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
 
 
 public class CassandraClient {
@@ -20,7 +15,7 @@ public class CassandraClient {
     public static final String keyspace = "data";
     public static final CassandraConnector connector = new CassandraConnector();
 //    Address of the server
-    private static final String address = "104.248.27.213";
+    private static final String address = PathConstants.LOCAL_SERVER_IP;
 
 
     public CassandraClient() {
