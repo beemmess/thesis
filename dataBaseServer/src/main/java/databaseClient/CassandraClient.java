@@ -1,9 +1,9 @@
-package client;
+package databaseClient;
 
 import beans.PathConstants;
-import client.repository.EyetrackerRepository;
-import client.repository.KeyspaceRepository;
-import client.repository.ShimmerRepository;
+import databaseClient.repository.EyetrackerRepository;
+import databaseClient.repository.KeyspaceRepository;
+import databaseClient.repository.ShimmerRepository;
 import com.datastax.driver.core.Session;
 import org.jboss.logging.Logger;
 

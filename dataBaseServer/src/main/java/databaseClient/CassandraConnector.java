@@ -1,4 +1,4 @@
-package client;
+package databaseClient;
 
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.Host;

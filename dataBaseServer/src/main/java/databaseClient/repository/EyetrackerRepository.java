@@ -1,14 +1,8 @@
-package client.repository;
+package databaseClient.repository;
 
-import client.domain.EyeTracker;
-import com.datastax.driver.core.ResultSet;
-import com.datastax.driver.core.Row;
+import databaseClient.domain.EyeTracker;
 import com.datastax.driver.core.Session;
 import org.jboss.logging.Logger;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class EyetrackerRepository extends CassandraRepository {
 

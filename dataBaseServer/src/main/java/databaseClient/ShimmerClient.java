@@ -1,8 +1,7 @@
-package client;
+package databaseClient;
 
-import client.domain.EyeTracker;
-import client.domain.Shimmer;
-import client.repository.ShimmerRepository;
+import databaseClient.domain.Shimmer;
+import databaseClient.repository.ShimmerRepository;
 import com.datastax.driver.core.Session;
 
 public class ShimmerClient extends CassandraClient {

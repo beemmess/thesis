@@ -1,8 +1,8 @@
 package beans.services;
 
 
-import client.ShimmerClient;
-import client.domain.Shimmer;
+import databaseClient.ShimmerClient;
+import databaseClient.domain.Shimmer;
 import com.google.gson.Gson;
 import model.ReplyMessage;
 import model.ShimmerMessage;

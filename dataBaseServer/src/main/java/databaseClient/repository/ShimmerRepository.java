@@ -1,6 +1,6 @@
-package client.repository;
+package databaseClient.repository;
 
-import client.domain.Shimmer;
+import databaseClient.domain.Shimmer;
 import com.datastax.driver.core.Session;
 
 public class ShimmerRepository extends CassandraRepository {

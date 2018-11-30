@@ -1,7 +1,7 @@
 package beans.services;
 
 
-import client.EyetrackerClient;
+import databaseClient.EyetrackerClient;
 import com.google.gson.Gson;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -15,7 +15,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
 
-import client.domain.EyeTracker;
+import databaseClient.domain.EyeTracker;
 
 
 @Named

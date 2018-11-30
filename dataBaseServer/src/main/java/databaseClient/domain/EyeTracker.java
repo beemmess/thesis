@@ -1,4 +1,4 @@
-package client.domain;
+package databaseClient.domain;
 
 public class EyeTracker {
 

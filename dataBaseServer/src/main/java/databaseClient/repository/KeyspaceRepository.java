@@ -1,4 +1,4 @@
-package client.repository;
+package databaseClient.repository;
 
 import com.datastax.driver.core.Session;
 

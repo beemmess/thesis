@@ -1,7 +1,7 @@
-package client;
+package databaseClient;
 
-import client.domain.EyeTracker;
-import client.repository.EyetrackerRepository;
+import databaseClient.domain.EyeTracker;
+import databaseClient.repository.EyetrackerRepository;
 import com.datastax.driver.core.Session;
 
 public class EyetrackerClient extends CassandraClient {

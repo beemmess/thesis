@@ -1,6 +1,5 @@
-package client.repository;
+package databaseClient.repository;
 
-import client.CassandraClient;
 import com.datastax.driver.core.Session;
 import org.jboss.logging.Logger;
 
