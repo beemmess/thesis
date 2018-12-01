@@ -20,23 +20,27 @@ public class EyetrackerRepository extends CassandraRepository {
 
 
 
-    public void createTable(){
-
-        final String query = "CREATE TABLE IF NOT EXISTS " + EYETRACKER_RAW + "(timestamp double, dataid text, leftx double, lefty double, rightx double, righty double, pupilleft double, pupilright double, task text, PRIMARY KEY ((dataid), timestamp)) WITH CLUSTERING ORDER BY (timestamp ASC);";
+//    public void createTable(){
+//
+//        final String query = "CREATE TABLE IF NOT EXISTS " + EYETRACKER_RAW + "(timestamp double, dataid text, leftx double, lefty double, rightx double, righty double, pupilleft double, pupilright double, task text, PRIMARY KEY ((dataid), timestamp)) WITH CLUSTERING ORDER BY (timestamp ASC);";
+//        executeQuery(query);
+//
+//        final String query2 = "CREATE TABLE IF NOT EXISTS " + EYETRACKER_SUSTITUTION + "(timestamp double, dataid text, leftx double, lefty double, rightx double, righty double, pupilleft double, pupilright double, task text, PRIMARY KEY ((dataid), timestamp)) WITH CLUSTERING ORDER BY (timestamp ASC);";
+//        executeQuery(query2);
+//
+//        final String query3 = "CREATE TABLE IF NOT EXISTS " + EYETRACKER_AVG_PUPIL + "(dataid text PRIMARY KEY, pupilleft double, pupilright double);";
+//        executeQuery(query3);
+//
+//        final String query4 = "CREATE TABLE IF NOT EXISTS " + EYETRACKER_INTERPOLATE + "(timestamp double, dataid text, leftx double, lefty double, rightx double, righty double, pupilleft double, pupilright double, task text, PRIMARY KEY ((dataid), timestamp)) WITH CLUSTERING ORDER BY (timestamp ASC);";
+//        executeQuery(query4);
+//
+//        final String query5 = "CREATE TABLE IF NOT EXISTS " + EYETRACKER_AVG_PUPIL_PER_TASK + "(dataid text, pupilleft double, pupilright double, task text,PRIMARY KEY ((dataid), task));";
+//        executeQuery(query5);
+//
+//
+//    }
+    public void createTable(String query){
         executeQuery(query);
-
-        final String query2 = "CREATE TABLE IF NOT EXISTS " + EYETRACKER_SUSTITUTION + "(timestamp double, dataid text, leftx double, lefty double, rightx double, righty double, pupilleft double, pupilright double, task text, PRIMARY KEY ((dataid), timestamp)) WITH CLUSTERING ORDER BY (timestamp ASC);";
-        executeQuery(query2);
-
-        final String query3 = "CREATE TABLE IF NOT EXISTS " + EYETRACKER_AVG_PUPIL + "(dataid text PRIMARY KEY, pupilleft double, pupilright double);";
-        executeQuery(query3);
-
-        final String query4 = "CREATE TABLE IF NOT EXISTS " + EYETRACKER_INTERPOLATE + "(timestamp double, dataid text, leftx double, lefty double, rightx double, righty double, pupilleft double, pupilright double, task text, PRIMARY KEY ((dataid), timestamp)) WITH CLUSTERING ORDER BY (timestamp ASC);";
-        executeQuery(query4);
-
-        final String query5 = "CREATE TABLE IF NOT EXISTS " + EYETRACKER_AVG_PUPIL_PER_TASK + "(dataid text, pupilleft double, pupilright double, task text,PRIMARY KEY ((dataid), task));";
-        executeQuery(query5);
-
 
     }
 
@@ -97,7 +101,41 @@ public class EyetrackerRepository extends CassandraRepository {
         return executeQuery(query);
     }
 
+    public Boolean insertValues(String type, String device, String features, String dataid, String line) {
+//        logger.info(features);
+        String[] values = line.split(",");
+        int i = 0;
+        int valuesLength = values.length;
+        StringBuilder sb = new StringBuilder();
+        sb.append("INSERT INTO ");
+        sb.append(device);
+        sb.append("_");
+        sb.append(type.toLowerCase());
+        sb.append(" (dataid ");
+        sb.append(", ");
+        sb.append(features);
+        sb.append(") VALUES (");
+        sb.append("'");
+        sb.append(dataid);
+        sb.append("'");
+        for(String value : values) {
+            sb.append(", ");
+            if(i++ == valuesLength-1 && features.contains("task")){
+                sb.append("'");
+                sb.append(value);
+                sb.append("'");
+            }
+            else {
+                sb.append(value);
+            }
+        }
+        sb.append(");");
 
+        String query = sb.toString();
+//        logger.info(query);
+        return executeQuery(query);
+
+    }
 
 
 //    Dummy select query

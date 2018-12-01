@@ -14,6 +14,7 @@ import org.jboss.logging.Logger;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.Arrays;
 
 import databaseClient.domain.EyeTracker;
 
@@ -36,34 +37,61 @@ public class EyetrackerService {
 
         EyeTrackerMessage eyeTrackerMessage = gson.fromJson(message, EyeTrackerMessage.class);
         String type = eyeTrackerMessage.getType();
-        if (type.equals("raw")) {
-            logger.info(type);
-            return saveRawData(eyeTrackerMessage);
-        }
-        else if (type.equals("substitution")) {
-            logger.info(type);
-            return saveSubstitutionData(eyeTrackerMessage);
-        }
-        else if (type.equals("avgPupil")) {
-            logger.info(type);
-            return saveAvgPupilData(eyeTrackerMessage);
-        }
-        else if (type.equals("avgPupilTasks")) {
-            logger.info(type);
-            return saveAvgPupilPerTaskData(eyeTrackerMessage);
-        }
-        else if (type.equals("interpolate")) {
-            logger.info(type);
-            return saveInterpolateData(eyeTrackerMessage);
-        } else {
-            logger.info("type not found: "+type);
-            return createJsonStringResponse(ERROR_RESPONSE,"InvalidData", false);
-        }
+        String features = eyeTrackerMessage.getFeatures();
+        String device = eyeTrackerMessage.getDevice();
+//        String id = eyeTrackerMessage.getId();
+        eyetrackerClient.createTable(device,type,features);
+        return saveData(eyeTrackerMessage);
+//        if (type.equals("raw")) {
+//            logger.info(type);
+//            return saveRawData(eyeTrackerMessage);
+//        }
+//        else if (type.equals("substitution")) {
+//            logger.info(type);
+//            return saveSubstitutionData(eyeTrackerMessage);
+//        }
+//        else if (type.equals("avgPupil")) {
+//            logger.info(type);
+//            return saveAvgPupilData(eyeTrackerMessage);
+//        }
+//        else if (type.equals("avgPupilTasks")) {
+//            logger.info(type);
+//            return saveAvgPupilPerTaskData(eyeTrackerMessage);
+//        }
+//        else if (type.equals("interpolate")) {
+//            logger.info(type);
+//            return saveInterpolateData(eyeTrackerMessage);
+//        } else {
+//            logger.info("type not found: "+type);
+//            return createJsonStringResponse(ERROR_RESPONSE,"InvalidData", false);
+//        }
 
 
 
     }
 
+    public String saveData(EyeTrackerMessage eyeTrackerMessage){
+
+        String type = eyeTrackerMessage.getType();
+        String dataid = eyeTrackerMessage.getId();
+        String features = eyeTrackerMessage.getFeatures();
+        String device = eyeTrackerMessage.getDevice();
+
+        try (BufferedReader br = new BufferedReader(new StringReader(eyeTrackerMessage.getData()))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                response = eyetrackerClient.insertData(type,device,features,dataid,line);
+                if(!response){
+                    return createJsonStringResponse(ERROR_RESPONSE,eyeTrackerMessage.getType(), false);
+                }
+            }
+            return createJsonStringResponse(DATA_SAVED,eyeTrackerMessage.getType(), true);
+
+        } catch(IOException e) {
+            logger.warn("error in Save raw Data " + e.toString());
+            return createJsonStringResponse(ERROR_RESPONSE,eyeTrackerMessage.getType(), false);
+        }
+    }
 
 
 

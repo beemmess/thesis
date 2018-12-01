@@ -41,7 +41,7 @@ public class CassandraClient {
 
 
 
-        eyetrackerRepository.createTable();
+//        eyetrackerRepository.createTable();
         shimmerRepository.createTable();
 
 

@@ -8,6 +8,8 @@ public class EyeTrackerMessage extends Message {
     private String features;
     private String data;
     private String type;
+    private String apiUrl;
+    private String device;
 
 
     public String getData() {
@@ -40,5 +42,23 @@ public class EyeTrackerMessage extends Message {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+
+
+    public String getDevice() {
+        return device;
+    }
+
+    public void setDevice(String device) {
+        this.device = device;
+    }
+
+    public String getApiUrl() {
+        return apiUrl;
+    }
+
+    public void setApiUrl(String apiUrl) {
+        this.apiUrl = apiUrl;
     }
 }

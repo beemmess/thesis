@@ -77,6 +77,12 @@
         },
         "type" : {
           "type" : "string"
+        },
+        "apiUrl" : {
+          "type" : "string"
+        },
+        "device" : {
+          "type" : "string"
         }
       }
     },
