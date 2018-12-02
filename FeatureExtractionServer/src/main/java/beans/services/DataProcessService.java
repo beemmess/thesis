@@ -1,6 +1,8 @@
 package beans.services;
 
 import api.PathConstants;
+import com.google.gson.Gson;
+import model.DataMessage;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -15,15 +17,45 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import java.io.IOException;
 
-public abstract class DeviceService {
-    private static final Logger logger = Logger.getLogger(DeviceService.class.getName());
+
+public abstract class DataProcessService {
+    private static final Logger logger = Logger.getLogger(DataProcessService.class.getName());
 
     private ConnectionFactory connectionFactory;
     private Destination destination;
     private QueueConnection con;
 
+//    private ReplyManager replyManager = ReplyManager.getInstance();
 
-    private ReplyManager replyManager = ReplyManager.getInstance();
+//    private String queue = PathConstants.EYETRACKER_QUEUE;
+//    private Gson gson = new Gson();
+//
+//    private String msg;
+//    private String address = PathConstants.LOCAL_SERVER_IP;     // Local server ip address
+//    private String port = PathConstants.PYTHON_WEB_CLIENT_PORT; // port of the python web client
+
+
+//    private ReplyManager replyManager = ReplyManager.getInstance();
+
+
+
+//    public void processMessage(String message){
+//        DataMessage dataMessage = gson.fromJson(message, DataMessage.class);
+//        String[] apiUrls = dataMessage.getApiUrl().split(",");
+//        replyManager.clearList();
+//        replyManager.clearCount();
+//        replyManager.setCount(apiUrls.length+1);
+//
+//        sendDataToDB(message, queue);
+//
+//        for(String apiUrl : apiUrls){
+//            String url = "http://" + address + ":" + port + apiUrl;
+//            msg = postToFlask(message, url);
+//            sendDataToDB(msg,queue);
+//        }
+//    }
+
+
     public String postToFlask(String message,String url){
 
         try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
@@ -40,9 +72,8 @@ public abstract class DeviceService {
             logger.info(ex);
             return null;
         }
-
-
     }
+
 
     public void sendDataToDB(String message, String queue){
         logger.info("sending data to database");

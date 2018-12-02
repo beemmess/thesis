@@ -15,9 +15,9 @@ import javax.inject.Inject;
 
         @ActivationConfigProperty(propertyName = "connectorClassName", propertyValue = "org.apache.activemq.artemis.core.remoting.impl.netty.NettyConnectorFactory")
 }, mappedName = "ReplyQueue")
-public class ReplyMessageBean extends MessageBean {
+public class ReplyMDB extends MessageBean {
 
-    private static final Logger logger = Logger.getLogger(ReplyMessageBean.class.toString());
+    private static final Logger logger = Logger.getLogger(ReplyMDB.class.toString());
 
     @Inject
     private ReplyService replyService;

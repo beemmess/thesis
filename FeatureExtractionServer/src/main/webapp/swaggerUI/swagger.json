@@ -9,20 +9,20 @@
   "basePath" : "/api",
   "schemes" : [ "http" ],
   "paths" : {
-    "/eyetracker" : {
+    "/data" : {
       "post" : {
-        "summary" : "Transfer eyetracking data",
-        "description" : "Create a new data transfer for eyetracking data",
-        "operationId" : "postEytracker",
+        "summary" : "Transfer collected data to servr",
+        "description" : "Create a new data transfer for collected data",
+        "operationId" : "postData",
         "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
-          "description" : "Create a new data transfer for eyetracking data",
+          "description" : "Create a new data transfer for collected data",
           "required" : true,
           "schema" : {
-            "$ref" : "#/definitions/EyeTrackerMessage"
+            "$ref" : "#/definitions/DataMessage"
           }
         } ],
         "responses" : {
@@ -63,7 +63,7 @@
     }
   },
   "definitions" : {
-    "EyeTrackerMessage" : {
+    "DataMessage" : {
       "type" : "object",
       "properties" : {
         "id" : {

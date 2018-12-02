@@ -15,7 +15,7 @@ import javax.naming.NamingException;
 
 @Named
 @ApplicationScoped
-public class ReplyService extends DeviceService {
+public class ReplyService extends DataProcessService {
     private static final Logger logger = Logger.getLogger(ReplyService.class.getName());
 
     private ReplyManager replyManager = ReplyManager.getInstance();

@@ -2,7 +2,7 @@ package model;
 
 
 
-public class EyeTrackerMessage extends Message {
+public class DataMessage extends Message {
 
     private String id;
     private String features;

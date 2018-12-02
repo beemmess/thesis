@@ -2,7 +2,7 @@ package beans.services;
 
 import api.PathConstants;
 import com.google.gson.Gson;
-import model.EyeTrackerMessage;
+import model.DataMessage;
 import org.jboss.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
@@ -11,9 +11,9 @@ import reply.ReplyManager;
 
 @Named
 @ApplicationScoped
-public class EyetrackerService extends DeviceService{
+public class DataService extends DataProcessService {
 
-    private static final Logger logger = Logger.getLogger(EyetrackerService.class.getName());
+    private static final Logger logger = Logger.getLogger(DataService.class.getName());
     private ReplyManager replyManager = ReplyManager.getInstance();
 
     private String queue = PathConstants.EYETRACKER_QUEUE;
@@ -56,7 +56,7 @@ public class EyetrackerService extends DeviceService{
 
 
     public void processMessage(String message){
-        EyeTrackerMessage eyeTrackerMessage = gson.fromJson(message, EyeTrackerMessage.class);
+        DataMessage eyeTrackerMessage = gson.fromJson(message, DataMessage.class);
         String[] apiUrls = eyeTrackerMessage.getApiUrl().split(",");
         replyManager.clearList();
         replyManager.clearCount();
