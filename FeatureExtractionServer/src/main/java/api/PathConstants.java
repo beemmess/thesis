@@ -21,6 +21,7 @@ public final class PathConstants {
     public static final String REMOTE_SERVER_JMS_PORT ="5445";
 
     public static final String LOCAL_SERVER_IP ="207.154.211.58";
+    public static final String DOCKER_LOCAL_NETWORK ="172.17.0.1";
     public static final String PYTHON_WEB_CLIENT_PORT= "5000";
 
 }

@@ -61,6 +61,7 @@ public class DeviceRepository extends CassandraRepository {
         String[] values = line.split(",");
         int i = 0;
         int valuesLength = values.length;
+
         StringBuilder sb = new StringBuilder();
         sb.append("INSERT INTO ");
         sb.append(device);

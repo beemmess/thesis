@@ -1,7 +1,8 @@
 # http://docs.python-requests.org/en/master/user/quickstart/
 
 import requests, json
-eyetrackerfile = open('EyeShimmerLSL/testEye.csv', 'r').read()
+# eyetrackerfile = open('EyeShimmerLSL/test.csv', 'r').read()
+eyetrackerfile = open('test.csv', 'r').read()
 shimmerfile = open('EyeShimmerLSL/testShimmerTasks.csv','r').read()
 #local Eyetracker urls
 lsubstitution ='http://0.0.0.0:5000/eyetracker/substitution'
@@ -24,15 +25,19 @@ shimmerData = {"id": "bjarkiFlaskTest", "type":"raw", "features":"timestamp,GSR,
 
 headers = {'Content-type': 'application/json'}
 
-for url in EyetrackerurlList:
-	r = requests.post(url,json=eyetrackerData, headers=headers)
-	print(r.text)
-	print(r.status_code)
+r = requests.post('http://142.93.109.50:5000/eyetracker/interpolate',json=eyetrackerData, headers=headers)
+print(r.text)
+print(r.status_code)
+
+# for url in EyetrackerurlList:
+# 	r = requests.post('http://142.93.109.50:5000/eyetracker/avgPupil',json=eyetrackerData, headers=headers)
+# 	print(r.text)
+# 	print(r.status_code)
 
 
-r2 = requests.post(lnormalize,json=shimmerData,headers=headers)
-print(r2.text)
-print(r2.status_code)
+# r2 = requests.post(lnormalize,json=shimmerData,headers=headers)
+# print(r2.text)
+# print(r2.status_code)
 
 
 

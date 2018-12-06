@@ -1,8 +1,5 @@
 package beans.services;
 
-import api.PathConstants;
-import com.google.gson.Gson;
-import model.DataMessage;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -10,7 +7,6 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.jboss.logging.Logger;
-import reply.ReplyManager;
 
 import javax.jms.*;
 import javax.naming.InitialContext;
@@ -75,11 +71,11 @@ public abstract class DataProcessService {
     }
 
 
-    public void sendDataToDB(String message, String queue){
+    public void sendDataToDestination(String message, String queue, String cf){
         logger.info("sending data to database");
 
         try {
-            connectionFactory = InitialContext.doLookup(PathConstants.INCOMING_DATA_CONNECTION_FACTORY);
+            connectionFactory = InitialContext.doLookup(cf);
             destination = InitialContext.doLookup(queue);
 
         } catch (NamingException e) {

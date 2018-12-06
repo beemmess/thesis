@@ -6,7 +6,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import model.EyeTrackerMessage;
+import model.DataMessage;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -25,7 +25,7 @@ public class SendEyetrackerSteps {
     private Gson gson = new Gson();
     private int resp;
     private String json;
-    private EyeTrackerMessage eyeTrackerMessage;
+    private DataMessage dataMessage;
 
 
 
@@ -58,6 +58,8 @@ public class SendEyetrackerSteps {
     @Then("^The data is succesfully sent and the server code response should be <(\\d+)>$")
     public void theRawDataIsSentToServer(int expectedResp) throws PendingException {
         // Write code here that turns the phrase above into concrete actions
+        logger.info(json);
+
         assertEquals(expectedResp, resp);
 
     }
@@ -65,13 +67,14 @@ public class SendEyetrackerSteps {
 
     @And("^The message respond replies that all data has been saved to database;$")
     public void theMessageRespondRepliesThatAllDataHasBeenSavedToDatabase()  {
-        logger.info(json);
-
+        Boolean success = json.contains("All data has been sucessfully saved to database");
+        assertEquals(true,success);
     }
 
     @Then("^The raw data is unsuccesfully sent to the server and respond code is <(\\d+)>$")
     public void theRawDataIsUnsuccesfulSentToServer(int expectedResp) throws PendingException {
         // Write code here that turns the phrase above into concrete actions
+
         assertEquals(expectedResp, resp);
 
     }
@@ -100,31 +103,31 @@ public class SendEyetrackerSteps {
         } catch (IOException ex) {
             logger.info(ex.toString());
         }
-        eyeTrackerMessage = gson.fromJson(json, EyeTrackerMessage.class);
+        dataMessage = gson.fromJson(json, DataMessage.class);
 
 
     }
 
     @Then("^The JSON value of type should be \"([^\"]*)\"$")
     public void theJSONValueOfTypeShouldBeType(String type) {
-        assertEquals(type, eyeTrackerMessage.getType());
+        assertEquals(type, dataMessage.getType());
 
     }
 
     @And("^The JSON value of id should be \"([^\"]*)\"$")
     public void theJSONValueOfIdShouldBeId(String id)  {
-        assertEquals(id, eyeTrackerMessage.getId());
+        assertEquals(id, dataMessage.getId());
 
     }
 
     @And("^The JSON value of features should be \"([^\"]*)\"$")
     public void theJSONValueOfFeaturesShouldBeFeatures(String features) {
-        assertEquals(features,eyeTrackerMessage.getFeatures());
+        assertEquals(features, dataMessage.getFeatures());
     }
 
     @And("^The JSON value of data should be \"([^\"]*)\"$")
     public void theJSONValueOfDataShouldBeData(String data) {
-        assertEquals(data, eyeTrackerMessage.getData());
+        assertEquals(data, dataMessage.getData());
     }
 
 

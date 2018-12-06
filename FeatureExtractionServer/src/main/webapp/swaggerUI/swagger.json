@@ -11,7 +11,7 @@
   "paths" : {
     "/data" : {
       "post" : {
-        "summary" : "Transfer collected data to servr",
+        "summary" : "Transfer collected data to server",
         "description" : "Create a new data transfer for collected data",
         "operationId" : "postData",
         "consumes" : [ "application/json" ],
@@ -23,32 +23,6 @@
           "required" : true,
           "schema" : {
             "$ref" : "#/definitions/DataMessage"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Data received"
-          },
-          "400" : {
-            "description" : "Error, bad request."
-          }
-        }
-      }
-    },
-    "/shimmer" : {
-      "post" : {
-        "summary" : "Transfer Shimmer data",
-        "description" : "Create a new data transfer for Shimmer data",
-        "operationId" : "postShimmer",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "body",
-          "description" : "Data transfer",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/ShimmerMessage"
           }
         } ],
         "responses" : {
@@ -82,23 +56,6 @@
           "type" : "string"
         },
         "device" : {
-          "type" : "string"
-        }
-      }
-    },
-    "ShimmerMessage" : {
-      "type" : "object",
-      "properties" : {
-        "id" : {
-          "type" : "string"
-        },
-        "features" : {
-          "type" : "string"
-        },
-        "data" : {
-          "type" : "string"
-        },
-        "type" : {
           "type" : "string"
         }
       }

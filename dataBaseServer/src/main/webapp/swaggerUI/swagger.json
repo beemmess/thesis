@@ -1,0 +1,11 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "This is the API documentation for",
+    "version" : "v1",
+    "title" : "API"
+  },
+  "host" : "104.248.35.208:8080/dataBaseServer",
+  "basePath" : "/api",
+  "schemes" : [ "http" ]
+}
