@@ -266,7 +266,7 @@
                 <!--</executions>-->
                 <configuration>
                     <force>true</force>
-                    <hostname>104.248.27.213</hostname>
+                    <hostname>${hostname}</hostname>
                     <port>9990</port>
                     <username>${username}</username>
                     <password>${password}</password>
