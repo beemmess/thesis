@@ -26,7 +26,7 @@ public abstract class MessageBean implements MessageListener {
                 logger.info("Textmessage instance");
                 String reply = messageReceived(((TextMessage)message).getText());
 
-                connectionFactory = InitialContext.doLookup(PathConstants.DATABASE_CONNECTION_FACTORY);
+                connectionFactory = InitialContext.doLookup(PathConstants.PROCESSING_SERVER_CONNECTION_FACTORY);
                 destination = InitialContext.doLookup(PathConstants.REPLY_QUEUE);
 
 

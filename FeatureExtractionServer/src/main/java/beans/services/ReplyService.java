@@ -36,7 +36,7 @@ public class ReplyService extends DataProcessService {
         String replyMessage = generateReplyMessage(replyMsgList);
         logger.info(replyMessage);
 
-        sendDataToDestination(replyMessage, PathConstants.REST_REPLY_QUEUE, PathConstants.INCOMING_DATA_CONNECTION_FACTORY);
+        sendDataToDestination(replyMessage, PathConstants.REST_REPLY_QUEUE, PathConstants.PROCESSING_SERVER_CONNECTION_FACTORY);
 
         replyManager.clearList();
 

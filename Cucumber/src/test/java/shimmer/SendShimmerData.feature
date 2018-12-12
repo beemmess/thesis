@@ -10,7 +10,7 @@ Feature: Send a raw Shimmer data to Feature extraction server
     "id": "Cucumber",
     "device":"shimmer",
     "apiUrl":"/shimmer/normalize",
-    "features": "timestamp,GSR,PPG,task",
+    "attributes": "timestamp,GSR,PPG,task",
     "data": "6681,1,2,1\n6683,3,2,2\n6684,2,1,3\n"
     }
     """
@@ -24,7 +24,7 @@ Feature: Send a raw Shimmer data to Feature extraction server
     "id": "Cucumber"
     "device":"shimmer",
     "apiUrl":"/shimmer/normalize",
-    "features": "timestamp,GSR,PPG,task",
+    "attributes": "timestamp,GSR,PPG,task",
     "data": "6681,1,2,1\n6683,3,2,2\n6684,2,1,3\n"
     }
     """
@@ -40,15 +40,15 @@ Feature: Send a raw Shimmer data to Feature extraction server
     "id": "Cucumber",
     "device":"shimmer",
     "apiUrl":"/shimmer/normalize",
-    "features": "timestamp,GSR,PPG,task",
+    "attributes": "timestamp,GSR,PPG,task",
     "data": "6681,1,2,1\n6683,3,2,2\n6684,2,1,3\n"
     }
     """
     When The raw data is sent through a "<type>" process at "<url>"
     Then The JSON value of type should be "<type>"
     And The JSON value of id should be "<id>"
-    And The JSON value of features should be "<features>"
+    And The JSON value of attributes should be "<attributes>"
     And The JSON value of data should be "<data>"
     Examples:
-    |url                                                | type          | id        | features            | data                                                                                                                                   |
+    |url                                                | type          | id        | attributes            | data                                                                                                                                   |
     |http://207.154.211.58:5000/shimmer/normalize    | normalize     | Cucumber  | timestamp,GSR,PPG,task | 6681,0.5,1.2,1\n6683,1.5,1.2,2\n6684,1.0,0.6,3\n|

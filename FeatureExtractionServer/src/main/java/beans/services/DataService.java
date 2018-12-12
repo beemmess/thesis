@@ -64,13 +64,13 @@ public class DataService extends DataProcessService {
         replyManager.setCount(apiUrls.length+1);
 
 //        Send raw data to database
-        sendDataToDestination(message, PathConstants.EYETRACKER_QUEUE, PathConstants.INCOMING_DATA_CONNECTION_FACTORY);
+        sendDataToDestination(message, PathConstants.DATABASE_QUEUE, PathConstants.DATABASE_SERVER_CONNECTION_FACTORY);
 
 //        Send raw data to python web client for processing and then send the processed data to database
         for(String apiUrl : apiUrls){
             String url = "http://" + address + ":" + port + apiUrl;
             msg = postToFlask(message, url);
-            sendDataToDestination(msg,PathConstants.EYETRACKER_QUEUE, PathConstants.INCOMING_DATA_CONNECTION_FACTORY);
+            sendDataToDestination(msg,PathConstants.DATABASE_QUEUE, PathConstants.DATABASE_SERVER_CONNECTION_FACTORY);
         }
 
 

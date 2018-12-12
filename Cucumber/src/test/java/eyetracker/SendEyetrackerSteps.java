@@ -120,9 +120,9 @@ public class SendEyetrackerSteps {
 
     }
 
-    @And("^The JSON value of features should be \"([^\"]*)\"$")
-    public void theJSONValueOfFeaturesShouldBeFeatures(String features) {
-        assertEquals(features, dataMessage.getFeatures());
+    @And("^The JSON value of attributes should be \"([^\"]*)\"$")
+    public void theJSONValueOfattributesShouldBeattributes(String attributes) {
+        assertEquals(attributes, dataMessage.getAttributes());
     }
 
     @And("^The JSON value of data should be \"([^\"]*)\"$")

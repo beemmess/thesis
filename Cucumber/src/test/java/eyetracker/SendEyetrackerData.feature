@@ -10,7 +10,7 @@ Feature: Send a raw Eyetracking data to Feature extraction server
     "id": "Cucumber",
     "device":"qwerty",
     "apiUrl":"/eyetracker/substitution,/eyetracker/avgPupil,/eyetracker/avgPupil/perTask,/eyetracker/interpolate",
-    "features": "timestamp,leftX,leftY,rightX,rightY,pupilL,pupilR,task",
+    "attributes": "timestamp,leftX,leftY,rightX,rightY,pupilL,pupilR,task",
     "data": "6682,90,91,93,94,22,24,t1\n6683,NaN,NaN,83,84,32,34,t1\n6684,92,94,83,84,32,38,t2\n6685,93,95,83,84,34,36,t2\n"
     }
     """
@@ -25,7 +25,7 @@ Feature: Send a raw Eyetracking data to Feature extraction server
     "id": "Cucumber"
     "device":"eyetracker",
     "apiUrl":"/eyetracker/substitution,/eyetracker/avgPupil,/eyetracker/avgPupil/perTask,/eyetracker/interpolate",
-    "features": "timestamp,leftX,leftY,rightX,rightY,pupilL,pupilR,task"
+    "attributes": "timestamp,leftX,leftY,rightX,rightY,pupilL,pupilR,task"
     "data": "6682,90,91,93,94,22,24,t1\n6683,NaN,NaN,83,84,32,34,t1\n6684,92,94,83,84,32,38,t2\n6685,93,95,83,84,34,36,t2\n"
     """
     When The raw data is sent to the server "http://207.154.211.58:8080/FeatureExtractionServer/api/data"
@@ -40,7 +40,7 @@ Feature: Send a raw Eyetracking data to Feature extraction server
     "id": "Cucumber",
     "device":"eyetracker",
     "apiUrl":"/eyetracker/substitution,/eyetracker/avgPupil,/eyetracker/avgPupil/perTask,/eyetracker/interpolate",
-    "features": "timestamp,leftX,leftY,rightX,rightY,pupilL,pupilR,task",
+    "attributes": "timestamp,leftX,leftY,rightX,rightY,pupilL,pupilR,task",
     "data": "6682,90,91,93,94,22,24,t1\n6683,NaN,NaN,83,84,32,34,t1\n6684,92,94,83,84,32,38,t2\n6685,93,95,83,84,34,36,t2\n"
     }
     """
@@ -48,10 +48,10 @@ Feature: Send a raw Eyetracking data to Feature extraction server
     When The raw data is sent through a "<type>" process at "<url>"
     Then The JSON value of type should be "<type>"
     And The JSON value of id should be "<id>"
-    And The JSON value of features should be "<features>"
+    And The JSON value of attributes should be "<attributes>"
     And The JSON value of data should be "<data>"
     Examples:
-    |url                                                   | type          | id        | features                                               | data                                                                                                            |
+    |url                                                   | type          | id        | attributes                                               | data                                                                                                            |
     |http://207.154.211.58:5000/eyetracker/substitution    | substitution  | Cucumber  | timestamp,leftX,leftY,rightX,rightY,pupilL,pupilR,task | 6682,90.0,91.0,93,94,22,24,t1\n6683,83.0,84.0,83,84,32,34,t1\n6684,92.0,94.0,83,84,32,38,t2\n6685,93.0,95.0,83,84,34,36,t2\n|
     |http://207.154.211.58:5000/eyetracker/avgPupil        | avgPupil      | Cucumber  | avgPupilL,avgPupilR                                    | 30.0,33.0                                                                                                     |
     |http://207.154.211.58:5000/eyetracker/interpolate     | interpolate   | Cucumber  | timestamp,leftX,leftY,rightX,rightY,pupilL,pupilR,task | 6682,90.0,91.0,93,94,22,24,t1\n6683,91.0,92.5,83,84,32,34,t1\n6684,92.0,94.0,83,84,32,38,t2\n6685,93.0,95.0,83,84,34,36,t2\n|

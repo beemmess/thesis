@@ -13,16 +13,16 @@ public class DeviceClient extends CassandraClient {
     DeviceRepository deviceRepository = new DeviceRepository(session);
 
 
-    public void createTable(String device, String type, String features) {
+    public void createTable(String device, String type, String attributes) {
 
-        deviceRepository.createTable(device, type, features);
+        deviceRepository.createTable(device, type, attributes);
 
     }
 
 
-    public Boolean insertData(String type, String device, String features, String dataid, String line){
+    public Boolean insertData(String type, String device, String attributes, String dataid, String line){
 
-        return deviceRepository.insertValues(type,device,features,dataid,line);
+        return deviceRepository.insertValues(type,device,attributes,dataid,line);
 
     }
 

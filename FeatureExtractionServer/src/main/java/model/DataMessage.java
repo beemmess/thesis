@@ -5,7 +5,7 @@ package model;
 public class DataMessage extends Message {
 
     private String id;
-    private String features;
+    private String attributes;
     private String data;
     private String type;
     private String apiUrl;
@@ -20,12 +20,12 @@ public class DataMessage extends Message {
         this.data = data;
     }
 
-    public String getFeatures() {
-        return features;
+    public String getAttributes() {
+        return attributes;
     }
 
-    public void setFeatures(String features) {
-        this.features = features;
+    public void setAttributes(String attributes) {
+        this.attributes = attributes;
     }
 
     public String getId() {

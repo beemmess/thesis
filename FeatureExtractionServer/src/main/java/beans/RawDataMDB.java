@@ -11,7 +11,7 @@ import javax.ejb.MessageDriven;
 import javax.inject.Inject;
 
 @MessageDriven(activationConfig = {
-        @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = PathConstants.EYETRACKER_RAW_QUEUE),
+        @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = PathConstants.INCOMING_DATA_QUEUE),
         @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
 
 })

@@ -43,7 +43,7 @@
         "id" : {
           "type" : "string"
         },
-        "features" : {
+        "attributes" : {
           "type" : "string"
         },
         "data" : {

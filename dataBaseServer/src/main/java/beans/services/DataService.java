@@ -34,10 +34,10 @@ public class DataService {
 
         DataMessage dataMessage = gson.fromJson(message, DataMessage.class);
         String type = dataMessage.getType();
-        String features = dataMessage.getFeatures();
+        String attributes = dataMessage.getAttributes();
         String device = dataMessage.getDevice();
 //        String id = eyeTrackerMessage.getId();
-        eyetrackerClient.createTable(device,type,features);
+        eyetrackerClient.createTable(device,type,attributes);
         return saveData(dataMessage);
 
 
@@ -49,13 +49,13 @@ public class DataService {
 
         String type = dataMessage.getType();
         String dataid = dataMessage.getId();
-        String features = dataMessage.getFeatures();
+        String attributes = dataMessage.getAttributes();
         String device = dataMessage.getDevice();
 
         try (BufferedReader br = new BufferedReader(new StringReader(dataMessage.getData()))) {
             String line;
             while ((line = br.readLine()) != null) {
-                response = eyetrackerClient.insertData(type,device,features,dataid,line);
+                response = eyetrackerClient.insertData(type,device,attributes,dataid,line);
                 if(!response){
                     return createJsonStringResponse(ERROR_RESPONSE, dataMessage.getType(), false);
                 }
