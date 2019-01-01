@@ -14,10 +14,10 @@ Feature: Send a raw Shimmer data to Feature extraction server
     "data": "6681,1,2,1\n6683,3,2,2\n6684,2,1,3\n"
     }
     """
-    When The raw data is sent to the server "http://207.154.211.58:8080/FeatureExtractionServer/api/data"
+    When The raw data is sent to the server "http://139.59.128.154:8080/FeatureExtractionServer/api/data"
     Then The data is succesfully sent and the server code response should be <200>
 
-  Scenario: As a user, I mistakenly send a badly formatted Shimmer data to the server
+  Scenario: As a user, I want to send a badly formatted Shimmer data to the server so that the respond code is a valid error response
     Given That the shimmer data of the user is collected and sent as a JSON string to the server:
     """
     {
@@ -28,11 +28,11 @@ Feature: Send a raw Shimmer data to Feature extraction server
     "data": "6681,1,2,1\n6683,3,2,2\n6684,2,1,3\n"
     }
     """
-    When The raw data is sent to the server "http://207.154.211.58:8080/FeatureExtractionServer/api/data"
+    When The raw data is sent to the server "http://139.59.128.154:8080/FeatureExtractionServer/api/data"
     Then The raw data is unsuccesfully sent to the server and respond code is <400>
 
 
-  Scenario Outline: As a researcher, I want to be sure that the data is processed correctly
+  Scenario Outline: As a user, I want process the data so that it is correctly processed
     Given That the shimmer data of the user has been sent to the server as a JSON:
     """
     {
@@ -51,4 +51,4 @@ Feature: Send a raw Shimmer data to Feature extraction server
     And The JSON value of data should be "<data>"
     Examples:
     |url                                                | type          | id        | attributes            | data                                                                                                                                   |
-    |http://207.154.211.58:5000/shimmer/normalize    | normalize     | Cucumber  | timestamp,GSR,PPG,task | 6681,0.5,1.2,1\n6683,1.5,1.2,2\n6684,1.0,0.6,3\n|
+    |http://139.59.128.154:5000/shimmer/normalize    | normalize     | Cucumber  | timestamp,GSR,PPG,task | 6681,0.5,1.2,1\n6683,1.5,1.2,2\n6684,1.0,0.6,3\n|

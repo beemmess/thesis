@@ -13,7 +13,6 @@ import javax.ws.rs.*;
 @Api(description = "the data API")
 public class DataApi {
     private static final Logger logger = Logger.getLogger(DataApi.class.getName());
-
     private final RawDataApiServiceImpl rawDataApiService = new RawDataApiServiceImpl();
 
     @POST
@@ -26,6 +25,4 @@ public class DataApi {
             throws NotFoundException {
         return rawDataApiService.response(message);
     }
-
-
 }

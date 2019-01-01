@@ -5,7 +5,7 @@
     "version" : "v1",
     "title" : "API"
   },
-  "host" : "142.93.109.50:9090/FeatureExtractionServer",
+  "host" : "139.59.128.154:9090/FeatureExtractionServer",
   "basePath" : "/api",
   "schemes" : [ "http" ],
   "paths" : {

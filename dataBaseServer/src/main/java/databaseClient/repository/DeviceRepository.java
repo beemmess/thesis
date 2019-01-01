@@ -25,13 +25,11 @@ public class DeviceRepository extends CassandraRepository {
         for(String attribute : attributeList){
             if(attribute.equals("task")){
                 sb.append(", task text");
-            }
-            else{
+            }else{
                 sb.append(", ");
                 sb.append(attribute.toLowerCase());
                 sb.append(" double");
             }
-
         }
         sb.append(", ");
         sb.append("PRIMARY KEY");
@@ -45,11 +43,8 @@ public class DeviceRepository extends CassandraRepository {
         else{
             sb.append(" (dataid))");
         }
-
         sb.append(";");
         String query = sb.toString();
-//        logger.info(query);
-
         executeQuery(query);
 
     }
