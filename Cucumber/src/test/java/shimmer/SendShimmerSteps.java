@@ -6,8 +6,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import model.EyeTrackerMessage;
-import model.ShimmerMessage;
+import model.DataMessage;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -27,7 +26,7 @@ public class SendShimmerSteps {
     private Gson gson = new Gson();
     private int resp;
     private String json;
-    private ShimmerMessage shimmerMessage;
+    private DataMessage dataMessage;
 
 
     @Given("^That the shimmer data of the user is collected and sent as a JSON string to the server:$")
@@ -90,30 +89,30 @@ public class SendShimmerSteps {
         } catch (IOException ex) {
             logger.info(ex.toString());
         }
-        shimmerMessage = gson.fromJson(json, ShimmerMessage.class);
+        dataMessage = gson.fromJson(json, DataMessage.class);
 
 
     }
 
     @Then("^The JSON value of type should be \"([^\"]*)\"$")
     public void theJSONValueOfTypeShouldBeType(String type) {
-        assertEquals(type, shimmerMessage.getType());
+        assertEquals(type, dataMessage.getType());
 
     }
 
     @And("^The JSON value of id should be \"([^\"]*)\"$")
     public void theJSONValueOfIdShouldBeId(String id)  {
-        assertEquals(id, shimmerMessage.getId());
+        assertEquals(id, dataMessage.getId());
 
     }
 
-    @And("^The JSON value of features should be \"([^\"]*)\"$")
-    public void theJSONValueOfFeaturesShouldBeFeatures(String features) {
-        assertEquals(features,shimmerMessage.getFeatures());
+    @And("^The JSON value of attributes should be \"([^\"]*)\"$")
+    public void theJSONValueOfattributesShouldBeattributes(String attributes) {
+        assertEquals(attributes,dataMessage.getAttributes());
     }
 
     @And("^The JSON value of data should be \"([^\"]*)\"$")
     public void theJSONValueOfDataShouldBeData(String data) {
-        assertEquals(data, shimmerMessage.getData());
+        assertEquals(data, dataMessage.getData());
     }
 }

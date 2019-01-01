@@ -145,11 +145,10 @@ ML
 
 tobiiPython/licensekey
 
-tobiiPython/gazedata/*
-tobiiPython/gazedataLSL/*
-tobiiPython/shimmerDataLSL/*
-#tobiiPython/EyeShimmerLSL/*
+Python/gazedata/*
+Python/gazedataLSL/*
+Python/shimmerDataLSL/*
+Python/EyeShimmerLSL/*
 
 
-dockerfiles
-
+Python/collectData/licensekey

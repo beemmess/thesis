@@ -1,9 +1,8 @@
 package databaseClient;
 
 import beans.PathConstants;
-import databaseClient.repository.EyetrackerRepository;
+import databaseClient.repository.DeviceRepository;
 import databaseClient.repository.KeyspaceRepository;
-import databaseClient.repository.ShimmerRepository;
 import com.datastax.driver.core.Session;
 import org.jboss.logging.Logger;
 
@@ -15,7 +14,8 @@ public class CassandraClient {
     public static final String keyspace = "data";
     public static final CassandraConnector connector = new CassandraConnector();
 //    Address of the server
-    private static final String address = PathConstants.LOCAL_SERVER_IP;
+//    private static final String address = PathConstants.LOCAL_SERVER_IP;
+    private static final String address = PathConstants.DOCKER_LOCAL_NETWORK;
 
 
     public CassandraClient() {
@@ -32,17 +32,17 @@ public class CassandraClient {
         keyspaceRepository.useKeyspace(keyspace);
 
         //Create the eyetracker Table if does not exist
-        EyetrackerRepository eyetrackerRepository = new EyetrackerRepository(session);
-        ShimmerRepository shimmerRepository = new ShimmerRepository(session);
+        DeviceRepository eyetrackerRepository = new DeviceRepository(session);
+//        ShimmerRepository shimmerRepository = new ShimmerRepository(session);
 //        CassandraRepository cassandraRepository = new CassandraRepository(session);
         //TODO: take out droptable when devolopement is finished
-        eyetrackerRepository.dropTable();
-        shimmerRepository.dropTable();
+//        eyetrackerRepository.dropTable();
+//        shimmerRepository.dropTable();
 
 
 
-        eyetrackerRepository.createTable();
-        shimmerRepository.createTable();
+//        deviceRepository.createTable();
+//        shimmerRepository.createTable();
 
 
 

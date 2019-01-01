@@ -217,40 +217,6 @@
             </plugin>
 
 
-            <plugin>
-                <groupId>com.github.kongchen</groupId>
-                <artifactId>swagger-maven-plugin</artifactId>
-                <version>3.1.0</version>
-                <configuration>
-                    <apiSources>
-                        <apiSource>
-                            <springmvc>false</springmvc>
-                            <locations>api</locations>
-                            <schemes>http</schemes>
-                            <!--<host>${host}/${project.artifactId}</host>-->
-                            <host>104.248.35.208:8080/${project.artifactId}</host>
-                            <basePath>/api</basePath>
-                            <info>
-                                <title>API</title>
-                                <version>v1</version>
-                                <description>This is the API documentation for</description>
-                            </info>
-                            <templatePath>${basedir}/templates/strapdown.html.hbs</templatePath>
-                            <!--<outputPath>${basedir}/${webapp-dir}/index.html</outputPath>-->
-                            <outputPath>${basedir}/src/main/webapp/index.html</outputPath>
-                            <swaggerDirectory>${basedir}/src/main/webapp/swaggerUI/</swaggerDirectory>
-                        </apiSource>
-                    </apiSources>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
 
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>
@@ -266,7 +232,7 @@
                 <!--</executions>-->
                 <configuration>
                     <force>true</force>
-                    <hostname>104.248.27.213</hostname>
+                    <hostname>${hostname}</hostname>
                     <port>9990</port>
                     <username>${username}</username>
                     <password>${password}</password>

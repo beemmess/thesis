@@ -10,12 +10,10 @@ import reply.ReplyManager;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import javax.jms.*;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 
 @Named
 @ApplicationScoped
-public class ReplyService extends DeviceService {
+public class ReplyService extends DataProcessService {
     private static final Logger logger = Logger.getLogger(ReplyService.class.getName());
 
     private ReplyManager replyManager = ReplyManager.getInstance();
@@ -37,17 +35,8 @@ public class ReplyService extends DeviceService {
         String[] replyMsgList = arrayMessage.split("\t");
         String replyMessage = generateReplyMessage(replyMsgList);
         logger.info(replyMessage);
-        try {
-            connectionFactory = InitialContext.doLookup(PathConstants.INCOMING_DATA_CONNECTION_FACTORY);
-            destination = InitialContext.doLookup(PathConstants.REST_REPLY_QUEUE);
 
-            session = session();
-            MessageProducer producer = session.createProducer(destination);
-            TextMessage textMessage = session.createTextMessage(replyMessage);
-            producer.send(textMessage);
-        } catch (JMSException | NamingException e) {
-            logger.error(e.toString());
-        }
+        sendDataToDestination(replyMessage, PathConstants.REST_REPLY_QUEUE, PathConstants.PROCESSING_SERVER_CONNECTION_FACTORY);
 
         replyManager.clearList();
 
@@ -72,11 +61,6 @@ public class ReplyService extends DeviceService {
             return "All data has been sucessfully saved to database:\n" + msg;
         }
         return "Error in saving in database:\n" + msg;
-    }
-
-    private QueueSession session() throws JMSException {
-        con = (QueueConnection) connectionFactory.createConnection();
-        return con.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
     }
 
 

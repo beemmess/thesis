@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>api</OriginalElement>
+  <nodes>
+    <node x="105.55424634240862" y="111.77369410598257">api.PathConstants</node>
+    <node x="301.33029147945234" y="-35.72581003393761">api.ApiResponseMessage</node>
+    <node x="0.0" y="577.0">api.DataApi</node>
+    <node x="262.8912037037037" y="366.0">api.impl.ApiServiceImplTest</node>
+    <node x="52.891203703703695" y="432.0">api.impl.RawDataApiServiceImpl</node>
+    <node x="606.4834145132338" y="178.29027959274873">api.ApiOriginFilter</node>
+    <node x="205.2824074074074" y="211.0">api.impl.ApiServiceImpl</node>
+    <node x="691.7041548943074" y="339.18696249539545">api.RestApplication</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="api.DataApi" target="api.impl.RawDataApiServiceImpl">
+      <point x="-70.0" y="-25.5" />
+      <point x="70.0" y="552.0" />
+      <point x="100.3912037037037" y="552.0" />
+      <point x="-47.5" y="14.5" />
+    </edge>
+    <edge source="api.impl.ApiServiceImplTest" target="api.impl.ApiServiceImpl">
+      <point x="45.875" y="-80.5" />
+      <point x="492.2662037037037" y="346.0" />
+      <point x="426.6574074074074" y="346.0" />
+      <point x="94.875" y="47.5" />
+    </edge>
+    <edge source="api.impl.RawDataApiServiceImpl" target="api.impl.ApiServiceImpl">
+      <point x="0.0" y="-14.5" />
+      <point x="147.8912037037037" y="336.0" />
+      <point x="236.9074074074074" y="336.0" />
+      <point x="-94.875" y="47.5" />
+    </edge>
+    <edge source="api.impl.RawDataApiServiceImpl" target="api.PathConstants">
+      <point x="-63.33333333333334" y="-14.5" />
+      <point x="84.55787037037035" y="346.0" />
+      <point x="133.0717592592593" y="346.0" />
+      <point x="133.0717592592593" y="186.0" />
+      <point x="153.44907407407408" y="186.0" />
+      <point x="-46.66666666666666" y="14.5" />
+    </edge>
+    <edge source="api.impl.ApiServiceImplTest" target="api.PathConstants">
+      <point x="-137.625" y="-80.5" />
+      <point x="308.7662037037037" y="326.0" />
+      <point x="183.12037037037038" y="326.0" />
+      <point x="183.12037037037038" y="186.0" />
+      <point x="200.11574074074073" y="186.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="api.impl.ApiServiceImpl" target="api.PathConstants">
+      <point x="-84.33333333333331" y="-47.5" />
+      <point x="46.66666666666666" y="14.5" />
+    </edge>
+    <edge source="api.impl.ApiServiceImplTest" target="api.ApiResponseMessage">
+      <point x="137.625" y="-80.5" />
+      <point x="584.0162037037037" y="346.0" />
+      <point x="511.6273148148148" y="346.0" />
+      <point x="511.6273148148148" y="186.0" />
+      <point x="472.9490740740741" y="186.0" />
+      <point x="72.66666666666669" y="80.5" />
+    </edge>
+    <edge source="api.impl.ApiServiceImpl" target="api.ApiResponseMessage">
+      <point x="0.0" y="-47.5" />
+      <point x="332.8988389709679" y="184.88356843643942" />
+      <point x="327.6157407407407" y="186.0" />
+      <point x="-72.66666666666669" y="80.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.1459098471520281" x="429.23792844616685" y="267.91519647891465" />
+  <SelectedNodes>
+    <node>api.ApiResponseMessage</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

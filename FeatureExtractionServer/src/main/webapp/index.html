@@ -31,7 +31,7 @@ This is the API documentation for
 # APIs
 
 
-## /eyetracker
+## /data
 
 
 
@@ -41,9 +41,9 @@ This is the API documentation for
 ### POST
 
 
-<a id="postEytracker">Transfer eyetracking data</a>
+<a id="postData">Transfer collected data to server</a>
 
-Create a new data transfer for eyetracking data
+Create a new data transfer for collected data
 
 
 
@@ -74,94 +74,12 @@ Create a new data transfer for eyetracking data
     <th>body</th>
     <td>body</td>
     <td>yes</td>
-    <td>Create a new data transfer for eyetracking data</td>
+    <td>Create a new data transfer for collected data</td>
     <td> - </td>
 
     <td>
     
-    <a href="#/definitions/EyeTrackerMessage">EyeTrackerMessage</a> 
-    </td>
-
-</tr>
-
-
-</table>
-
-
-
-#### Response
-
-**Content-Type: ** application/json
-
-
-| Status Code | Reason      | Response Model |
-|-------------|-------------|----------------|
-| 200    | Data received |  - |
-| 400    | Error, bad request. |  - |
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## /shimmer
-
-
-
-
-
-
-### POST
-
-
-<a id="postShimmer">Transfer Shimmer data</a>
-
-Create a new data transfer for Shimmer data
-
-
-
-
-
-
-
-#### Request
-
-
-**Content-Type: ** application/json
-
-##### Parameters
-
-<table border="1">
-    <tr>
-        <th>Name</th>
-        <th>Located in</th>
-        <th>Required</th>
-        <th>Description</th>
-        <th>Default</th>
-        <th>Schema</th>
-    </tr>
-
-
-
-<tr>
-    <th>body</th>
-    <td>body</td>
-    <td>yes</td>
-    <td>Data transfer</td>
-    <td> - </td>
-
-    <td>
-    
-    <a href="#/definitions/ShimmerMessage">ShimmerMessage</a> 
+    <a href="#/definitions/DataMessage">DataMessage</a> 
     </td>
 
 </tr>
@@ -198,7 +116,7 @@ Create a new data transfer for Shimmer data
 
 # Definitions
 
-## <a name="/definitions/EyeTrackerMessage">EyeTrackerMessage</a>
+## <a name="/definitions/DataMessage">DataMessage</a>
 
 <table border="1">
     <tr>
@@ -223,7 +141,7 @@ Create a new data transfer for Shimmer data
         </tr>
     
         <tr>
-            <td>features</td>
+            <td>attributes</td>
             <td>
                 
                     
@@ -261,21 +179,8 @@ Create a new data transfer for Shimmer data
             <td></td>
         </tr>
     
-</table>
-
-## <a name="/definitions/ShimmerMessage">ShimmerMessage</a>
-
-<table border="1">
-    <tr>
-        <th>name</th>
-        <th>type</th>
-        <th>required</th>
-        <th>description</th>
-        <th>example</th>
-    </tr>
-    
         <tr>
-            <td>id</td>
+            <td>apiUrl</td>
             <td>
                 
                     
@@ -288,33 +193,7 @@ Create a new data transfer for Shimmer data
         </tr>
     
         <tr>
-            <td>features</td>
-            <td>
-                
-                    
-                    string
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>data</td>
-            <td>
-                
-                    
-                    string
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>type</td>
+            <td>device</td>
             <td>
                 
                     

@@ -9,46 +9,20 @@
   "basePath" : "/api",
   "schemes" : [ "http" ],
   "paths" : {
-    "/eyetracker" : {
+    "/data" : {
       "post" : {
-        "summary" : "Transfer eyetracking data",
-        "description" : "Create a new data transfer for eyetracking data",
-        "operationId" : "postEytracker",
+        "summary" : "Transfer collected data to server",
+        "description" : "Create a new data transfer for collected data",
+        "operationId" : "postData",
         "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
-          "description" : "Create a new data transfer for eyetracking data",
+          "description" : "Create a new data transfer for collected data",
           "required" : true,
           "schema" : {
-            "$ref" : "#/definitions/EyeTrackerMessage"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Data received"
-          },
-          "400" : {
-            "description" : "Error, bad request."
-          }
-        }
-      }
-    },
-    "/shimmer" : {
-      "post" : {
-        "summary" : "Transfer Shimmer data",
-        "description" : "Create a new data transfer for Shimmer data",
-        "operationId" : "postShimmer",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "body",
-          "description" : "Data transfer",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/ShimmerMessage"
+            "$ref" : "#/definitions/DataMessage"
           }
         } ],
         "responses" : {
@@ -63,13 +37,13 @@
     }
   },
   "definitions" : {
-    "EyeTrackerMessage" : {
+    "DataMessage" : {
       "type" : "object",
       "properties" : {
         "id" : {
           "type" : "string"
         },
-        "features" : {
+        "attributes" : {
           "type" : "string"
         },
         "data" : {
@@ -77,22 +51,11 @@
         },
         "type" : {
           "type" : "string"
-        }
-      }
-    },
-    "ShimmerMessage" : {
-      "type" : "object",
-      "properties" : {
-        "id" : {
+        },
+        "apiUrl" : {
           "type" : "string"
         },
-        "features" : {
-          "type" : "string"
-        },
-        "data" : {
-          "type" : "string"
-        },
-        "type" : {
+        "device" : {
           "type" : "string"
         }
       }
