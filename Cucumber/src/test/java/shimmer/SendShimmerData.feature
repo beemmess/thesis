@@ -14,7 +14,7 @@ Feature: Send a raw Shimmer data to Feature extraction server
     "data": "6681,1,2,1\n6683,3,2,2\n6684,2,1,3\n"
     }
     """
-    When The raw data is sent to the server "http://139.59.128.154:8080/FeatureExtractionServer/api/data"
+    When The raw data is sent to the server "http://139.59.128.154:8080/ProcessingServer/api/data"
     Then The data is succesfully sent and the server code response should be <200>
 
   Scenario: As a user, I want to send a badly formatted Shimmer data to the server so that the respond code is a valid error response
@@ -28,7 +28,7 @@ Feature: Send a raw Shimmer data to Feature extraction server
     "data": "6681,1,2,1\n6683,3,2,2\n6684,2,1,3\n"
     }
     """
-    When The raw data is sent to the server "http://139.59.128.154:8080/FeatureExtractionServer/api/data"
+    When The raw data is sent to the server "http://139.59.128.154:8080/ProcessingServer/api/data"
     Then The raw data is unsuccesfully sent to the server and respond code is <400>
 
 

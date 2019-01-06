@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Cucumber/Cucumber.iml" filepath="$PROJECT_DIR$/Cucumber/Cucumber.iml" />
-      <module fileurl="file://$PROJECT_DIR$/FeatureExtractionServer/FeatureExtractionServer.iml" filepath="$PROJECT_DIR$/FeatureExtractionServer/FeatureExtractionServer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ProcessingServer/ProcessingServer.iml" filepath="$PROJECT_DIR$/ProcessingServer/ProcessingServer.iml" />
       <module fileurl="file://$PROJECT_DIR$/dataBaseServer/dataBaseServer.iml" filepath="$PROJECT_DIR$/dataBaseServer/dataBaseServer.iml" />
       <module fileurl="file://$PROJECT_DIR$/thesis-parent.iml" filepath="$PROJECT_DIR$/thesis-parent.iml" />
     </modules>

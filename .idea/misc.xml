@@ -2,7 +2,7 @@
 <project version="4">
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/dataBaseServer" />
-    <file type="web" url="file://$PROJECT_DIR$/FeatureExtractionServer" />
+    <file type="web" url="file://$PROJECT_DIR$/ProcessingServer" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">

@@ -1,5 +1,5 @@
 # Created by beemmess at 02/11/2018
-Feature: Send a raw Eyetracking data to Feature extraction server
+Feature: Send a raw Eyetracking data to Processing server
 
 
   Scenario: As a user I want the eyetracking data to be successfully sent to the server
@@ -14,7 +14,7 @@ Feature: Send a raw Eyetracking data to Feature extraction server
     "data": "6682,90,91,93,94,22,24,t1\n6683,NaN,NaN,83,84,32,34,t1\n6684,92,94,83,84,32,38,t2\n6685,93,95,83,84,34,36,t2\n"
     }
     """
-    When The raw data is sent to the server "http://139.59.128.154:8080/FeatureExtractionServer/api/data"
+    When The raw data is sent to the server "http://139.59.128.154:8080/ProcessingServer/api/data"
     Then The data is succesfully sent and the server code response should be <200>
     And The message respond replies that all data has been saved to database;
 
@@ -28,7 +28,7 @@ Feature: Send a raw Eyetracking data to Feature extraction server
     "attributes": "timestamp,leftX,leftY,rightX,rightY,pupilL,pupilR,task"
     "data": "6682,90,91,93,94,22,24,t1\n6683,NaN,NaN,83,84,32,34,t1\n6684,92,94,83,84,32,38,t2\n6685,93,95,83,84,34,36,t2\n"
     """
-    When The raw data is sent to the server "http://139.59.128.154:8080/FeatureExtractionServer/api/data"
+    When The raw data is sent to the server "http://139.59.128.154:8080/ProcessingServer/api/data"
     Then The raw data is unsuccesfully sent to the server and respond code is <400>
 
 
