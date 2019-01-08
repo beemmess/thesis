@@ -4,7 +4,14 @@ import tobii_research as tr
 import numpy as np
 import pandas as pd
 import requests
+import json
+import sys
 
+task = {1.0 : "presentation"}
+seconds = int(sys.argv[1])
+# print(n_lines)
+t_end = time.time() + seconds
+print(t_end)
 
 # tobii_research documentation for python
 # http://devtobiipro.azurewebsites.net/tobii.research/python/reference/1.5.0.28-alpha-g427ed891/index.html
@@ -69,7 +76,7 @@ def gaze_data_callback(gaze_data):
 
 # This function triggers the LSL into getting the LSL StreamInlet for the eyetracker
 def lab_streaming_layer():
-	# t = time.time() + seconds
+	# t = time.time()
 
 	# first resolve an tobii stream on the lab network
 	print("looking for an Tobii stream...")
@@ -77,37 +84,31 @@ def lab_streaming_layer():
 
 	# create a new inlet to read from the stream
 	inlet = StreamInlet(streams[0])
-	time = datetime.datetime.now().strftime("-%Y-%m-%d-%H%M%S")
+	# time = datetime.datetime.now().strftime("-%Y-%m-%d-%H%M%S")
 
-	fileName = "buffer/gazedataLSL{}.csv".format(time)
 	f = ""
-	file = open("buffer/gazedata{}.csv".format(time), "a")
-
-	# f +="timestamp,leftX,leftY,rightX,rightY\n"
 	n=0
 
 	# This will create 10 lines of eyetracking data and then sent to the server,
-	while(n<100):
-	    # get a new sample (you can also omit the timestamp part if you're not
-	    # interested in it)
+	while time.time() < t_end:
 	    sample, timestamp = inlet.pull_sample(timeout=1)
-	    # print(string)
-	    string="{},{},{},{},{},{},{},{}\n".format(timestamp,sample[0],sample[1],sample[2],sample[3],sample[4],sample[5],sample[6])
+	    if 'nan' in str(sample):
+		    for m in range(6):
+		    	if 'nan' in str(sample[m]):
+		    		sample[m]='NaN'
+	    string="{},{},{},{},{},{},{},{}\n".format(timestamp,sample[0],sample[1],sample[2],sample[3],sample[4],sample[5],task[sample[6]])
 	    n +=1
 	    f +=string
-	    # print(timestamp, sample)
+
 	jsonString= {"type":"raw", "device":"eyetracker", "apiUrl":"/eyetracker/substitution,/eyetracker/avgPupil,/eyetracker/avgPupil/perTask,/eyetracker/interpolate", "id": "pythonTest", "attributes": "timestamp,leftX,leftY,rightX,rightY,pupilL,pupilR,task", "data": f}
 	
 	# Initial value set to the csv file, a column header
-	file.write(f)
-	print(jsonString)
-	return jsonString
+	# file.write(f)
+	with open('buffer/eyetracker.json', 'w') as jsonEyetracker:
+		json.dump(jsonString, jsonEyetracker)
 
-
-# Send the request to the server, the server url needs to be defined.
-
-
-
+	# print(jsonString)
+	# return jsonString
 
 
 # This finds the connected tobii eyetracker using the tobii_research library

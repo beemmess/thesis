@@ -2,6 +2,10 @@
 import sys, struct, serial, time, datetime
 from pylsl import StreamInfo, StreamOutlet, resolve_stream, StreamInlet
 
+seconds = int(sys.argv[2])
+# print(n_lines)
+t_end = time.time() + seconds
+
 def wait_for_ack():
    ddata = ""
    ack = struct.pack('B', 0xff)
@@ -56,19 +60,21 @@ else:
    framesize = 8 # 1byte packet type + 3byte timestamp + 2 byte GSR + 2 byte PPG(Int A13)
 
 # Create a file to write the data to
-   time = datetime.datetime.now().strftime("-%Y-%m-%d-%H%M%S")
-   f = open("shimmerdata{}.csv".format(time), "a")
-   f.write("Packet Type,Timestamp,GSR,PPG\n")
+   # time = datetime.datetime.now().strftime("-%Y-%m-%d-%H%M%S")
+   # f = open("shimmerdata{}.csv".format(time), "a")
+   # f.write("Packet Type,Timestamp,GSR,PPG\n")
 
 #  LSL
 # Configure a streaminfo
-   info = StreamInfo(name='Shimmer3', type='gsr_ppg', channel_count=2, channel_format='float32',source_id='uidShimmer')
+   info = StreamInfo(name='Shimmer3', type='gsr_ppg', channel_count=3, channel_format='float32',source_id='uidShimmer')
 # next make an outlet
    outlet = StreamOutlet(info)
 
    print("Packet Type\tTimestamp\tGSR\tPPG")
+   n = 0
    try:
-      while True:
+      # while True:
+      while (time.time() < t_end):
          while numbytes < framesize:
             ddata += ser.read(framesize)
             numbytes = len(ddata)
@@ -107,9 +113,10 @@ else:
          print("0x{:.0f}02x,\t{:.0f},\t{:.4f},\t{:.4f}".format(packettype[0], timestamp, GSR_ohm, PPG_mv))
 
       # Send data to LSL
-         task = 1
+         task = 1.0
          mysample = [GSR_ohm, PPG_mv, task]
          outlet.push_sample(mysample)
+         n+=1
       # Recieve data from LSL
 
    except KeyboardInterrupt:

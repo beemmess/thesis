@@ -1,18 +1,35 @@
 
-import os
+import os, shutil
 from glob import glob
+import time, datetime
+import sys, requests, json
 
 
+time = str(datetime.datetime.now().strftime("%Y-%m-%d-%H%M%S"))
+print(time)
+
+backup = False
 
 def sendRequest(data):
-	url ='http://142.93.109.50:9090/ProcessingServer/api/data'
+	url ='http://139.59.128.154:8080/ProcessingServer/api/data'
 	headers = {'Content-type': 'application/json'}
-	# requests.post(url,json=data, headers=headers)
-	print(data)
+	r = requests.post(url,json=data, headers=headers)
+	jsonReply = json.loads(r.text)
+	print(data["device"])
+	print(jsonReply["message"])
 
 
 for file in glob("buffer/*.*"):
-	json = open(file).read()
-	print(file)
-	sendRequest(json)
-	os.remove(file)
+	with open(file) as json_data:
+		jsonString = json.load(json_data)
+		# print(file)
+		sendRequest(jsonString)
+		
+		if(backup):
+			# backup for testing purpose
+			backup = "buffer/backup/{}".format(time)
+			os.mkdir(backup)
+			shutil.move(file, backup)
+		else:
+			os.remove(file)
+
