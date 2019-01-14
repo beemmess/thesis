@@ -284,8 +284,9 @@
                             <springmvc>false</springmvc>
                             <locations>api</locations>
                             <schemes>http</schemes>
-                            <!--<host>${host}/${project.artifactId}</host>-->
-                            <host>139.59.128.154:8080/${project.artifactId}</host>
+                            <!--CHANGE IP ADDRESS-->
+                            <host>hbl-wildfly.compute.dtu.dk:8080/${project.artifactId}</host>
+                            <!--CHANGE IP ADDRESS-->
                             <basePath>/api</basePath>
                             <info>
                                 <title>API</title>

@@ -19,7 +19,7 @@ public final class PathConstants {
 //    IPs and ports
 
 //    Remote server
-    public static final String REMOTE_SERVER_IP ="165.227.146.131";
+    public static final String REMOTE_SERVER_IP ="hbl-cassandra.compute.dtu.dk"; // CHANGE THIS ADDRESS ACCORDING TO THE REMOTE IP
     public static final String REMOTE_SERVER_JMS_PORT ="5445";
 
 //    Local Server

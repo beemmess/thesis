@@ -53,11 +53,11 @@ public class ApiServiceImplTest{
     @Mock
     private Response.ResponseBuilder responseBuilderError;
     @Mock
-    private Response okResponse;
+    private Response responseOk;
     @Mock
     private TextMessage receivedTextMessage;
     @Mock
-    private Response errorResponse;
+    private Response responseError;
 
     private String jsonmessage;
     private ApiServiceImpl apiServiceImpl;
@@ -90,10 +90,10 @@ public class ApiServiceImplTest{
 
         when(Response.ok()).thenReturn(responseBuilderOk);
         when(responseBuilderOk.entity(any(ApiResponseMessage.class))).thenReturn(responseBuilderOk);
-        when(responseBuilderOk.build()).thenReturn(okResponse);
+        when(responseBuilderOk.build()).thenReturn(responseOk);
         when(Response.serverError()).thenReturn(responseBuilderError);
         when(responseBuilderError.entity(any(ApiResponseMessage.class))).thenReturn(responseBuilderError);
-        when(responseBuilderError.build()).thenReturn(errorResponse);
+        when(responseBuilderError.build()).thenReturn(responseError);
 
 
         apiServiceImpl = new ApiServiceImpl(queue,confactory);
@@ -131,6 +131,80 @@ public class ApiServiceImplTest{
         when(receivedTextMessage.getText()).thenReturn(jsonmessage);
         apiServiceImpl.response("test");
         verify(msgProducer, times(1)).send(eq(textMessage));
+    }
+
+
+    @Test
+    public void responseMessageProducerClose() throws JMSException {
+        when(receivedTextMessage.getText()).thenReturn(jsonmessage);
+        apiServiceImpl.response("test");
+        verify(msgProducer, times(1)).close();
+    }
+
+    @Test
+    public void responseMessageCreateConsumer() throws JMSException {
+        when(receivedTextMessage.getText()).thenReturn(jsonmessage);
+        apiServiceImpl.response("test");
+        verify(qSession, times(1)).createConsumer(eq(replyDestination));
+    }
+
+    @Test
+    public void responseMessageStartConnection() throws JMSException {
+        when(receivedTextMessage.getText()).thenReturn(jsonmessage);
+        apiServiceImpl.response("test");
+        verify(qConnection, times(1)).start();
+    }
+
+    @Test
+    public void responseMessageRecieveTextMessage() throws JMSException {
+        when(receivedTextMessage.getText()).thenReturn(jsonmessage);
+        apiServiceImpl.response("test");
+        verify(msgConsumer, times(1)).receive();
+    }
+
+    @Test
+    public void responseMessageStopConnection() throws JMSException {
+        when(receivedTextMessage.getText()).thenReturn(jsonmessage);
+        apiServiceImpl.response("test");
+        verify(qConnection, times(1)).stop();
+    }
+
+    @Test
+    public void responseMessageCloseConsumer() throws JMSException {
+        when(receivedTextMessage.getText()).thenReturn(jsonmessage);
+        apiServiceImpl.response("test");
+        verify(msgConsumer, times(1)).close();
+    }
+
+    @Test
+    public void responseMessageCloseQueueSession() throws JMSException {
+        when(receivedTextMessage.getText()).thenReturn(jsonmessage);
+        apiServiceImpl.response("test");
+        verify(qSession, times(1)).close();
+    }
+
+    @Test
+    public void responseMessageCloseConnection() throws JMSException {
+        when(receivedTextMessage.getText()).thenReturn(jsonmessage);
+        apiServiceImpl.response("test");
+        verify(qConnection, times(1)).close();
+    }
+
+
+
+    @Test
+    public void responseReturnsOk() throws JMSException{
+        when(receivedTextMessage.getText()).thenReturn(jsonmessage);
+        Response response = apiServiceImpl.response("test");
+        assertThat(response, is(responseOk));
+
+    }
+
+    @Test
+    public void createProducerThrowsJMSException() throws JMSException {
+        when(qSession.createProducer(eq(destination))).thenThrow(new JMSException("JMSException"));
+        Response response = apiServiceImpl.response("test");
+        assertThat(response, is(responseError));
     }
 
 

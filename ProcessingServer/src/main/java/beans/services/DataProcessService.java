@@ -21,48 +21,25 @@ public abstract class DataProcessService {
     private Destination destination;
     private QueueConnection con;
 
-//    private ReplyManager replyManager = ReplyManager.getInstance();
-
-//    private String queue = PathConstants.EYETRACKER_QUEUE;
-//    private Gson gson = new Gson();
-//
-//    private String msg;
-//    private String address = PathConstants.LOCAL_SERVER_IP;     // Local server ip address
-//    private String port = PathConstants.PYTHON_WEB_CLIENT_PORT; // port of the python web client
-
-
-//    private ReplyManager replyManager = ReplyManager.getInstance();
-
-
-
-//    public void processMessage(String message){
-//        DataMessage dataMessage = gson.fromJson(message, DataMessage.class);
-//        String[] apiUrls = dataMessage.getApiUrl().split(",");
-//        replyManager.clearList();
-//        replyManager.clearCount();
-//        replyManager.setCount(apiUrls.length+1);
-//
-//        sendDataToDB(message, queue);
-//
-//        for(String apiUrl : apiUrls){
-//            String url = "http://" + address + ":" + port + apiUrl;
-//            msg = postToFlask(message, url);
-//            sendDataToDB(msg,queue);
-//        }
-//    }
-
 
     public String postToFlask(String message,String url){
-
+//        System.out.println("post0");
         try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
+//            System.out.println("post1");
             HttpPost request = new HttpPost(url);
+//            System.out.println("post2");
             StringEntity params = new StringEntity(message);
+//            System.out.println("post3");
 
             request.addHeader("content-type", "application/json");
+//            System.out.println("post4");
             request.setEntity(params);
+//            System.out.println("post5");
             HttpResponse result = httpClient.execute(request);
+//            System.out.println("post6");
 
             String json = EntityUtils.toString(result.getEntity(), "UTF-8");
+//            System.out.println("post7");
             return json;
         } catch (IOException ex) {
             logger.info(ex);
@@ -76,17 +53,30 @@ public abstract class DataProcessService {
 
         try {
             connectionFactory = InitialContext.doLookup(cf);
+//            System.out.println("sendData1");
             destination = InitialContext.doLookup(queue);
+//            System.out.println("sendData2");
+
 
         } catch (NamingException e) {
             logger.error(e);
         }
 
         try {
+//            System.out.println("sendData3");
+
             QueueSession session = session();
+//            System.out.println("sendData4");
+
             MessageProducer producer = session.createProducer(destination);
+//            System.out.println("sendData5");
+
             TextMessage textMessage = session.createTextMessage(message);
+//            System.out.println("sendData6");
+
             producer.send(textMessage);
+//            System.out.println("sendData7");
+
             producer.close();
         } catch (JMSException e) {
             e.printStackTrace();

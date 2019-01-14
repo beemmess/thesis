@@ -5,6 +5,10 @@ from pylsl import StreamInfo, StreamOutlet, resolve_stream, StreamInlet
 seconds = int(sys.argv[2])
 # print(n_lines)
 t_end = time.time() + seconds
+t1 = time.time() + seconds/4.0
+t2 = time.time() + seconds/2.0
+t3 = time.time() + 3*(seconds/4.0)
+
 
 def wait_for_ack():
    ddata = ""
@@ -20,9 +24,9 @@ if len(sys.argv) < 2:
    print("no device specified")
    print("You need to specify the serial port of the device you wish to connect to")
    print("example:")
-   print("   aAccel5Hz.py Com12")
+   print("   shimmer.py Com12")
    print("or")
-   print("   aAccel5Hz.py /dev/rfcomm0")
+   print("   shimmer.py /dev/rfcomm0")
 else:
    ser = serial.Serial(sys.argv[1], 115200)
    ser.flushInput()
@@ -113,7 +117,18 @@ else:
          print("0x{:.0f}02x,\t{:.0f},\t{:.4f},\t{:.4f}".format(packettype[0], timestamp, GSR_ohm, PPG_mv))
 
       # Send data to LSL
-         task = 1.0
+         timeNow = time.time()
+         if(timeNow < t_end and  timeNow > t3):
+            task = 4.0
+         if(time.time()< t3 and  timeNow >t2):
+            task = 3.0
+         if(time.time()< t2 and  timeNow > t1):
+            task= 2.0
+         if(time.time() < t1):
+            task =1.0
+
+
+
          mysample = [GSR_ohm, PPG_mv, task]
          outlet.push_sample(mysample)
          n+=1

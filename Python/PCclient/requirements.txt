@@ -1,0 +1,7 @@
+pylsl==1.12.2
+serial==0.0.69
+stomp.py==4.1.21
+tobii-research==1.5.0
+pynput==1.4
+requests==2.20.0
+

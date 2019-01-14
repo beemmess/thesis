@@ -45,7 +45,7 @@ def lab_streaming_layer():
 
 # Send the request to the server, the server url needs to be defined.
 def sendRequest(data):
-	url ='http://142.93.109.50:9090/FeatureExtractionServer/api/eyetracker'
+	url ='http://142.93.109.50:9090/FeatureExtractionServer/api/data'
 	headers = {'Content-type': 'application/json'}
 	# requests.post(url,json=data, headers=headers)
 	print(data)

@@ -1,8 +1,6 @@
 from pylsl import StreamInfo, StreamOutlet, resolve_stream, StreamInlet
 import time, datetime, re
 import tobii_research as tr
-import numpy as np
-import pandas as pd
 import requests
 import json
 import sys

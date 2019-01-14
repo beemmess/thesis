@@ -14,7 +14,7 @@ public final class PathConstants {
 //    IPs and ports
 
 //    Remote server
-    public static final String REMOTE_SERVER_IP ="139.59.128.154";
+    public static final String REMOTE_SERVER_IP ="hbl-wildfly.compute.dtu.dk";
     public static final String REMOTE_SERVER_JMS_PORT ="5445";
 
 //    Local server

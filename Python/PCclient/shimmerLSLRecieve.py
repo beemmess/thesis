@@ -5,8 +5,9 @@ import time, datetime
 import json
 import sys
 
-task = {1.0 : "presentation"}
+task = {1.0 : "demo", 2.0: "read", 3.0: "calc", 4.0:"listen"}
 # n_lines = int(sys.argv[1])
+
 
 # first resolve an tobii stream on the lab network
 print("looking for an shimmer stream...")
