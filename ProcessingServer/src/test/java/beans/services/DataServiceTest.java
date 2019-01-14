@@ -106,7 +106,8 @@ public class DataServiceTest {
     @Mock
     private HttpEntity httpEntity;
 
-
+    @Mock
+    private TextMessage receivedTextMessage;
 
 
     private DataService dataService;
@@ -114,6 +115,11 @@ public class DataServiceTest {
     private String message = "test";
 
     private String flaskReply = "flaskReply";
+    private String jsonmessage;
+//    private String queue = "testQueue";
+    private String replyQueue = "replyQueue";
+    private String confactory = "testConnectionFactory";
+
 
     public DataServiceTest() {
         MockitoAnnotations.initMocks(this);
@@ -126,6 +132,7 @@ public class DataServiceTest {
     @Before
     public void setUp() throws Exception {
         dataService = Mockito.mock(DataService.class);
+        dataProcessService = Mockito.mock(DataProcessService.class);
         PowerMockito.mockStatic(ReplyManager.class);
         PowerMockito.mockStatic(InitialContext.class);
         PowerMockito.mockStatic(HttpClientBuilder.class);
@@ -144,6 +151,9 @@ public class DataServiceTest {
 //        dataProcessService.sendDataToDestination("test","test","test");
 //        Mockito.doCallRealMethod().when(dataProcessService).postToFlask(anyString(),anyString());
 
+
+
+
         when(InitialContext.doLookup(eq(queue))).thenReturn(destination);
         when(InitialContext.doLookup(eq(cf))).thenReturn(connectionFactory);
         when(connectionFactory.createConnection()).thenReturn(qConnection);
@@ -157,6 +167,9 @@ public class DataServiceTest {
 //        when(EntityUtils.class,"toString").thenReturn(flaskReply);
         when(httpClient.execute(any(HttpUriRequest.class))).thenReturn(closeableHttpResponse);
         when(result.getEntity()).thenReturn(httpEntity);
+        when(dataService.postToFlask(anyString(),anyString())).thenReturn("test");
+
+
 
 
 
@@ -170,7 +183,6 @@ public class DataServiceTest {
 
         DataMessage dataMsg = setDataMessage("1","a1", "1", "type", "url1,url2", "device");
         String jsonMessage = gson.toJson(dataMsg);
-        System.out.println(jsonMessage);
 
         dataService.processMessage(jsonMessage);
         verify(replyManager, times(1)).clearList();
@@ -183,7 +195,6 @@ public class DataServiceTest {
 
         DataMessage dataMsg = setDataMessage("1","a1", "1", "type", "url1,url2", "device");
         String jsonMessage = gson.toJson(dataMsg);
-        System.out.println(jsonMessage);
 
         dataService.processMessage(jsonMessage);
         verify(replyManager, times(1)).clearCount();
@@ -195,25 +206,79 @@ public class DataServiceTest {
 
         DataMessage dataMsg = setDataMessage("1","a1", "1", "type", "url1,url2", "device");
         String jsonMessage = gson.toJson(dataMsg);
-        System.out.println(jsonMessage);
 
         dataService.processMessage(jsonMessage);
         verify(replyManager, times(1)).setCount(anyInt());
     }
 
 
-//
+
 //    @Test
 //    public void processMessageSendDataToDestination() throws NullPointerException{
 //        DataService dataService = new DataService();
 //
 //        DataMessage dataMsg = setDataMessage("1","a1", "1", "type", "url1,url2", "device");
 //        String jsonMessage = gson.toJson(dataMsg);
-//        System.out.println(jsonMessage);
 //
 //        dataService.processMessage(jsonMessage);
-//        verify(dataService, times(1)).sendDataToDestination(anyString(), anyString(),anyString());
+//        verify(dataProcessService, times(1)).sendDataToDestination(anyString(),anyString(), anyString());
 //    }
+
+    @Test
+    public void dataProcessServiceCreatesConnection() throws JMSException {
+        DataService dataService = new DataService();
+
+        DataMessage dataMsg = setDataMessage("1","a1", "1", "type", "url1,url2", "device");
+        String jsonMessage = gson.toJson(dataMsg);
+
+        dataService.processMessage(jsonMessage);
+        verify(connectionFactory, times(3)).createConnection();
+    }
+
+    @Test
+    public void dataProcessServiceCreatesProducer() throws JMSException {
+        DataService dataService = new DataService();
+
+        DataMessage dataMsg = setDataMessage("1","a1", "1", "type", "url1,url2", "device");
+        String jsonMessage = gson.toJson(dataMsg);
+
+        dataService.processMessage(jsonMessage);
+        verify(qConnection, times(3)).createQueueSession(eq(false), eq(Session.AUTO_ACKNOWLEDGE));
+    }
+
+    @Test
+    public void dataProcessServiceCreatesTextMessage() throws JMSException {
+        DataService dataService = new DataService();
+
+        DataMessage dataMsg = setDataMessage("1","a1", "1", "type", "url1,url2", "device");
+        String jsonMessage = gson.toJson(dataMsg);
+
+        dataService.processMessage(jsonMessage);
+        verify(qSession, times(1)).createTextMessage(eq(jsonMessage));
+    }
+
+    @Test
+    public void dataProcessServiceProducerSendsMessage() throws JMSException {
+        DataService dataService = new DataService();
+
+        DataMessage dataMsg = setDataMessage("1","a1", "1", "type", "url1,url2", "device");
+        String jsonMessage = gson.toJson(dataMsg);
+
+        dataService.processMessage(jsonMessage);
+        verify(msgProducer, times(1)).send(eq(textMessage));
+    }
+
+    @Test
+    public void dataProcessServiceProducerClose() throws JMSException {
+        DataService dataService = new DataService();
+
+        DataMessage dataMsg = setDataMessage("1","a1", "1", "type", "url1,url2", "device");
+        String jsonMessage = gson.toJson(dataMsg);
+
+        dataService.processMessage(jsonMessage);
+        verify(msgProducer, times(3)).close();
+    }
+
 
     public DataMessage setDataMessage(String id, String attributes, String data, String type, String apiUrl, String device){
         DataMessage dataMessage = new DataMessage();

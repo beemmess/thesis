@@ -107,28 +107,24 @@ public class ApiServiceImplTest{
 
     @Test
     public void responseCreatesConnection() throws JMSException {
-        when(receivedTextMessage.getText()).thenReturn(jsonmessage);
         apiServiceImpl.response("test");
         verify(connectionFactory, times(1)).createConnection();
     }
 
     @Test
     public void responseCreatesProducer() throws JMSException {
-        when(receivedTextMessage.getText()).thenReturn(jsonmessage);
         apiServiceImpl.response("test");
         verify(qConnection, times(1)).createQueueSession(eq(false), eq(Session.AUTO_ACKNOWLEDGE));
     }
 
     @Test
     public void responseCreatesTextMessage() throws JMSException {
-        when(receivedTextMessage.getText()).thenReturn(jsonmessage);
         apiServiceImpl.response("test");
         verify(qSession, times(1)).createTextMessage(eq("test"));
     }
 
     @Test
     public void responseMessageProducerSendsMessage() throws JMSException {
-        when(receivedTextMessage.getText()).thenReturn(jsonmessage);
         apiServiceImpl.response("test");
         verify(msgProducer, times(1)).send(eq(textMessage));
     }
@@ -136,56 +132,48 @@ public class ApiServiceImplTest{
 
     @Test
     public void responseMessageProducerClose() throws JMSException {
-        when(receivedTextMessage.getText()).thenReturn(jsonmessage);
         apiServiceImpl.response("test");
         verify(msgProducer, times(1)).close();
     }
 
     @Test
     public void responseMessageCreateConsumer() throws JMSException {
-        when(receivedTextMessage.getText()).thenReturn(jsonmessage);
         apiServiceImpl.response("test");
         verify(qSession, times(1)).createConsumer(eq(replyDestination));
     }
 
     @Test
     public void responseMessageStartConnection() throws JMSException {
-        when(receivedTextMessage.getText()).thenReturn(jsonmessage);
         apiServiceImpl.response("test");
         verify(qConnection, times(1)).start();
     }
 
     @Test
     public void responseMessageRecieveTextMessage() throws JMSException {
-        when(receivedTextMessage.getText()).thenReturn(jsonmessage);
         apiServiceImpl.response("test");
         verify(msgConsumer, times(1)).receive();
     }
 
     @Test
     public void responseMessageStopConnection() throws JMSException {
-        when(receivedTextMessage.getText()).thenReturn(jsonmessage);
         apiServiceImpl.response("test");
         verify(qConnection, times(1)).stop();
     }
 
     @Test
     public void responseMessageCloseConsumer() throws JMSException {
-        when(receivedTextMessage.getText()).thenReturn(jsonmessage);
         apiServiceImpl.response("test");
         verify(msgConsumer, times(1)).close();
     }
 
     @Test
     public void responseMessageCloseQueueSession() throws JMSException {
-        when(receivedTextMessage.getText()).thenReturn(jsonmessage);
         apiServiceImpl.response("test");
         verify(qSession, times(1)).close();
     }
 
     @Test
     public void responseMessageCloseConnection() throws JMSException {
-        when(receivedTextMessage.getText()).thenReturn(jsonmessage);
         apiServiceImpl.response("test");
         verify(qConnection, times(1)).close();
     }
@@ -194,7 +182,6 @@ public class ApiServiceImplTest{
 
     @Test
     public void responseReturnsOk() throws JMSException{
-        when(receivedTextMessage.getText()).thenReturn(jsonmessage);
         Response response = apiServiceImpl.response("test");
         assertThat(response, is(responseOk));
 

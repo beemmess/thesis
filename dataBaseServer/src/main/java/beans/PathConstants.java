@@ -18,7 +18,6 @@ public final class PathConstants {
     public static final String REMOTE_SERVER_JMS_PORT ="5445";
 
 //    Local server
-    public static final String LOCAL_SERVER_IP ="165.227.146.131";
     public static final String DOCKER_LOCAL_NETWORK ="172.17.0.1";
 
 
