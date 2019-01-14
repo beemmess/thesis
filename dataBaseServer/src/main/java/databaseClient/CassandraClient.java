@@ -21,7 +21,7 @@ public class CassandraClient {
     public CassandraClient() {
         //Connect to cassandra using the default IP address and port 9042
         connector.connector(address, 9042);
-        logger.info("Cassandra client initilized");
+        logger.info("Cassandra client initialised");
         Session session = connector.getSession();
 
 
@@ -35,14 +35,14 @@ public class CassandraClient {
         DeviceRepository eyetrackerRepository = new DeviceRepository(session);
 //        ShimmerRepository shimmerRepository = new ShimmerRepository(session);
 //        CassandraRepository cassandraRepository = new CassandraRepository(session);
+
         //TODO: take out droptable when devolopement is finished
 //        eyetrackerRepository.dropTable();
 //        shimmerRepository.dropTable();
 
 
 
-//        deviceRepository.createTable();
-//        shimmerRepository.createTable();
+
 
 
 

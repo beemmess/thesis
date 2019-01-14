@@ -4,9 +4,7 @@ import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.Host;
 import com.datastax.driver.core.Metadata;
 import com.datastax.driver.core.Session;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import org.jboss.logging.Logger;
 /**
  * @author Bjarki
  * Based on tutorial:
@@ -17,30 +15,27 @@ import org.slf4j.LoggerFactory;
 
 
 public class CassandraConnector {
-    private static final Logger logger = LoggerFactory.getLogger(CassandraConnector.class);
+    private static final Logger logger = Logger.getLogger(CassandraConnector.class.getName());
+
 
     private Session session;
-
     private Cluster cluster;
 
 
     public void connector(final String address, final Integer port){
 
-        Cluster.Builder b = Cluster.builder().addContactPoint(address);
+        Cluster.Builder builder = Cluster.builder().addContactPoint(address);
 
 
         if(port != null){
-            b.withPort(port);
+            builder.withPort(port);
         }
 
-
-        cluster = b.build();
+        cluster = builder.build();
 
         Metadata metadata = cluster.getMetadata();
-        logger.info("Cluser:" + metadata.getClusterName());
+        logger.info("Cluster:" + metadata.getClusterName());
 
-
-//        OPTIONAL???????
         for (Host host : metadata.getAllHosts()) {
             logger.info("Datacenter: " + host.getDatacenter() + " Host: " + host.getAddress() + " Rack: " + host.getRack());
         }
