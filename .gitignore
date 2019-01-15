@@ -153,3 +153,5 @@ Python/EyeShimmerLSL/*
 
 Python/collectData/licensekey
 Python/PCclient/licensekey
+Python/PCclient/buffer/*.json
+Python/PCclient/buffer/backup/*
