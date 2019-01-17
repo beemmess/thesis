@@ -98,7 +98,7 @@ def lab_streaming_layer():
 	    n +=1
 	    f +=string
 
-	jsonString= {"type":"raw", "device":"eyetracker", "apiUrl":"/eyetracker/substitution,/eyetracker/avgPupil,/eyetracker/avgPupil/perTask,/eyetracker/interpolate", "id": "pythonTest", "attributes": "timestamp,leftX,leftY,rightX,rightY,pupilL,pupilR,task", "data": f}
+	jsonString= {"type":"raw", "device":"eyetracker", "apiUrl":"/eyetracker/substitution,/eyetracker/avgPupil,/eyetracker/avgPupil/perTask,/eyetracker/interpolate", "id": "test", "attributes": "timestamp,leftX,leftY,rightX,rightY,pupilL,pupilR,task", "data": f}
 	
 	# Initial value set to the csv file, a column header
 	# file.write(f)

@@ -1,6 +1,5 @@
 package databaseClient.repository;
 
-import databaseClient.domain.EyeTracker;
 import com.datastax.driver.core.Session;
 import org.jboss.logging.Logger;
 

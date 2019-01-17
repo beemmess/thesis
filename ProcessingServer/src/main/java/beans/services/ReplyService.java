@@ -26,9 +26,10 @@ public class ReplyService extends DataProcessService {
 
     public void processReply(String message){
     replyManager.addReplyToList(message);
-
+    
 
     if(replyManager.getCount()==replyManager.getListSize()){
+        
 
         Object[] array = replyManager.getArrayList();
         String arrayMessage = StringUtils.join(array,"\t");
@@ -37,15 +38,14 @@ public class ReplyService extends DataProcessService {
         logger.info(replyMessage);
 
         sendDataToDestination(replyMessage, PathConstants.REST_REPLY_QUEUE, PathConstants.PROCESSING_SERVER_CONNECTION_FACTORY);
-
         replyManager.clearList();
-
 
         }
     }
 
 
-    private String generateReplyMessage(String[] list) {
+    public String generateReplyMessage(String[] list) {
+        
         int len = list.length;
         String msg ="";
         int successCount = 0;

@@ -47,13 +47,10 @@ public abstract class DataProcessService {
             connectionFactory = InitialContext.doLookup(cf);
             destination = InitialContext.doLookup(queue);
 
-
         } catch (NamingException e) {
             logger.error(e);
         }
-
         try {
-
             QueueSession session = session();
             MessageProducer producer = session.createProducer(destination);
             TextMessage textMessage = session.createTextMessage(message);
@@ -63,7 +60,6 @@ public abstract class DataProcessService {
         } catch (JMSException e) {
             e.printStackTrace();
         }
-
 
     }
 
