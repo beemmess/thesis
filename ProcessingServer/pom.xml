@@ -179,7 +179,7 @@
                             <locations>api</locations>
                             <schemes>http</schemes>
                             <!--CHANGE IP ADDRESS-->
-                            <host>http://hbl-wildfly.compute.dtu.dk:8080/${project.artifactId}</host>
+                            <host>hbl-wildfly.compute.dtu.dk:8080/${project.artifactId}</host>
                             <!--CHANGE IP ADDRESS-->
                             <basePath>/api</basePath>
                             <info>
