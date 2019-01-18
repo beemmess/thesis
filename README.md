@@ -154,4 +154,5 @@ repository from GitHub and then enter the following
   
   
 Where the hostname parameter is the IP address of the `Database Server`
+
 USER and PASSWORD are available up on request
