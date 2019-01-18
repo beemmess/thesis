@@ -156,3 +156,7 @@ repository from GitHub and then enter the following
 Where the hostname parameter is the IP address of the `Database Server`
 
 USER and PASSWORD are available up on request
+
+# Authors
+- Bjarki Mar Stefansson - Author - [email](s162347@student.dtu.dk)
+- Barbara Weber - Supervisor
