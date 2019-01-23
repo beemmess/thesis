@@ -14,7 +14,7 @@ Feature: Send a raw Shimmer data to Feature extraction server
     "data": "6681,1,2,1\n6683,3,2,2\n6684,2,1,3\n"
     }
     """
-    When The raw data is sent to the server "http://139.59.128.154:8080/ProcessingServer/api/data"
+    When The raw data is sent to the server "http://hbl-wildfly.compute.dtu.dk:8080/ProcessingServer/api/data"
     Then The data is succesfully sent and the server code response should be <200>
 
   Scenario: As a user, I want to send a badly formatted Shimmer data to the server so that the respond code is a valid error response
@@ -28,7 +28,7 @@ Feature: Send a raw Shimmer data to Feature extraction server
     "data": "6681,1,2,1\n6683,3,2,2\n6684,2,1,3\n"
     }
     """
-    When The raw data is sent to the server "http://139.59.128.154:8080/ProcessingServer/api/data"
+    When The raw data is sent to the server "http://hbl-wildfly.compute.dtu.dk:8080/ProcessingServer/api/data"
     Then The raw data is unsuccesfully sent to the server and respond code is <400>
 
 
@@ -51,4 +51,4 @@ Feature: Send a raw Shimmer data to Feature extraction server
     And The JSON value of data should be "<data>"
     Examples:
     |url                                                | type          | id        | attributes            | data                                                                                                                                   |
-    |http://139.59.128.154:5000/shimmer/normalize    | normalize     | Cucumber  | timestamp,GSR,PPG,task | 6681,0.5,1.2,1\n6683,1.5,1.2,2\n6684,1.0,0.6,3\n|
+    |http://hbl-wildfly.compute.dtu.dk:5000/shimmer/normalize    | normalize     | Cucumber  | timestamp,GSR,PPG,task | 6681,0.5,1.2,1\n6683,1.5,1.2,2\n6684,1.0,0.6,3\n|

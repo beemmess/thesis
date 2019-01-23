@@ -32,12 +32,7 @@
     </build>
 
     <dependencies>
-        <!--<dependency>-->
-            <!--<groupId>thesis</groupId>-->
-            <!--<artifactId>FeatureExtractionServer</artifactId>-->
-            <!--<version>1.0-SNAPSHOT</version>-->
-        <!--</dependency>-->
-
+        
         <dependency>
             <groupId>info.cukes</groupId>
             <artifactId>cucumber-java8</artifactId>
