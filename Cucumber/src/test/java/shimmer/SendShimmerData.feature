@@ -32,7 +32,7 @@ Feature: Send a raw Shimmer data to Feature extraction server
     Then The raw data is unsuccesfully sent to the server and respond code is <400>
 
 
-  Scenario Outline: As a user, I want process the data so that it is correctly processed
+  Scenario Outline: As a researcher, I want to perform normalisation on the shimmer data So that I can use the normalised data for further analysis
     Given That the shimmer data of the user has been sent to the server as a JSON:
     """
     {
@@ -50,5 +50,5 @@ Feature: Send a raw Shimmer data to Feature extraction server
     And The JSON value of attributes should be "<attributes>"
     And The JSON value of data should be "<data>"
     Examples:
-    |url                                                | type          | id        | attributes            | data                                                                                                                                   |
+    |url                                                         | type          | id        | attributes             | data                                                                                                                                   |
     |http://hbl-wildfly.compute.dtu.dk:5000/shimmer/normalize    | normalize     | Cucumber  | timestamp,GSR,PPG,task | 6681,0.5,1.2,1\n6683,1.5,1.2,2\n6684,1.0,0.6,3\n|
