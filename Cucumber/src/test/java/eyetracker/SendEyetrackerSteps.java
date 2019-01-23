@@ -58,7 +58,7 @@ public class SendEyetrackerSteps {
     @Then("^The data is succesfully sent and the server code response should be <(\\d+)>$")
     public void theRawDataIsSentToServer(int expectedResp) throws PendingException {
         // Write code here that turns the phrase above into concrete actions
-        logger.info(json);
+//        logger.info(json);
 
         assertEquals(expectedResp, resp);
 
