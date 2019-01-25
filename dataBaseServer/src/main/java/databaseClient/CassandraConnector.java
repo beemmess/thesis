@@ -12,8 +12,6 @@ import org.jboss.logging.Logger;
  *
  */
 
-
-
 public class CassandraConnector {
     private static final Logger logger = Logger.getLogger(CassandraConnector.class.getName());
 
