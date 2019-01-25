@@ -13,8 +13,6 @@ public class CassandraClient {
     private static final Logger logger = Logger.getLogger(CassandraClient.class);
     public static final String keyspace = "data";
     public static final CassandraConnector connector = new CassandraConnector();
-//    Address of the server
-//    private static final String address = PathConstants.LOCAL_SERVER_IP;
     private static final String address = PathConstants.DOCKER_LOCAL_NETWORK;
 
 
@@ -25,23 +23,11 @@ public class CassandraClient {
         Session session = connector.getSession();
 
 
-        //Create a new keyspace
+        //Create a new keyspace if it does not exist
         KeyspaceRepository keyspaceRepository = new KeyspaceRepository(session);
         keyspaceRepository.dropkeyspace(keyspace);
         keyspaceRepository.createKeyspace(keyspace, "SimpleStrategy", 1);
         keyspaceRepository.useKeyspace(keyspace);
-
-        //Create the eyetracker Table if does not exist
-        DeviceRepository eyetrackerRepository = new DeviceRepository(session);
-//        ShimmerRepository shimmerRepository = new ShimmerRepository(session);
-//        CassandraRepository cassandraRepository = new CassandraRepository(session);
-
-        //TODO: take out droptable when devolopement is finished
-//        eyetrackerRepository.dropTable();
-//        shimmerRepository.dropTable();
-
-
-
 
 
 

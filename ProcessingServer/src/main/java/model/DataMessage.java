@@ -1,7 +1,10 @@
 package model;
 
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
+@ApiModel
 public class DataMessage extends Message {
 
     private String id;
@@ -11,7 +14,7 @@ public class DataMessage extends Message {
     private String apiUrl;
     private String device;
 
-
+    @ApiModelProperty(position = 1, required = true, value = "username containing only lowercase letters or numbers")
     public String getData() {
         return data;
     }

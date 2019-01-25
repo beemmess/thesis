@@ -5,12 +5,6 @@ import com.datastax.driver.core.Host;
 import com.datastax.driver.core.Metadata;
 import com.datastax.driver.core.Session;
 import org.jboss.logging.Logger;
-/**
- * @author Bjarki
- * Based on tutorial:
- * https://github.com/nklkarthi/java-tutorials/blob/master/java-cassandra/src/main/java/com/baeldung/cassandra/java/client/CassandraConnector.java
- */
-
 
 public class CassandraConnector {
     private static final Logger logger = Logger.getLogger(CassandraConnector.class.getName());

@@ -36,7 +36,6 @@ public class DataService {
         String type = dataMessage.getType();
         String attributes = dataMessage.getAttributes();
         String device = dataMessage.getDevice();
-//        String id = eyeTrackerMessage.getId();
         eyetrackerClient.createTable(device,type,attributes);
         return saveData(dataMessage);
 

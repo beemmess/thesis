@@ -7,12 +7,10 @@ public final class PathConstants {
     public static final String DATABASE_QUEUE = "java:jboss/exported/jms/queue/database";
     public static final String REPLY_QUEUE = "java:jboss/exported/jms/queue/reply";
     public static final String PROCESSING_SERVER_CONNECTION_FACTORY = "java:/ProcessingConnectionFactory";
-    public static final String DATABASE_SERVER_CONNECTION_FACTORY = "java:/DatabaseConnectionFactory";
 
 
 
 //    IPs and ports
-
 //    Remote server
     public static final String REMOTE_SERVER_IP ="hbl-wildfly.compute.dtu.dk";
     public static final String REMOTE_SERVER_JMS_PORT ="5445";

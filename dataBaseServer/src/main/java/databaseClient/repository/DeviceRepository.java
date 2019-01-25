@@ -54,7 +54,6 @@ public class DeviceRepository extends CassandraRepository {
 
 
     public Boolean insertValues(String type, String device, String attributes, String dataid, String line) {
-//        logger.info(attributes);
         String query = createInsertStatement(type, device, attributes, dataid, line);
         return executeQuery(query);
 
@@ -90,25 +89,9 @@ public class DeviceRepository extends CassandraRepository {
         }
         sb.append(");");
 
-        //        logger.info(query);
         return sb.toString();
     }
 
-
-//    Dummy select query
-//    public void selectAllDataById() {
-//
-//        final String query = "SELECT * FROM eyetracker_avg_pupil;";
-//        ResultSet rs = session.execute(query);
-//
-//        List<EyeTracker> eyeTrackerList = new ArrayList<EyeTracker>();
-//
-//        for (Row r : rs) {
-//            EyeTracker eyeTracker = new EyeTracker(r.getString("dataid"), r.getDouble("pupilleft"), r.getDouble("pupilright"));
-//            eyeTrackerList.add(eyeTracker);
-//        }
-//        logger.info("SElect all eyetracker avg pupil" + eyeTrackerList.toString());
-//    }
 }
 
 

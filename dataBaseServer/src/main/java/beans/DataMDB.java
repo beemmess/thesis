@@ -5,7 +5,6 @@ import beans.services.DataService;
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
 import javax.inject.Inject;
-//import java.util.logging.Logger;
 import org.jboss.logging.Logger;
 
 
@@ -20,15 +19,12 @@ public class DataMDB extends MessageBean {
 
     private static final Logger logger = Logger.getLogger(DataMDB.class.getName());
 
-
     @Inject
     private DataService dataService;
 
 
     @Override
     protected String messageReceived(String message){
-//        logger.info("eyeTracker raw queue instance, message: " + message);
-
         return dataService.saveDataToDB(message);
 
     }
