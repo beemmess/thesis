@@ -22,7 +22,7 @@ public class DataApi {
     @Consumes({ "application/json" })
     @Produces({ "application/json" })
     @ApiOperation(value = "Transfer collected data to server", notes = "Create a new data transfer for collected data")
-    @ApiResponses(value = {@ApiResponse(code = 200, message = "Data received"),
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Data successfully arrived and processed"),
             @ApiResponse(code = 400, message = "Error, bad request.") })
     public Response postData(@ApiParam(value = "Create a new data transfer for collected data" ,required=true) DataMessage message)
             throws NotFoundException {
