@@ -1,6 +1,11 @@
 package api;
 
-
+/**
+ * A class that keeps addresses
+ * IP address
+ * Port
+ * JNDI paths
+ */
 public final class PathConstants {
 
 //    JNDI values

@@ -9,6 +9,9 @@ import org.jboss.logging.Logger;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.*;
 
+/**
+ * A /data HTTP request endpoint with POST method to receive incoming request from the PC client
+ */
 @Path("/data")
 @Api(description = "the data API")
 public class DataApi {

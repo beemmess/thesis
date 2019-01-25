@@ -1,6 +1,10 @@
 package model;
 
 
+/**
+ * A class that is used for deserilising and serilising the JSON string to generate a reply message
+ * to send to the Processing Server
+ */
 public class ReplyMessage  extends Message {
 
     private String data;

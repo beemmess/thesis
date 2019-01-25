@@ -14,6 +14,11 @@ import javax.naming.NamingException;
 import java.io.IOException;
 
 
+/**
+ * This super class handles the methods that the two sub classes users, these medhods interacts with
+ * the Python Web Framework by sending a request to it as well as another medhod that sends JMS messages
+ * to the Database Server.
+ */
 public abstract class DataProcessService {
     private static final Logger logger = Logger.getLogger(DataProcessService.class.getName());
 
@@ -21,7 +26,13 @@ public abstract class DataProcessService {
     private Destination destination;
     private QueueConnection con;
 
-
+    /**
+     * A method that sends a request to the Python Web framework with data that is sent to be
+     * further processed
+     * @param message
+     * @param url
+     * @return processed data that is in a JSON string
+     */
     public String postToFlask(String message,String url){
         try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
             HttpPost request = new HttpPost(url);
@@ -40,6 +51,12 @@ public abstract class DataProcessService {
     }
 
 
+    /**
+     * A method that sends a message to the Database Server with all types of data
+     * @param message
+     * @param queue
+     * @param cf
+     */
     public void sendDataToDestination(String message, String queue, String cf){
         logger.info("sending data to database");
 
@@ -63,6 +80,11 @@ public abstract class DataProcessService {
 
     }
 
+    /**
+     * A helper method that creates a Queue session for sending JMS message to the Database Server
+     * @return QueueSession
+     * @throws JMSException
+     */
     private QueueSession session() throws JMSException{
         con = (QueueConnection) connectionFactory.createConnection();
         return con.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);

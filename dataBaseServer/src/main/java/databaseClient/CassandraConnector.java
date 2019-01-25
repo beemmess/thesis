@@ -6,6 +6,10 @@ import com.datastax.driver.core.Metadata;
 import com.datastax.driver.core.Session;
 import org.jboss.logging.Logger;
 
+
+/**
+ * A class that handles the connection to the Cassandra database
+ */
 public class CassandraConnector {
     private static final Logger logger = Logger.getLogger(CassandraConnector.class.getName());
 
@@ -14,6 +18,11 @@ public class CassandraConnector {
     private Cluster cluster;
 
 
+    /**
+     * A connector method to connect to the Cassandra Database
+     * @param address
+     * @param port
+     */
     public void connector(final String address, final Integer port){
 
         Cluster.Builder builder = Cluster.builder().addContactPoint(address);
@@ -36,6 +45,11 @@ public class CassandraConnector {
 
     }
 
+
+    /**
+     * A method that returns the session that whitholds the connection session to the Cassandra Database
+     * @return Session
+     */
     public Session getSession() {
         return this.session;
     }

@@ -11,6 +11,9 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import javax.jms.*;
 
+/**
+ * A Class that handles the replies from the Database Server
+ */
 @Named
 @ApplicationScoped
 public class ReplyService extends DataProcessService {
@@ -24,6 +27,10 @@ public class ReplyService extends DataProcessService {
     private QueueConnection con;
     private Gson gson = new Gson();
 
+    /**
+     * A method that handles the incoming messages from the message bean that comes from the database server
+     * @param message
+     */
     public void processReply(String message){
     replyManager.addReplyToList(message);
     
@@ -44,6 +51,11 @@ public class ReplyService extends DataProcessService {
     }
 
 
+    /**
+     * A helper method that generates the reply message to reply to the API
+     * @param list
+     * @return
+     */
     public String generateReplyMessage(String[] list) {
         
         int len = list.length;

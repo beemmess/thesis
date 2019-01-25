@@ -7,10 +7,18 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
 
+/**
+ * A message driven bean that is listening for messages
+ */
 public abstract class MessageBean implements MessageListener {
 
     private static final Logger logger = Logger.getLogger(MessageBean.class.getName());
 
+    /**
+     * This medhod listens for incoming messages, when message has been forwarded and information returned
+     * then a JMS message is generated to reply to the Processing Server
+     * @param message
+     */
     @SuppressWarnings("Duplicates")
     @Override
     public void onMessage(Message message){
@@ -27,7 +35,11 @@ public abstract class MessageBean implements MessageListener {
         }
     }
 
-
+    /**
+     * Handling the text message that is coming from the queue
+     * @param message
+     * @return a response in a String form to reply back to the Processing Server
+     */
     protected abstract void messageReceived(String message);
 
 

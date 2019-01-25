@@ -1,7 +1,10 @@
 package model;
 
 
-
+/**
+ * A class that is used for deserilising and serilising the JSON string of incoming data from
+ * the Processing Server
+ */
 public class DataMessage extends Message {
 
     private String id;

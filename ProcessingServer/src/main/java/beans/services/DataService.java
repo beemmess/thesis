@@ -8,7 +8,10 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import reply.ReplyManager;
 
-
+/**
+ * A sub class that handles the incoming messages from the message driven bean
+ * and further process the data
+ */
 @Named
 @ApplicationScoped
 public class DataService extends DataProcessService {
@@ -24,6 +27,11 @@ public class DataService extends DataProcessService {
     public DataService(){}
 
 
+    /**
+     * A method that process the data by sending data for processing procedure in the Python Web Framework
+     * and then send the data for storage in the Database Server
+     * @param message
+     */
     public void processMessage(String message){
 
         DataMessage dataMessage = gson.fromJson(message, DataMessage.class);
@@ -32,9 +40,7 @@ public class DataService extends DataProcessService {
         replyManager.clearCount();
         replyManager.setCount(apiUrls.length+1);
 
-//        Send raw data to database
         sendDataToDestination(message, PathConstants.DATABASE_QUEUE, PathConstants.DATABASE_SERVER_CONNECTION_FACTORY);
-//        Send raw data to python web client for processing and then send the processed data to database
         for(String apiUrl : apiUrls){
             String url = "http://" + address + ":" + port + apiUrl;
             msg = postToFlask(message, url);

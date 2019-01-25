@@ -3,7 +3,10 @@ package model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
+/**
+ * A class that is used for deserilising and serilising the JSON string that contains
+ * all the data, and information about the data
+ */
 @ApiModel
 public class DataMessage extends Message {
 
