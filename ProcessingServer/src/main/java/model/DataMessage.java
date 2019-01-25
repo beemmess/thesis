@@ -14,7 +14,7 @@ public class DataMessage extends Message {
     private String apiUrl;
     private String device;
 
-    @ApiModelProperty(position = 1, required = true, value = "username containing only lowercase letters or numbers")
+    @ApiModelProperty(example = "1,0.3,0.4,0.2,0.3,2.34,2.45,read\n2,0.3,0.5,0.1,0.4,2.64,2.55,listen\n", required = true, value = "Collected data from, e.g. eye tracker")
     public String getData() {
         return data;
     }
@@ -23,6 +23,7 @@ public class DataMessage extends Message {
         this.data = data;
     }
 
+    @ApiModelProperty(example = "timestamp,leftx,lefty,rightx,righty,pupilL,pupilR,task", required = true, value = "List of attributes from, e.g. eye tracker")
     public String getAttributes() {
         return attributes;
     }
@@ -31,6 +32,7 @@ public class DataMessage extends Message {
         this.attributes = attributes;
     }
 
+    @ApiModelProperty(example = "swaggerId", required = true, value = "Data id for, e.g. eye tracker")
     public String getId() {
         return id;
     }
@@ -39,6 +41,7 @@ public class DataMessage extends Message {
         this.id = id;
     }
 
+    @ApiModelProperty(example = "raw", required = true, value = "type of data for, e.g. eye tracker")
     public String getType() {
         return type;
     }
@@ -48,7 +51,7 @@ public class DataMessage extends Message {
     }
 
 
-
+    @ApiModelProperty(example = "eyetracker", required = true, value = "Device type, e.g. eye tracker")
     public String getDevice() {
         return device;
     }
@@ -57,6 +60,7 @@ public class DataMessage extends Message {
         this.device = device;
     }
 
+    @ApiModelProperty(example = "/eyetracker/substitution,/eyetracker/avgPupil,/eyetracker/avgPupil/perTask,/eyetracker/interpolate", value = "List of processing procedure for, e.g. eye tracker")
     public String getApiUrl() {
         return apiUrl;
     }
