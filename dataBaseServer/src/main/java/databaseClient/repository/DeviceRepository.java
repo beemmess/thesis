@@ -14,6 +14,12 @@ public class DeviceRepository extends CassandraRepository {
 
 
     public void createTable(String device, String type, String attributes){
+        String query = createTableStatement(device, type, attributes);
+        executeQuery(query);
+
+    }
+
+    public String createTableStatement(String device, String type, String attributes) {
         String[] attributeList = attributes.split(",");
         StringBuilder sb = new StringBuilder();
         sb.append("CREATE TABLE IF NOT EXISTS ");
@@ -43,15 +49,18 @@ public class DeviceRepository extends CassandraRepository {
             sb.append(" (dataid))");
         }
         sb.append(";");
-        String query = sb.toString();
-        executeQuery(query);
-
+        return sb.toString();
     }
-
 
 
     public Boolean insertValues(String type, String device, String attributes, String dataid, String line) {
 //        logger.info(attributes);
+        String query = createInsertStatement(type, device, attributes, dataid, line);
+        return executeQuery(query);
+
+    }
+
+    public String createInsertStatement(String type, String device, String attributes, String dataid, String line) {
         String[] values = line.split(",");
         int i = 0;
         int valuesLength = values.length;
@@ -61,7 +70,7 @@ public class DeviceRepository extends CassandraRepository {
         sb.append(device);
         sb.append("_");
         sb.append(type.toLowerCase());
-        sb.append(" (dataid ");
+        sb.append(" (dataid");
         sb.append(", ");
         sb.append(attributes);
         sb.append(") VALUES (");
@@ -81,10 +90,8 @@ public class DeviceRepository extends CassandraRepository {
         }
         sb.append(");");
 
-        String query = sb.toString();
-//        logger.info(query);
-        return executeQuery(query);
-
+        //        logger.info(query);
+        return sb.toString();
     }
 
 

@@ -34,6 +34,7 @@ public abstract class MessageBean implements MessageListener {
                 MessageProducer producer = session.createProducer(destination);
                 TextMessage replyMessage = session.createTextMessage(reply);
                 producer.send(replyMessage);
+                producer.close();
 
             }
             else {
