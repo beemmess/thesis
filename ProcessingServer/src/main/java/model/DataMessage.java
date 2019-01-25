@@ -23,7 +23,7 @@ public class DataMessage extends Message {
         this.data = data;
     }
 
-    @ApiModelProperty(example = "timestamp,leftx,lefty,rightx,righty,pupilL,pupilR,task", required = true, value = "List of attributes from, e.g. eye tracker")
+    @ApiModelProperty(example = "timestamp,leftX,leftY,rightX,rightY,pupilL,pupilR,task", required = true, value = "List of attributes from, e.g. eye tracker")
     public String getAttributes() {
         return attributes;
     }
@@ -60,7 +60,7 @@ public class DataMessage extends Message {
         this.device = device;
     }
 
-    @ApiModelProperty(example = "/eyetracker/substitution,/eyetracker/avgPupil,/eyetracker/avgPupil/perTask,/eyetracker/interpolate", value = "List of processing procedure for, e.g. eye tracker")
+    @ApiModelProperty(example = "/eyetracker/substitution,/eyetracker/avgPupil,/eyetracker/avgPupil/perTask,/eyetracker/interpolate", required=true, value = "List of processing procedure for, e.g. eye tracker")
     public String getApiUrl() {
         return apiUrl;
     }
