@@ -4,6 +4,10 @@
     <file type="web" url="file://$PROJECT_DIR$/dataBaseServer" />
     <file type="web" url="file://$PROJECT_DIR$/ProcessingServer" />
   </component>
+  <component name="JavadocGenerationManager">
+    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/dataBaseServer/JavaDoc" />
+    <option name="OPTION_SCOPE" value="private" />
+  </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
