@@ -2,12 +2,10 @@
 import sys, struct, serial, time, datetime
 from pylsl import StreamInfo, StreamOutlet, resolve_stream, StreamInlet
 
+# User input of seconds, in which how long the Shimmer should collect for
 seconds = int(sys.argv[2])
-# print(n_lines)
-t_end = time.time() + seconds
-t1 = time.time() + seconds/4.0
-t2 = time.time() + seconds/2.0
-t3 = time.time() + 3*(seconds/4.0)
+task = 1.0 # dummy task
+
 
 
 def wait_for_ack():
@@ -63,21 +61,18 @@ else:
    numbytes = 0
    framesize = 8 # 1byte packet type + 3byte timestamp + 2 byte GSR + 2 byte PPG(Int A13)
 
-# Create a file to write the data to
-   # time = datetime.datetime.now().strftime("-%Y-%m-%d-%H%M%S")
-   # f = open("shimmerdata{}.csv".format(time), "a")
-   # f.write("Packet Type,Timestamp,GSR,PPG\n")
 
-#  LSL
-# Configure a streaminfo
+
+   #  LSL
+   # Configure a streaminfo
    info = StreamInfo(name='Shimmer3', type='gsr_ppg', channel_count=3, channel_format='float32',source_id='uidShimmer')
-# next make an outlet
+   # next make an outlet
    outlet = StreamOutlet(info)
+   # Configure the shimmer to collect the user defined time period.
+   t_end = time.time() + seconds
 
    print("Packet Type\tTimestamp\tGSR\tPPG")
-   n = 0
    try:
-      # while True:
       while (time.time() < t_end):
          while numbytes < framesize:
             ddata += ser.read(framesize)
@@ -114,25 +109,12 @@ else:
 
          timestamp = timestamp0 + timestamp1*256 + timestamp2*65536
 
-         print("0x{:.0f}02x,\t{:.0f},\t{:.4f},\t{:.4f}".format(packettype[0], timestamp, GSR_ohm, PPG_mv))
+         # Optional: uncomment the print command here below to visulise the measurements
+         # print("0x{:.0f}02x,\t{:.0f},\t{:.4f},\t{:.4f}".format(packettype[0], timestamp, GSR_ohm, PPG_mv))
 
       # Send data to LSL
-         timeNow = time.time()
-         if(timeNow < t_end and  timeNow > t3):
-            task = 4.0
-         if(time.time()< t3 and  timeNow >t2):
-            task = 3.0
-         if(time.time()< t2 and  timeNow > t1):
-            task= 2.0
-         if(time.time() < t1):
-            task =1.0
-
-
-
          mysample = [GSR_ohm, PPG_mv, task]
          outlet.push_sample(mysample)
-         n+=1
-      # Recieve data from LSL
 
    except KeyboardInterrupt:
 #send stop streaming command

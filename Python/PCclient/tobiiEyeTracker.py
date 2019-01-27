@@ -4,12 +4,20 @@ import tobii_research as tr
 import requests
 import json
 import sys
+######################################################################
+############### JSON string configurations ###########################
+dataId = "test" 
+dataType ="raw" 
+device = "eyetracker"
+apiUrl = "/eyetracker/substitution,/eyetracker/avgPupil,/eyetracker/avgPupil/perTask,/eyetracker/interpolate"
+attributes = "timestamp,leftX,leftY,rightX,rightY,pupilL,pupilR,task"
+######################################################################
+######################################################################
+task = {1.0:"demo"}
 
-task = {1.0 : "presentation"}
-seconds = int(sys.argv[1])
-# print(n_lines)
+# user input of collection time period
+seconds = int(sys.argv[1]) 
 t_end = time.time() + seconds
-print(t_end)
 
 # tobii_research documentation for python
 # http://devtobiipro.azurewebsites.net/tobii.research/python/reference/1.5.0.28-alpha-g427ed891/index.html
@@ -57,24 +65,22 @@ def apply_license():
 # This function also pushes the data into a LSL stream
 # The optional part is to save the data also into a csv file so that there is a copy of non LSL file and a LSL file
 def gaze_data_callback(gaze_data):
-    task = 1
+    task = 1.0 # dummy task
     glX=gaze_data['left_gaze_point_on_display_area'][0] # in xy coordinates
     glY=gaze_data['left_gaze_point_on_display_area'][1] 
     grX=gaze_data['right_gaze_point_on_display_area'][0]
     grY=gaze_data['right_gaze_point_on_display_area'][1]
     pupilL = gaze_data['left_pupil_diameter'] # in millimeters
     pupilR = gaze_data['right_pupil_diameter'] # in millimeters
+
     mysample = [glX,glY,grX,grY,pupilL,pupilR,task]
-    # Print the gaze data
-    # print(glX,glY,grX,grY)
+
+    # Push sample to the LSL outlet
     outlet.push_sample(mysample)
 
-    # OPTINAL Write data to file
-    f.write("{},{},{},{},{},{}\n".format(glX,glY,grX,grY,pupilL,pupilR))
 
 # This function triggers the LSL into getting the LSL StreamInlet for the eyetracker
 def lab_streaming_layer():
-	# t = time.time()
 
 	# first resolve an tobii stream on the lab network
 	print("looking for an Tobii stream...")
@@ -82,12 +88,10 @@ def lab_streaming_layer():
 
 	# create a new inlet to read from the stream
 	inlet = StreamInlet(streams[0])
-	# time = datetime.datetime.now().strftime("-%Y-%m-%d-%H%M%S")
 
 	f = ""
-	n=0
 
-	# This will create 10 lines of eyetracking data and then sent to the server,
+	# Collect measurements until time period is finished
 	while time.time() < t_end:
 	    sample, timestamp = inlet.pull_sample(timeout=1)
 	    if 'nan' in str(sample):
@@ -95,18 +99,15 @@ def lab_streaming_layer():
 		    	if 'nan' in str(sample[m]):
 		    		sample[m]='NaN'
 	    string="{},{},{},{},{},{},{},{}\n".format(timestamp,sample[0],sample[1],sample[2],sample[3],sample[4],sample[5],task[sample[6]])
-	    n +=1
 	    f +=string
 
-	jsonString= {"type":"raw", "device":"eyetracker", "apiUrl":"/eyetracker/substitution,/eyetracker/avgPupil,/eyetracker/avgPupil/perTask,/eyetracker/interpolate", "id": "test", "attributes": "timestamp,leftX,leftY,rightX,rightY,pupilL,pupilR,task", "data": f}
+	# Create the JSON string with all the processing procedurs available in the 
+	jsonString= {"type":dataType, "device":device, "apiUrl": apiUrl, "id": dataId, "attributes": attributes, "data": f}
 	
-	# Initial value set to the csv file, a column header
-	# file.write(f)
+	# Buffer the data in a json file
 	with open('buffer/eyetracker.json', 'w') as jsonEyetracker:
 		json.dump(jsonString, jsonEyetracker)
 
-	# print(jsonString)
-	# return jsonString
 
 
 # This finds the connected tobii eyetracker using the tobii_research library
@@ -123,15 +124,6 @@ info = StreamInfo(name='Tobii', type='eyetracker', channel_count=7, channel_form
 # next make an outlet
 outlet = StreamOutlet(info)
 
-
-# OPTIONAL Create a csv file to write to (gazedata folder needs to be created)
-# time = datetime.datetime.now().strftime("-%Y-%m-%d-%H%M%S")
-# f = open("gazedata/gazedata{}.csv".format(time), "a")
-# # Initial value set to the csv file, a column header
-# f.write("leftX,leftY,rightX,rightY,pupilL,pupilR\n")
-
-
-
 # Subsrice to the eytracker then use the gaze_data_callback function to get the gaza data
 eyetracker.subscribe_to(tr.EYETRACKER_GAZE_DATA, gaze_data_callback, as_dictionary=True)
 
@@ -142,5 +134,3 @@ json = lab_streaming_layer()
 # unsubscribe to the eyetracker
 eyetracker.unsubscribe_from(tr.EYETRACKER_GAZE_DATA, gaze_data_callback)
 
-# Send the json string to the server
-# sendRequest(json)
