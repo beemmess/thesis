@@ -34,7 +34,7 @@ public class CassandraClient {
 
         //Create a new keyspace if it does not exist
         KeyspaceRepository keyspaceRepository = new KeyspaceRepository(session);
-        keyspaceRepository.dropkeyspace(keyspace);
+        //keyspaceRepository.dropkeyspace(keyspace);
         keyspaceRepository.createKeyspace(keyspace, "SimpleStrategy", 1);
         keyspaceRepository.useKeyspace(keyspace);
 
